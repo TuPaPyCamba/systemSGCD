@@ -3,7 +3,7 @@ package com.sgcd.model;
 import java.sql.Date;
 import java.sql.Time;
 
-public class Cita {
+public class Consulta {
     private int id;
     private int pacienteId;
     private int medicoId;
