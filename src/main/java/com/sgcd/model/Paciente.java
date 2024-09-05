@@ -1,8 +1,5 @@
 package com.sgcd.model;
 
-import com.sgcd.util.DatabaseConnection;
-
-
 public class Paciente {
     private int id;
     private String usuario;

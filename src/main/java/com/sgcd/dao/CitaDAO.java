@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CitaDAO {
 
@@ -110,5 +112,103 @@ public class CitaDAO {
             if (conn != null) close(conn);
         }
         return registros;
+    }
+
+    // Método para obtener citas por paciente
+    public List<Cita> findCitasByPacienteId(int pacienteId) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<Cita> citas = new ArrayList<>();
+        String SQL_SELECT_BY_PACIENTE = "SELECT * FROM Citas WHERE paciente_id = ?";
+
+        try {
+            conn = getConnection();
+            stmt = conn.prepareStatement(SQL_SELECT_BY_PACIENTE);
+            stmt.setInt(1, pacienteId);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Cita cita = new Cita();
+                cita.setId(rs.getInt("id"));
+                cita.setPacienteId(rs.getInt("paciente_id"));
+                cita.setMedicoId(rs.getInt("medico_id"));
+                cita.setFecha(rs.getDate("fecha"));
+                cita.setHora(rs.getTime("hora"));
+                citas.add(cita);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        } finally {
+            if (rs != null) close(rs);
+            if (stmt != null) close(stmt);
+            if (conn != null) close(conn);
+        }
+        return citas;
+    }
+
+    // Método para obtener citas por médico
+    public List<Cita> findCitasByMedicoId(int medicoId) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<Cita> citas = new ArrayList<>();
+        String SQL_SELECT_BY_MEDICO = "SELECT * FROM Citas WHERE medico_id = ?";
+
+        try {
+            conn = getConnection();
+            stmt = conn.prepareStatement(SQL_SELECT_BY_MEDICO);
+            stmt.setInt(1, medicoId);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Cita cita = new Cita();
+                cita.setId(rs.getInt("id"));
+                cita.setPacienteId(rs.getInt("paciente_id"));
+                cita.setMedicoId(rs.getInt("medico_id"));
+                cita.setFecha(rs.getDate("fecha"));
+                cita.setHora(rs.getTime("hora"));
+                citas.add(cita);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        } finally {
+            if (rs != null) close(rs);
+            if (stmt != null) close(stmt);
+            if (conn != null) close(conn);
+        }
+        return citas;
+    }
+
+    // Método para obtener todas las citas
+    public List<Cita> findAllCitas() throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<Cita> citas = new ArrayList<>();
+        String SQL_SELECT_ALL = "SELECT * FROM Citas";
+
+        try {
+            conn = getConnection();
+            stmt = conn.prepareStatement(SQL_SELECT_ALL);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Cita cita = new Cita();
+                cita.setId(rs.getInt("id"));
+                cita.setPacienteId(rs.getInt("paciente_id"));
+                cita.setMedicoId(rs.getInt("medico_id"));
+                cita.setFecha(rs.getDate("fecha"));
+                cita.setHora(rs.getTime("hora"));
+                citas.add(cita);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        } finally {
+            if (rs != null) close(rs);
+            if (stmt != null) close(stmt);
+            if (conn != null) close(conn);
+        }
+        return citas;
     }
 }

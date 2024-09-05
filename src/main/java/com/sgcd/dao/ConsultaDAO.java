@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ConsultaDAO {
 
@@ -105,5 +107,103 @@ public class ConsultaDAO {
             if (con != null) close(con);
         }
         return registros;
+    }
+
+    // Método para obtener consultas por paciente
+    public List<Consulta> findConsultasByPacienteId(int pacienteId) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<Consulta> consultas = new ArrayList<>();
+        String SQL_SELECT_BY_PACIENTE = "SELECT * FROM Consultas WHERE paciente_id = ?";
+
+        try {
+            conn = getConnection();
+            stmt = conn.prepareStatement(SQL_SELECT_BY_PACIENTE);
+            stmt.setInt(1, pacienteId);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Consulta consulta = new Consulta();
+                consulta.setId(rs.getInt("id"));
+                consulta.setPacienteId(rs.getInt("paciente_id"));
+                consulta.setMedicoId(rs.getInt("medico_id"));
+                consulta.setFecha(rs.getDate("fecha"));
+                consulta.setHora(rs.getTime("hora"));
+                consultas.add(consulta);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        } finally {
+            if (rs != null) close(rs);
+            if (stmt != null) close(stmt);
+            if (conn != null) close(conn);
+        }
+        return consultas;
+    }
+
+    // Método para obtener consultas por médico
+    public List<Consulta> findConsultasByMedicoId(int medicoId) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<Consulta> consultas = new ArrayList<>();
+        String SQL_SELECT_BY_MEDICO = "SELECT * FROM Consultas WHERE medico_id = ?";
+
+        try {
+            conn = getConnection();
+            stmt = conn.prepareStatement(SQL_SELECT_BY_MEDICO);
+            stmt.setInt(1, medicoId);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Consulta consulta = new Consulta();
+                consulta.setId(rs.getInt("id"));
+                consulta.setPacienteId(rs.getInt("paciente_id"));
+                consulta.setMedicoId(rs.getInt("medico_id"));
+                consulta.setFecha(rs.getDate("fecha"));
+                consulta.setHora(rs.getTime("hora"));
+                consultas.add(consulta);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        } finally {
+            if (rs != null) close(rs);
+            if (stmt != null) close(stmt);
+            if (conn != null) close(conn);
+        }
+        return consultas;
+    }
+
+    // Método para obtener todas las consultas
+    public List<Consulta> findAllConsultas() throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<Consulta> consultas = new ArrayList<>();
+        String SQL_SELECT_ALL = "SELECT * FROM Consultas";
+
+        try {
+            conn = getConnection();
+            stmt = conn.prepareStatement(SQL_SELECT_ALL);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Consulta consulta = new Consulta();
+                consulta.setId(rs.getInt("id"));
+                consulta.setPacienteId(rs.getInt("paciente_id"));
+                consulta.setMedicoId(rs.getInt("medico_id"));
+                consulta.setFecha(rs.getDate("fecha"));
+                consulta.setHora(rs.getTime("hora"));
+                consultas.add(consulta);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        } finally {
+            if (rs != null) close(rs);
+            if (stmt != null) close(stmt);
+            if (conn != null) close(conn);
+        }
+        return consultas;
     }
 }
