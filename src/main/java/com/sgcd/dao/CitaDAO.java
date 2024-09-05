@@ -1,33 +1,29 @@
 package com.sgcd.dao;
 
-import com.sgcd.model.Paciente;
+import com.sgcd.model.Cita;
 import static com.sgcd.util.DatabaseConnection.close;
 import static com.sgcd.util.DatabaseConnection.getConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
-public class PacienteDAO {
+public class CitaDAO {
 
     // Metodo de creacion
-    public int create(Paciente paciente) throws SQLException {
+    public int create(Cita cita) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         int registros = 0;
-        String SQL_INSERT= "INSERT INTO Pacientes (usuario, contraseña, nombre, apellidos, telefono, direccion, aprobado) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String SQL_INSERT = "INSERT INTO Citas (paciente_id, medico_id, fecha, hora) VALUES (?, ?, ?, ?)";
         try {
             conn = getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
-            stmt.setString(1, paciente.getPaciente());
-            stmt.setString(2, paciente.getContraseña());
-            stmt.setString(3, paciente.getNombre());
-            stmt.setString(4, paciente.getApellidos());
-            stmt.setString(5, paciente.getTelefono());
-            stmt.setString(6, paciente.getDireccion());
-            stmt.setBoolean(7, paciente.isAprobado());
-
+            stmt.setInt(1, cita.getPacienteId());
+            stmt.setInt(2, cita.getMedicoId());
+            stmt.setDate(3, cita.getFecha());
+            stmt.setTime(4, cita.getHora());
             registros = stmt.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -38,12 +34,13 @@ public class PacienteDAO {
         return registros;
     }
 
-    public Paciente findById(int id) throws SQLException {
+    // Metodo para buscar una cita por ID
+    public Cita findById(int id) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Paciente paciente = null;
-        String SQL_SELECT_BY_ID = "SELECT * FROM Pacientes WHERE id = ?";
+        Cita cita = null;
+        String SQL_SELECT_BY_ID = "SELECT * FROM Citas WHERE id = ?";
 
         try {
             conn = getConnection();
@@ -52,15 +49,12 @@ public class PacienteDAO {
             rs = stmt.executeQuery();
 
             if (rs.next()) {
-                paciente = new Paciente();
-                paciente.setIdPaciente(rs.getInt("id"));
-                paciente.setPaciente(rs.getString("usuario"));
-                paciente.setContraseña(rs.getString("contraseña"));
-                paciente.setNombre(rs.getString("nombre"));
-                paciente.setApellidos(rs.getString("apellidos"));
-                paciente.setTelefono(rs.getString("telefono"));
-                paciente.setDireccion(rs.getString("direccion"));
-                paciente.setAprobado(rs.getBoolean("aprobado"));
+                cita = new Cita();
+                cita.setId(rs.getInt("id"));
+                cita.setPacienteId(rs.getInt("paciente_id"));
+                cita.setMedicoId(rs.getInt("medico_id"));
+                cita.setFecha(rs.getDate("fecha"));
+                cita.setHora(rs.getTime("hora"));
             }
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -69,28 +63,24 @@ public class PacienteDAO {
             if (stmt != null) close(stmt);
             if (conn != null) close(conn);
         }
-        return paciente;
+        return cita;
     }
 
     // Metodo para editar
-    public int actualizar(Paciente paciente) throws SQLException {
+    public int update(Cita cita) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         int registros = 0;
-        String SQL_UPDATE = "UPDATE Pacientes SET usuario = ?, contraseña = ?, nombre = ?, apellidos = ?, telefono = ?, direccion = ?, aprobado = ? WHERE id = ?";
+        String SQL_UPDATE = "UPDATE Citas SET paciente_id = ?, medico_id = ?, fecha = ?, hora = ? WHERE id = ?";
 
         try {
             conn = getConnection();
             stmt = conn.prepareStatement(SQL_UPDATE);
-            stmt.setString(1, paciente.getPaciente());
-            stmt.setString(2, paciente.getContraseña());
-            stmt.setString(3, paciente.getNombre());
-            stmt.setString(4, paciente.getApellidos());
-            stmt.setString(5, paciente.getTelefono());
-            stmt.setString(6, paciente.getDireccion());
-            stmt.setBoolean(7, paciente.isAprobado());
-            stmt.setInt(8, paciente.getIdPaciente());
-
+            stmt.setInt(1, cita.getPacienteId());
+            stmt.setInt(2, cita.getMedicoId());
+            stmt.setDate(3, cita.getFecha());
+            stmt.setTime(4, cita.getHora());
+            stmt.setInt(5, cita.getId());
             registros = stmt.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -106,13 +96,12 @@ public class PacienteDAO {
         Connection conn = null;
         PreparedStatement stmt = null;
         int registros = 0;
-        String SQL_DELETE = "DELETE FROM Pacientes WHERE id = ?";
+        String SQL_DELETE = "DELETE FROM Citas WHERE id = ?";
 
         try {
             conn = getConnection();
             stmt = conn.prepareStatement(SQL_DELETE);
             stmt.setInt(1, id);
-
             registros = stmt.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);

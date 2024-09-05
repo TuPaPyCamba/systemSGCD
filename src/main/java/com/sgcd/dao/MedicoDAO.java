@@ -1,6 +1,6 @@
 package com.sgcd.dao;
 
-import com.sgcd.model.Paciente;
+import com.sgcd.model.Medico;
 import static com.sgcd.util.DatabaseConnection.close;
 import static com.sgcd.util.DatabaseConnection.getConnection;
 
@@ -9,25 +9,22 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 
-public class PacienteDAO {
+public class MedicoDAO {
 
-    // Metodo de creacion
-    public int create(Paciente paciente) throws SQLException {
+    // Método de creación
+    public int create(Medico medico) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         int registros = 0;
-        String SQL_INSERT= "INSERT INTO Pacientes (usuario, contraseña, nombre, apellidos, telefono, direccion, aprobado) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String SQL_INSERT = "INSERT INTO Medicos (usuario, contraseña, nombre, apellidos, especialidad) VALUES (?, ?, ?, ?, ?)";
         try {
             conn = getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
-            stmt.setString(1, paciente.getPaciente());
-            stmt.setString(2, paciente.getContraseña());
-            stmt.setString(3, paciente.getNombre());
-            stmt.setString(4, paciente.getApellidos());
-            stmt.setString(5, paciente.getTelefono());
-            stmt.setString(6, paciente.getDireccion());
-            stmt.setBoolean(7, paciente.isAprobado());
-
+            stmt.setString(1, medico.getUsuario());
+            stmt.setString(2, medico.getContraseña());
+            stmt.setString(3, medico.getNombre());
+            stmt.setString(4, medico.getApellidos());
+            stmt.setString(5, medico.getEspecialidad());
             registros = stmt.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -38,12 +35,13 @@ public class PacienteDAO {
         return registros;
     }
 
-    public Paciente findById(int id) throws SQLException {
+    // Método para buscar un médico por ID
+    public Medico findById(int id) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Paciente paciente = null;
-        String SQL_SELECT_BY_ID = "SELECT * FROM Pacientes WHERE id = ?";
+        Medico medico = null;
+        String SQL_SELECT_BY_ID = "SELECT * FROM Medicos WHERE id = ?";
 
         try {
             conn = getConnection();
@@ -52,15 +50,13 @@ public class PacienteDAO {
             rs = stmt.executeQuery();
 
             if (rs.next()) {
-                paciente = new Paciente();
-                paciente.setIdPaciente(rs.getInt("id"));
-                paciente.setPaciente(rs.getString("usuario"));
-                paciente.setContraseña(rs.getString("contraseña"));
-                paciente.setNombre(rs.getString("nombre"));
-                paciente.setApellidos(rs.getString("apellidos"));
-                paciente.setTelefono(rs.getString("telefono"));
-                paciente.setDireccion(rs.getString("direccion"));
-                paciente.setAprobado(rs.getBoolean("aprobado"));
+                medico = new Medico();
+                medico.setId(rs.getInt("id"));
+                medico.setUsuario(rs.getString("usuario"));
+                medico.setContraseña(rs.getString("contraseña"));
+                medico.setNombre(rs.getString("nombre"));
+                medico.setApellidos(rs.getString("apellidos"));
+                medico.setEspecialidad(rs.getString("especialidad"));
             }
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -69,28 +65,25 @@ public class PacienteDAO {
             if (stmt != null) close(stmt);
             if (conn != null) close(conn);
         }
-        return paciente;
+        return medico;
     }
 
-    // Metodo para editar
-    public int actualizar(Paciente paciente) throws SQLException {
+    // Método para editar
+    public int update(Medico medico) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         int registros = 0;
-        String SQL_UPDATE = "UPDATE Pacientes SET usuario = ?, contraseña = ?, nombre = ?, apellidos = ?, telefono = ?, direccion = ?, aprobado = ? WHERE id = ?";
+        String SQL_UPDATE = "UPDATE Medicos SET usuario = ?, contraseña = ?, nombre = ?, apellidos = ?, especialidad = ? WHERE id = ?";
 
         try {
             conn = getConnection();
             stmt = conn.prepareStatement(SQL_UPDATE);
-            stmt.setString(1, paciente.getPaciente());
-            stmt.setString(2, paciente.getContraseña());
-            stmt.setString(3, paciente.getNombre());
-            stmt.setString(4, paciente.getApellidos());
-            stmt.setString(5, paciente.getTelefono());
-            stmt.setString(6, paciente.getDireccion());
-            stmt.setBoolean(7, paciente.isAprobado());
-            stmt.setInt(8, paciente.getIdPaciente());
-
+            stmt.setString(1, medico.getUsuario());
+            stmt.setString(2, medico.getContraseña());
+            stmt.setString(3, medico.getNombre());
+            stmt.setString(4, medico.getApellidos());
+            stmt.setString(5, medico.getEspecialidad());
+            stmt.setInt(6, medico.getId());
             registros = stmt.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -101,18 +94,17 @@ public class PacienteDAO {
         return registros;
     }
 
-    // Metodo para eliminar
+    // Método para eliminar
     public int delete(int id) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         int registros = 0;
-        String SQL_DELETE = "DELETE FROM Pacientes WHERE id = ?";
+        String SQL_DELETE = "DELETE FROM Medicos WHERE id = ?";
 
         try {
             conn = getConnection();
             stmt = conn.prepareStatement(SQL_DELETE);
             stmt.setInt(1, id);
-
             registros = stmt.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);

@@ -1,6 +1,6 @@
 package com.sgcd.model;
 
-import com.sgcd.util.DatabaseConfig;
+import com.sgcd.util.DatabaseConnection;
 
 
 public class Paciente {
@@ -17,7 +17,6 @@ public class Paciente {
     public int getIdPaciente(){
         return id; 
     }
-    
     public void setIdPaciente(int id) {
         this.id = id; 
     }
@@ -32,7 +31,6 @@ public class Paciente {
     public String getContraseña() {
         return contraseña; 
     }
-    
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña; 
     }
@@ -40,7 +38,6 @@ public class Paciente {
     public String getNombre() { 
         return nombre; 
     }
-    
     public void setNombre(String nombre) {
         this.nombre = nombre; 
     }
@@ -48,7 +45,6 @@ public class Paciente {
     public String getApellidos() {
         return apellidos; 
     }
-    
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos; 
     }
@@ -56,7 +52,6 @@ public class Paciente {
     public String getTelefono() {
         return telefono; 
     }
-    
     public void setTelefono(String telefono) {
         this.telefono = telefono; 
     }
@@ -64,7 +59,6 @@ public class Paciente {
     public String getDireccion() {
         return direccion; 
     }
-    
     public void setDireccion(String direccion) {
         this.direccion = direccion; 
     }
@@ -72,7 +66,6 @@ public class Paciente {
     public boolean isAprobado() {
         return aprobado; 
     }
-    
     public void setAprobado(boolean aprobado) {
         this.aprobado = aprobado; 
     }
