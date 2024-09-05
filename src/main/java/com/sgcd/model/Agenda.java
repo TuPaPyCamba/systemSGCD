@@ -15,6 +15,49 @@ public class Agenda {
         this.consultaDAO = new ConsultaDAO();
     }
 
+//    !!!!!!!!!!! Pruebas que ando haciendo !!!!!!!!!!!!!!!!!!!!
+//    // Verifica si el médico tiene citas programadas en la misma fecha y hora
+//    private boolean medicoTieneCitasEnFechaHora(int medicoId, Date fecha, Time hora) throws SQLException {
+//        List<Cita> citas = citaDAO.findCitasByMedicoId(medicoId);
+//        for (Cita cita : citas) {
+//            if (cita.getFecha().equals(fecha) && cita.getHora().equals(hora)) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
+//
+//    // Verifica si el médico tiene consultas programadas en la misma fecha y hora
+//    private boolean medicoTieneConsultasEnFechaHora(int medicoId, Date fecha, Time hora) throws SQLException {
+//        List<Consulta> consultas = consultaDAO.findConsultasByMedicoId(medicoId);
+//        for (Consulta consulta : consultas) {
+//            if (consulta.getFecha().equals(fecha) && consulta.getHora().equals(hora)) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
+//
+//    // Crear una cita
+//    public void createCita(Cita cita) throws SQLException {
+//        // Verifica si el médico ya tiene una cita o consulta programada en la misma fecha y hora
+//        if (medicoTieneCitasEnFechaHora(cita.getMedicoId(), cita.getFecha(), cita.getHora()) ||
+//                medicoTieneConsultasEnFechaHora(cita.getMedicoId(), cita.getFecha(), cita.getHora())) {
+//            throw new SQLException("El médico ya tiene una cita o consulta programada en la misma fecha y hora.");
+//        }
+//        citaDAO.create(cita);
+//    }
+//
+//    // Crear una consulta
+//    public void createConsulta(Consulta consulta) throws SQLException {
+//        // Verifica si el médico ya tiene una cita o consulta programada en la misma fecha y hora
+//        if (medicoTieneCitasEnFechaHora(consulta.getMedicoId(), consulta.getFecha(), consulta.getHora()) ||
+//                medicoTieneConsultasEnFechaHora(consulta.getMedicoId(), consulta.getFecha(), consulta.getHora())) {
+//            throw new SQLException("El médico ya tiene una cita o consulta programada en la misma fecha y hora.");
+//        }
+//        consultaDAO.create(consulta);
+//    }
+
     // Obtiene todas las citas
     public List<Cita> getAllCitas() throws SQLException {
         return citaDAO.findAllCitas();
