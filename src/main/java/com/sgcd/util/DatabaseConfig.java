@@ -1,8 +1,6 @@
 package com.sgcd.util;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class DatabaseConfig {
 
@@ -12,5 +10,21 @@ public class DatabaseConfig {
 
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);
+    }
+    
+     public static void close(ResultSet rs) throws SQLException {
+        rs.close();
+    }
+
+    public static void close(Statement stmt) throws SQLException {
+        stmt.close();
+    }
+
+    public static void close(PreparedStatement stmt) throws SQLException {
+        stmt.close();
+    }
+    
+    public static void close(Connection conn) throws SQLException {
+        conn.close();
     }
 }
