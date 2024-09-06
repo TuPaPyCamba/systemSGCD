@@ -26,7 +26,6 @@ public class PacienteDAO {
             stmt.setString(4, paciente.getApellidos());
             stmt.setString(5, paciente.getTelefono());
             stmt.setString(6, paciente.getDireccion());
-            stmt.setBoolean(7, paciente.isAprobado());
 
             registros = stmt.executeUpdate();
         } catch (SQLException ex) {
@@ -60,7 +59,6 @@ public class PacienteDAO {
                 paciente.setApellidos(rs.getString("apellidos"));
                 paciente.setTelefono(rs.getString("telefono"));
                 paciente.setDireccion(rs.getString("direccion"));
-                paciente.setAprobado(rs.getBoolean("aprobado"));
             }
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -88,8 +86,7 @@ public class PacienteDAO {
             stmt.setString(4, paciente.getApellidos());
             stmt.setString(5, paciente.getTelefono());
             stmt.setString(6, paciente.getDireccion());
-            stmt.setBoolean(7, paciente.isAprobado());
-            stmt.setInt(8, paciente.getIdPaciente());
+            stmt.setInt(7, paciente.getIdPaciente());
 
             registros = stmt.executeUpdate();
         } catch (SQLException ex) {

@@ -8,7 +8,6 @@ public class Paciente {
     private String apellidos;
     private String telefono;
     private String direccion;
-    private boolean aprobado;
 
     // Getters y Setters
     public int getIdPaciente(){
@@ -58,12 +57,5 @@ public class Paciente {
     }
     public void setDireccion(String direccion) {
         this.direccion = direccion; 
-    }
-
-    public boolean isAprobado() {
-        return aprobado; 
-    }
-    public void setAprobado(boolean aprobado) {
-        this.aprobado = aprobado; 
     }
 }

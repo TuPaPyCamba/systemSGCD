@@ -14,7 +14,7 @@ public class Administrador {
         this.nombre = nombre;
         this.apellidos = apellidos;
     }
-    
+
     // Getters y Setters
     public int getId() {
         return id;
