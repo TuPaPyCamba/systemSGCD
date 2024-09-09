@@ -1,8 +1,3 @@
-<%-- 
-    Document   : inicioSesion
-    Created on : Sep 9, 2024, 8:10:46 AM
-    Author     : jh
---%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 
@@ -13,7 +8,7 @@
         <title>Inicio de Sesion</title>
     </head>
     <body>
-        <div style="display: flex; justify-content: center; align-items: center;">
+        <form method="POST" style="display: flex; justify-content: center; align-items: center;">
             <div>
                 <div>
                     <p style="font-size:15px;">SGCD</p>
@@ -38,6 +33,6 @@
                     <h4><a href="./registroPaciente.jsp">Dar CLICK aquí para registrar paciente</a></h4>
                 </div>
             </div>
-        </div>
+        </form>
     </body>
 </html>

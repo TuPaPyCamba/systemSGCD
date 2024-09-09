@@ -1,9 +1,3 @@
-<%-- 
-    Document   : registroUsuario
-    Created on : Sep 9, 2024, 10:00:00 AM
-    Author     : jh
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,7 +6,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <form action="registroUsuario.jsp" method="POST" onsubmit="return validateForm()" style="display: flex; justify-content: center; align-items: center;">
+        <form action="registroPaciente.jsp" method="POST" onsubmit="return validateForm()" style="display: flex; justify-content: center; align-items: center;">
             <div>
                 <div>
                     <p style="font-size:15px;">SGCD</p>
