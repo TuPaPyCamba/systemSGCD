@@ -9,6 +9,16 @@ public class Paciente {
     private String telefono;
     private String direccion;
 
+    public Paciente(String usuario, String contraseña, String nombre, String apellidos, String telefono, String direccion) {
+        this.usuario = usuario;
+        this.contraseña = contraseña;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.telefono = telefono;
+        this.direccion = direccion;
+    }
+
+
     // Getters y Setters
     public int getIdPaciente(){
         return id; 

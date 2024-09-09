@@ -3,11 +3,10 @@ package com.sgcd.dao;
 import com.sgcd.model.Paciente;
 import static com.sgcd.util.DatabaseConnection.close;
 import static com.sgcd.util.DatabaseConnection.getConnection;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class PacienteDAO {
 
@@ -16,7 +15,7 @@ public class PacienteDAO {
         Connection conn = null;
         PreparedStatement stmt = null;
         int registros = 0;
-        String SQL_INSERT= "INSERT INTO Pacientes (usuario, contraseña, nombre, apellidos, telefono, direccion, aprobado) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String SQL_INSERT = "INSERT INTO Pacientes (usuario, contraseña, nombre, apellidos, telefono, direccion) VALUES (?, ?, ?, ?, ?, ?)";
         try {
             conn = getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
@@ -51,7 +50,6 @@ public class PacienteDAO {
             rs = stmt.executeQuery();
 
             if (rs.next()) {
-                paciente = new Paciente();
                 paciente.setIdPaciente(rs.getInt("id"));
                 paciente.setPaciente(rs.getString("usuario"));
                 paciente.setContraseña(rs.getString("contraseña"));

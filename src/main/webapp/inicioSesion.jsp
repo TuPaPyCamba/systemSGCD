@@ -8,14 +8,13 @@
         <title>Inicio de Sesion</title>
     </head>
     <body>
-        <form method="POST" style="display: flex; justify-content: center; align-items: center;">
+        <form action="inicioSesion.jsp" method="POST" style="display: flex; justify-content: center; align-items: center;">
             <div>
                 <div>
                     <p style="font-size:15px;">SGCD</p>
                     <h1>INICIO DE SESIÓN</h1>
                 </div>
                 <div style="margin: 10px;">
-
                     <label for="username" style="display: flex; justify-content: center; margin: 10px;">Usuario</label>
                     <input type="text" name="username" id="username" placeholder="Nombre de Usuario" style=" border: none; height: 30px; width: 200px;">
 

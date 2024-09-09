@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="com.sgcd.dao.PacienteDAO" %>
+<%@ page import="com.sgcd.dao.PacienteDAO" %>
+<%@ page import="com.sgcd.model.Paciente" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -7,7 +8,7 @@
         <title>Registro de Paciente</title>
     </head>
     <body>
-        <form action="registroPaciente.jsp" method="POST" onsubmit="return validateForm()" style="display: flex; justify-content: center; align-items: center;">
+        <form action="registroPaciente.jsp" method="POST" style="display: flex; justify-content: center; align-items: center;">
             <div>
                 <div>
                     <p style="font-size:15px;">SGCD</p>
@@ -45,6 +46,23 @@
                 </div>
             </div>
         </form>
+        <%
+        String usuario = request.getParameter("usuario");
+        String contrasena = request.getParameter("contrasena");
+        String nombre = request.getParameter("nombre");
+        String apellido = request.getParameter("apellido");
+        String telefono = request.getParameter("telefono");
+        String direccion = request.getParameter("direccion");
+
+        Paciente paciente = new Paciente(usuario, contrasena, nombre, apellido, telefono, direccion);
+
+        PacienteDAO pacienteDao = new PacienteDAO();
+        try {
+            pacienteDao.create(paciente);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        %>
     </body>
 </html>
 
