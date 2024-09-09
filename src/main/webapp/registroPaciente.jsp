@@ -1,9 +1,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="com.sgcd.dao.PacienteDAO" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Registro de Paciente</title>
     </head>
     <body>
         <form action="registroPaciente.jsp" method="POST" onsubmit="return validateForm()" style="display: flex; justify-content: center; align-items: center;">
@@ -46,3 +47,4 @@
         </form>
     </body>
 </html>
+
