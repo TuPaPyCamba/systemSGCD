@@ -126,12 +126,12 @@ public class PacienteDAO {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        String SQL_SELECT_BY_NAME = "SELECT * FROM pacientes WHERE nombre LIKE ?";
+        String SQL_SELECT_BY_NAME = "SELECT * FROM pacientes WHERE nombre = ?";
 
         try {
             conn = getConnection();
             stmt = conn.prepareStatement(SQL_SELECT_BY_NAME);
-            stmt.setString(1, "%" + nombre + "%");
+            stmt.setString(1, nombre);
             rs = stmt.executeQuery();
 
             while (rs.next()) {

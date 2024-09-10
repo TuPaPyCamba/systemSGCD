@@ -39,7 +39,8 @@
 
             try {
                 if (busqueda != null && !busqueda.isEmpty()) {
-                    pacientes = pacienteDAO.findByName(busqueda);
+                    String nombre = busqueda;
+                    pacientes = pacienteDAO.findByName(nombre);
                 } else {
                     pacientes = pacienteDAO.obtenerPacientes();
                 }
