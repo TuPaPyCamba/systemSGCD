@@ -32,21 +32,24 @@
             </tr>
         </thead>
         <tbody>
-            <%
-                PacienteDAO pacienteDAO = new PacienteDAO();
-                List<Paciente> pacientes = null;
+        <%
+            String busqueda = request.getParameter("busqueda");
+            PacienteDAO pacienteDAO = new PacienteDAO();
+            List<Paciente> pacientes = null;
 
-                String busqueda = request.getParameter("busqueda");
+            try {
+                if (busqueda != null && !busqueda.isEmpty()) {
+                    pacientes = pacienteDAO.findByName(busqueda);
+                } else {
+                    pacientes = pacienteDAO.obtenerPacientes();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
 
-                try{
-                    if (busqueda != null && !busqueda.isEmpty()){
-                        pacientes = pacienteDAO.findByName(busqueda);
-                    } else {
-                        pacientes = pacienteDAO.obtenerPacientes();
-                    }
-
-                    for (Paciente paciente : pacientes) {
-                        %>
+            if (pacientes != null && !pacientes.isEmpty()) {
+                for (Paciente paciente : pacientes) {
+        %>
                             <tr>
                                 <td><%= paciente.getIdPaciente() %></td>
                                 <td><%= paciente.getNombre()%></td>
@@ -63,15 +66,11 @@
                             </tr>
                         <%
                     }
-                }catch (Exception e) {
-                    e.printStackTrace();
+                }
             %>
                     <tr>
                         <td colspan="8"> Error al cargar los datos</td>
                     </tr>
-            <%
-                }
-            %>
         </tbody>
     </table>
     <%

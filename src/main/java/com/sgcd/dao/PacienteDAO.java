@@ -126,7 +126,7 @@ public class PacienteDAO {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        String SQL_SELECT_BY_NAME = "SELECT * FROM pacientes WHERE nombre = ?";
+        String SQL_SELECT_BY_NAME = "SELECT * FROM pacientes WHERE nombre LIKE ?";
 
         try {
             conn = getConnection();
