@@ -104,10 +104,9 @@
                                 <td><%= paciente.getTelefono()%></td>
                                 <td><%= paciente.getDireccion()%></td>
                                 <td>
-                                    <a href="">Editar</a>
                                     <form action="gestionPaciente.jsp" method="post" style="display: inline">
                                         <input type="hidden" name="id" value="<%= paciente.getIdPaciente() %>">
-                                        <button type="submit" onclick="return confirm('¿Estás seguro de que quieres eliminar este paciente?');">Eliminar</button>
+                                        <button type="submit" class="btn-delete" onclick="return confirm('¿Estás seguro de que quieres eliminar este paciente?');">Eliminar</button>
                                     </form>
                                     <button class="btn-edit" onclick="toggleForm(this)">Editar</button>
                                 </td>
