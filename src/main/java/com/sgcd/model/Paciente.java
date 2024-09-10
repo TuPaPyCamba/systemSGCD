@@ -19,9 +19,7 @@ public class Paciente {
     }
 
     public Paciente() {
-
     }
-
 
     // Getters y Setters
     public int getIdPaciente(){
