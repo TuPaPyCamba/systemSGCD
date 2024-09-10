@@ -16,12 +16,12 @@ public class MedicoDAO {
         Connection conn = null;
         PreparedStatement stmt = null;
         int registros = 0;
-        String SQL_INSERT = "INSERT INTO Medicos (usuario, contraseña, nombre, apellidos, especialidad) VALUES (?, ?, ?, ?, ?)";
+        String SQL_INSERT = "INSERT INTO Medicos (usuario, contrasena, nombre, apellidos, especialidad) VALUES (?, ?, ?, ?, ?)";
         try {
             conn = getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
             stmt.setString(1, medico.getUsuario());
-            stmt.setString(2, medico.getContraseña());
+            stmt.setString(2, medico.getContrasena());
             stmt.setString(3, medico.getNombre());
             stmt.setString(4, medico.getApellidos());
             stmt.setString(5, medico.getEspecialidad());
@@ -50,10 +50,9 @@ public class MedicoDAO {
             rs = stmt.executeQuery();
 
             if (rs.next()) {
-                medico = new Medico();
                 medico.setId(rs.getInt("id"));
                 medico.setUsuario(rs.getString("usuario"));
-                medico.setContraseña(rs.getString("contraseña"));
+                medico.setContrasena(rs.getString("contrasena"));
                 medico.setNombre(rs.getString("nombre"));
                 medico.setApellidos(rs.getString("apellidos"));
                 medico.setEspecialidad(rs.getString("especialidad"));
@@ -73,13 +72,13 @@ public class MedicoDAO {
         Connection conn = null;
         PreparedStatement stmt = null;
         int registros = 0;
-        String SQL_UPDATE = "UPDATE Medicos SET usuario = ?, contraseña = ?, nombre = ?, apellidos = ?, especialidad = ? WHERE id = ?";
+        String SQL_UPDATE = "UPDATE Medicos SET usuario = ?, contrasena = ?, nombre = ?, apellidos = ?, especialidad = ? WHERE id = ?";
 
         try {
             conn = getConnection();
             stmt = conn.prepareStatement(SQL_UPDATE);
             stmt.setString(1, medico.getUsuario());
-            stmt.setString(2, medico.getContraseña());
+            stmt.setString(2, medico.getContrasena());
             stmt.setString(3, medico.getNombre());
             stmt.setString(4, medico.getApellidos());
             stmt.setString(5, medico.getEspecialidad());
