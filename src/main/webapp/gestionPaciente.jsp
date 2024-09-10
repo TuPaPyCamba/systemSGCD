@@ -2,6 +2,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.sgcd.model.Paciente" %>
 <%@ page import="java.sql.SQLException" %>
+<%@ page import="java.util.ArrayList" %>
 <%--
   Created by IntelliJ IDEA.
   User: maxim
@@ -36,20 +37,25 @@
             String busqueda = request.getParameter("busqueda");
             PacienteDAO pacienteDAO = new PacienteDAO();
             List<Paciente> pacientes = null;
+            List<Paciente> pacientesFiltrados = new ArrayList<>();
 
             try {
+                pacientes = pacienteDAO.obtenerPacientes();
                 if (busqueda != null && !busqueda.isEmpty()) {
-                    String nombre = busqueda;
-                    pacientes = pacienteDAO.findByName(nombre);
+                    for(Paciente paciente : pacientes) {
+                        if(paciente.getNombre().toLowerCase().contains(busqueda.toLowerCase())){
+                            pacientesFiltrados.add(paciente);
+                        }
+                    }
                 } else {
-                    pacientes = pacienteDAO.obtenerPacientes();
+                    pacientesFiltrados = pacientes;
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
 
-            if (pacientes != null && !pacientes.isEmpty()) {
-                for (Paciente paciente : pacientes) {
+            if (pacientesFiltrados != null && !pacientesFiltrados.isEmpty()) {
+                for(Paciente paciente : pacientesFiltrados){
         %>
                             <tr>
                                 <td><%= paciente.getIdPaciente() %></td>
@@ -67,11 +73,12 @@
                             </tr>
                         <%
                     }
-                }
+                } else {
             %>
                     <tr>
                         <td colspan="8"> Error al cargar los datos</td>
                     </tr>
+        <% } %>
         </tbody>
     </table>
     <%
