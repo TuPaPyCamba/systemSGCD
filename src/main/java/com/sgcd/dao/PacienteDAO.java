@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PacienteDAO {
 
@@ -41,7 +43,7 @@ public class PacienteDAO {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         Paciente paciente = null;
-        String SQL_SELECT_BY_ID = "SELECT * FROM Pacientes WHERE id = ?";
+        String SQL_SELECT_BY_ID = "SELECT * FROM pacientes WHERE id = ?";
 
         try {
             conn = getConnection();
@@ -73,7 +75,7 @@ public class PacienteDAO {
         Connection conn = null;
         PreparedStatement stmt = null;
         int registros = 0;
-        String SQL_UPDATE = "UPDATE Pacientes SET usuario = ?, contraseña = ?, nombre = ?, apellidos = ?, telefono = ?, direccion = ?, aprobado = ? WHERE id = ?";
+        String SQL_UPDATE = "UPDATE pacientes SET usuario = ?, contraseña = ?, nombre = ?, apellidos = ?, telefono = ?, direccion = ?, aprobado = ? WHERE id = ?";
 
         try {
             conn = getConnection();
@@ -101,7 +103,7 @@ public class PacienteDAO {
         Connection conn = null;
         PreparedStatement stmt = null;
         int registros = 0;
-        String SQL_DELETE = "DELETE FROM Pacientes WHERE id = ?";
+        String SQL_DELETE = "DELETE FROM pacientes WHERE id = ?";
 
         try {
             conn = getConnection();
@@ -116,5 +118,76 @@ public class PacienteDAO {
             if (conn != null) close(conn);
         }
         return registros;
+    }
+
+    //Metodo para buscar pacientes por nombre
+    public List<Paciente> findByName(String nombre) throws SQLException {
+        List<Paciente> pacientes = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String SQL_SELECT_BY_NAME = "SELECT * FROM pacientes WHERE nombre = ?";
+
+        try {
+            conn = getConnection();
+            stmt = conn.prepareStatement(SQL_SELECT_BY_NAME);
+            stmt.setString(1, "%" + nombre + "%");
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Paciente paciente = new Paciente();
+                paciente.setIdPaciente(rs.getInt("id"));
+                paciente.setPaciente(rs.getString("usuario"));
+                paciente.setNombre(rs.getString("nombre"));
+                paciente.setApellidos(rs.getString("apellidos"));
+                paciente.setTelefono(rs.getString("telefono"));
+                paciente.setDireccion(rs.getString("direccion"));
+
+                pacientes.add(paciente);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        } finally {
+            if (rs != null) close(rs);
+            if (stmt != null) close(stmt);
+            if (conn != null) close(conn);
+        }
+        return pacientes;
+    }
+
+    // Metodo para traer todos los registros
+    public List<Paciente> obtenerPacientes() throws SQLException {
+        List<Paciente> pacientes = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String SQL_SELECT_ALL = "SELECT * FROM pacientes";
+
+        try {
+            conn = getConnection();
+            stmt = conn.prepareStatement(SQL_SELECT_ALL);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                Paciente paciente = new Paciente();
+                paciente.setIdPaciente(rs.getInt("id"));
+                paciente.setPaciente(rs.getString("usuario"));
+                paciente.setContrasena(rs.getString("contrasena"));
+                paciente.setNombre(rs.getString("nombre"));
+                paciente.setApellidos(rs.getString("apellidos"));
+                paciente.setTelefono(rs.getString("telefono"));
+                paciente.setDireccion(rs.getString("direccion"));
+
+                pacientes.add(paciente);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        } finally {
+            if (rs != null) close(rs);
+            if (stmt != null) close(stmt);
+            if (conn != null) close(conn);
+        }
+        return pacientes;
     }
 }

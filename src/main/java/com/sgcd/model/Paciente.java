@@ -18,6 +18,10 @@ public class Paciente {
         this.direccion = direccion;
     }
 
+    public Paciente() {
+
+    }
+
 
     // Getters y Setters
     public int getIdPaciente(){

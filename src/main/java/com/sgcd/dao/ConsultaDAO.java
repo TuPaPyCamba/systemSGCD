@@ -15,7 +15,7 @@ public class ConsultaDAO {
 
     // Metodo de creacion
     public int create(Consulta consulta) throws SQLException {
-        String sql = "INSERT INTO Consultas (paciente_id, medico_id, fecha, hora) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO consultas (paciente_id, medico_id, fecha, hora) VALUES (?,?,?,?)";
         Connection con = null;
         PreparedStatement stmt = null;
         int registros = 0;
@@ -37,7 +37,7 @@ public class ConsultaDAO {
 
     // Metodo para buscar una consulta por ID
     public Consulta findById(int id) throws SQLException {
-        String sql = "SELECT * FROM Consultas WHERE id = ?";
+        String sql = "SELECT * FROM consultas WHERE id = ?";
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -67,7 +67,7 @@ public class ConsultaDAO {
 
     // Metodo para editar
     public int update(Consulta consulta) throws SQLException {
-        String sql = "UPDATE Consultas SET paciente_id = ?, medico_id = ?, fecha = ?, hora = ? WHERE id = ?";
+        String sql = "UPDATE consultas SET paciente_id = ?, medico_id = ?, fecha = ?, hora = ? WHERE id = ?";
         Connection con = null;
         PreparedStatement stmt = null;
         int registros = 0;
@@ -91,7 +91,7 @@ public class ConsultaDAO {
 
     // Metodo para eliminar
     public int delete(int id) throws SQLException {
-        String sql = "DELETE FROM Consultas WHERE id = ?";
+        String sql = "DELETE FROM consultas WHERE id = ?";
         Connection con = null;
         PreparedStatement stmt = null;
         int registros = 0;
@@ -115,7 +115,7 @@ public class ConsultaDAO {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         List<Consulta> consultas = new ArrayList<>();
-        String SQL_SELECT_BY_PACIENTE = "SELECT * FROM Consultas WHERE paciente_id = ?";
+        String SQL_SELECT_BY_PACIENTE = "SELECT * FROM consultas WHERE paciente_id = ?";
 
         try {
             conn = getConnection();
@@ -181,7 +181,7 @@ public class ConsultaDAO {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         List<Consulta> consultas = new ArrayList<>();
-        String SQL_SELECT_ALL = "SELECT * FROM Consultas";
+        String SQL_SELECT_ALL = "SELECT * FROM consultas";
 
         try {
             conn = getConnection();

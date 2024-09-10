@@ -26,7 +26,7 @@
             <input type="text" name="nombre" id="nombre" placeholder="Nombre" style="border: none; height: 30px; width: 200px;">
 
             <label for="apellido" style="display: flex; justify-content: center; margin: 10px;">Apellido *</label>
-            <input type="text" name="apellido" id="" placeholder="Apellido" style="border: none; height: 30px; width: 200px;">
+            <input type="text" name="apellido" id="apellido" placeholder="Apellido" style="border: none; height: 30px; width: 200px;">
 
             <label for="especialidad" style="display: flex; justify-content: center; margin: 10px;">Especialidad *</label>
             <input type="text" name="especialidad" id="especialidad" placeholder="Especialidad" style="border: none; height: 30px; width: 200px;">
@@ -54,7 +54,7 @@
 
     MedicoDAO medicoDao = new MedicoDAO();
     try {
-        MedicoDao.create(medico);
+        medicoDao.create(medico);
     } catch (Exception e) {
         e.printStackTrace();
     }

@@ -16,7 +16,7 @@ public class MedicoDAO {
         Connection conn = null;
         PreparedStatement stmt = null;
         int registros = 0;
-        String SQL_INSERT = "INSERT INTO Medicos (usuario, contrasena, nombre, apellidos, especialidad) VALUES (?, ?, ?, ?, ?)";
+        String SQL_INSERT = "INSERT INTO medicos (usuario, contrasena, nombre, apellidos, especialidad) VALUES (?, ?, ?, ?, ?)";
         try {
             conn = getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
@@ -41,7 +41,7 @@ public class MedicoDAO {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         Medico medico = null;
-        String SQL_SELECT_BY_ID = "SELECT * FROM Medicos WHERE id = ?";
+        String SQL_SELECT_BY_ID = "SELECT * FROM medicos WHERE id = ?";
 
         try {
             conn = getConnection();
@@ -72,7 +72,7 @@ public class MedicoDAO {
         Connection conn = null;
         PreparedStatement stmt = null;
         int registros = 0;
-        String SQL_UPDATE = "UPDATE Medicos SET usuario = ?, contrasena = ?, nombre = ?, apellidos = ?, especialidad = ? WHERE id = ?";
+        String SQL_UPDATE = "UPDATE medicos SET usuario = ?, contrasena = ?, nombre = ?, apellidos = ?, especialidad = ? WHERE id = ?";
 
         try {
             conn = getConnection();
@@ -98,7 +98,7 @@ public class MedicoDAO {
         Connection conn = null;
         PreparedStatement stmt = null;
         int registros = 0;
-        String SQL_DELETE = "DELETE FROM Medicos WHERE id = ?";
+        String SQL_DELETE = "DELETE FROM medicos WHERE id = ?";
 
         try {
             conn = getConnection();
