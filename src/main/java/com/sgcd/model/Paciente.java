@@ -3,15 +3,15 @@ package com.sgcd.model;
 public class Paciente {
     private int id;
     private String usuario;
-    private String contraseña;
+    private String contrasena;
     private String nombre;
     private String apellidos;
     private String telefono;
     private String direccion;
 
-    public Paciente(String usuario, String contraseña, String nombre, String apellidos, String telefono, String direccion) {
+    public Paciente(String usuario, String contrasena, String nombre, String apellidos, String telefono, String direccion) {
         this.usuario = usuario;
-        this.contraseña = contraseña;
+        this.contrasena = contrasena;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.telefono = telefono;
@@ -34,11 +34,11 @@ public class Paciente {
         this.usuario = usuario; 
     }
 
-    public String getContraseña() {
-        return contraseña; 
+    public String getContrasena() {
+        return contrasena;
     }
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña; 
+    public void setContrasena(String contraseña) {
+        this.contrasena = contraseña;
     }
 
     public String getNombre() { 

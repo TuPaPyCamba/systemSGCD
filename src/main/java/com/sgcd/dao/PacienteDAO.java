@@ -15,12 +15,12 @@ public class PacienteDAO {
         Connection conn = null;
         PreparedStatement stmt = null;
         int registros = 0;
-        String SQL_INSERT = "INSERT INTO Pacientes (usuario, contraseña, nombre, apellidos, telefono, direccion) VALUES (?, ?, ?, ?, ?, ?)";
+        String SQL_INSERT = "INSERT INTO pacientes(usuario, contrasena, nombre, apellidos, telefono, direccion) VALUES (?, ?, ?, ?, ?, ?)";
         try {
             conn = getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
             stmt.setString(1, paciente.getPaciente());
-            stmt.setString(2, paciente.getContraseña());
+            stmt.setString(2, paciente.getContrasena());
             stmt.setString(3, paciente.getNombre());
             stmt.setString(4, paciente.getApellidos());
             stmt.setString(5, paciente.getTelefono());
@@ -52,7 +52,7 @@ public class PacienteDAO {
             if (rs.next()) {
                 paciente.setIdPaciente(rs.getInt("id"));
                 paciente.setPaciente(rs.getString("usuario"));
-                paciente.setContraseña(rs.getString("contraseña"));
+                paciente.setContrasena(rs.getString("contraseña"));
                 paciente.setNombre(rs.getString("nombre"));
                 paciente.setApellidos(rs.getString("apellidos"));
                 paciente.setTelefono(rs.getString("telefono"));
@@ -79,7 +79,7 @@ public class PacienteDAO {
             conn = getConnection();
             stmt = conn.prepareStatement(SQL_UPDATE);
             stmt.setString(1, paciente.getPaciente());
-            stmt.setString(2, paciente.getContraseña());
+            stmt.setString(2, paciente.getContrasena());
             stmt.setString(3, paciente.getNombre());
             stmt.setString(4, paciente.getApellidos());
             stmt.setString(5, paciente.getTelefono());
