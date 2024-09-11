@@ -118,22 +118,6 @@
     </table>
         <!-- Logica para crear nuevo Paciente -->
         <%
-            //manejo edicion ----------------
-            String usuariocreate = request.getParameter("usuariocreate");
-            String contrasenacreate = request.getParameter("contrasenacreate");
-            String nombrecreate = request.getParameter("nombrecreate");
-            String apellidoscreate = request.getParameter("apellidoscreate");
-            String telefonocreate = request.getParameter("telefonocreate");
-            String direccioncreate = request.getParameter("direccioncreate");
-
-            Paciente nuevoPaciente = new Paciente(usuariocreate, contrasenacreate, nombrecreate, apellidoscreate, telefonocreate, direccioncreate);
-
-            try {
-                int registros = pacienteDAO.create(nuevoPaciente);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
         //manejo edicion ----------------
         String idtoedit = request.getParameter("id");
         String usuarioedit = request.getParameter("usuarioedit");
