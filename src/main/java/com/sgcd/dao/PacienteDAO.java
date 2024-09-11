@@ -74,8 +74,9 @@ public class PacienteDAO {
     public int actualizar(Paciente paciente) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
-        String SQL_UPDATE = "UPDATE pacientes SET usuario = ?, contraseña = ?, nombre = ?, apellidos = ?, telefono = ?, direccion = ?, aprobado = ? WHERE id = ?";
-        int registros = stmt.executeUpdate();
+        int registros = 0;
+        String SQL_UPDATE = "UPDATE pacientes SET usuario = ?, contrasena = ?, nombre = ?, apellidos = ?, telefono = ?, direccion = ? WHERE id = ?";
+
         try {
             conn = getConnection();
             stmt = conn.prepareStatement(SQL_UPDATE);
@@ -86,8 +87,8 @@ public class PacienteDAO {
             stmt.setString(5, paciente.getTelefono());
             stmt.setString(6, paciente.getDireccion());
             stmt.setInt(7, paciente.getIdPaciente());
-
             registros = stmt.executeUpdate();
+            System.out.println(registros);
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         } finally {
@@ -133,7 +134,6 @@ public class PacienteDAO {
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-
                 Paciente paciente = new Paciente();
                 paciente.setIdPaciente(rs.getInt("id"));
                 paciente.setPaciente(rs.getString("usuario"));

@@ -76,6 +76,25 @@ public class MedicoDAO {
         Connection conn = null;
         PreparedStatement stmt = null;
         int registros = 0;
+        String SQL_UPDATE = "UPDATE medicos SET usuario = ?, contrasena = ?, nombre = ?, apellidos = ?, especialidad = ? WHERE id = ?";
+
+        try {
+            conn = getConnection();
+            stmt = conn.prepareStatement(SQL_UPDATE);
+            stmt.setString(1, medico.getUsuario());
+            stmt.setString(2, medico.getContrasena());
+            stmt.setString(3, medico.getNombre());
+            stmt.setString(4, medico.getApellidos());
+            stmt.setString(5, medico.getEspecialidad());
+            stmt.setInt(6, medico.getId());
+            registros = stmt.executeUpdate();
+            System.out.println(registros);
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        } finally {
+            if (stmt != null) close(stmt);
+            if (conn != null) close(conn);
+        }
         return registros;
     }
 

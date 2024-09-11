@@ -15,6 +15,39 @@
 <head>
     <title>Gestion de Pacientes</title>
     <link rel="stylesheet" href="Style.css">
+    <script>
+        function toggleForm(button) {
+            var fila = button.closest('tr');
+            var siguienteFila = fila.nextElementSibling;
+
+            if (siguienteFila.classList.contains('edit-form')) {
+                if (siguienteFila.style.display === "none" || siguienteFila.style.display === "") {
+                    siguienteFila.style.display = "table-row";
+                    button.textContent = "Cerrar";
+                } else {
+                    siguienteFila.style.display = "none";
+                    button.textContent = "Editar";
+                }
+            }
+        }
+
+        function toggleNewForm() {
+            var form = document.getElementById('new-paciente-form');
+            if (form.style.display === 'none' || form.style.display === '') {
+                form.style.display = 'block';
+            } else {
+                form.style.display = 'none';
+            }
+        }
+
+        function confirmarRegistro() {
+            return confirm("¿Estás seguro de que quieres registrar este paciente?");
+        }
+
+        function confirmarEditRegistro() {
+            return confirm("¿Estás seguro de que quieres editar el registro de este paciente?");
+        }
+    </script>
 </head>
 <body>
 <div class="g-container">
@@ -101,12 +134,12 @@
             <td colspan="6">
                 <form action="gestionPaciente.jsp" method="post">
                     <input type="hidden" name="idedit" value="<%= paciente.getIdPaciente() %>">
-                    <label>Usuario: </label><input type="text" name="usuario" value="<%= paciente.getPaciente()%>">
-                    <label>Contraseña: </label><input type="password" name="contasena" value="<%= paciente.getContrasena()%>">
-                    <label>Nombre: </label><input type="text" name="nombre" value="<%= paciente.getNombre()%>">
-                    <label>Apellidos: </label><input type="text" name="apellidos" value="<%= paciente.getApellidos()%>">
-                    <label>Teléfono: </label><input type="text" name="telefono" value="<%= paciente.getTelefono()%>">
-                    <label>Dirección: </label><input type="text" name="direccion" value="<%= paciente.getDireccion()%>">
+                    <label>Usuario: </label><input type="text" name="usuarioedit" value="<%= paciente.getPaciente()%>">
+                    <label>Contraseña: </label><input type="password" name="contrasenaedit" value="<%= paciente.getContrasena()%>">
+                    <label>Nombre: </label><input type="text" name="nombreedit" value="<%= paciente.getNombre()%>">
+                    <label>Apellidos: </label><input type="text" name="apellidosedit" value="<%= paciente.getApellidos()%>">
+                    <label>Teléfono: </label><input type="text" name="telefonoedit" value="<%= paciente.getTelefono()%>">
+                    <label>Dirección: </label><input type="text" name="direccionedit" value="<%= paciente.getDireccion()%>">
                     <button type="submit" class="edit-form-save-button">Guardar</button>
                 </form>
             </td>
@@ -133,6 +166,7 @@
             pacienteEdit.setIdPaciente(idEdit);
             try {
                 int registrosEditados = pacienteDAO.actualizar(pacienteEdit);
+                response.sendRedirect("gestionPaciente.jsp");
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
@@ -179,38 +213,5 @@
 
     %>
 </div>
-<script>
-    function toggleForm(button) {
-        var fila = button.closest('tr');
-        var siguienteFila = fila.nextElementSibling;
-
-        if (siguienteFila.classList.contains('edit-form')) {
-            if (siguienteFila.style.display === "none" || siguienteFila.style.display === "") {
-                siguienteFila.style.display = "table-row";
-                button.textContent = "Cerrar";
-            } else {
-                siguienteFila.style.display = "none";
-                button.textContent = "Editar";
-            }
-        }
-    }
-
-    function toggleNewForm() {
-        var form = document.getElementById('new-paciente-form');
-        if (form.style.display === 'none' || form.style.display === '') {
-            form.style.display = 'block';
-        } else {
-            form.style.display = 'none';
-        }
-    }
-
-    function confirmarRegistro() {
-        return confirm("¿Estás seguro de que quieres registrar este paciente?");
-    }
-
-    function confirmarEditRegistro() {
-        return confirm("¿Estás seguro de que quieres editar el registro de este paciente?");
-    }
-</script>
 </body>
 </html>

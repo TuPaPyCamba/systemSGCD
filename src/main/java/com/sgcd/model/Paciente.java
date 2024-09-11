@@ -10,6 +10,7 @@ public class Paciente {
     private String direccion;
 
     public Paciente() {
+
     }
 
     public Paciente(String usuario, String contrasena, String nombre, String apellidos, String telefono, String direccion) {
@@ -23,51 +24,51 @@ public class Paciente {
 
     // Getters y Setters
     public int getIdPaciente(){
-        return id; 
+        return id;
     }
     public void setIdPaciente(int id) {
-        this.id = id; 
+        this.id = id;
     }
 
     public String getPaciente() {
-        return usuario; 
+        return usuario;
     }
     public void setPaciente(String usuario) {
-        this.usuario = usuario; 
+        this.usuario = usuario;
     }
 
     public String getContrasena() {
         return contrasena;
     }
-    public void setContrasena(String contraseña) {
-        this.contrasena = contraseña;
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 
-    public String getNombre() { 
-        return nombre; 
+    public String getNombre() {
+        return nombre;
     }
     public void setNombre(String nombre) {
-        this.nombre = nombre; 
+        this.nombre = nombre;
     }
 
     public String getApellidos() {
-        return apellidos; 
+        return apellidos;
     }
     public void setApellidos(String apellidos) {
-        this.apellidos = apellidos; 
+        this.apellidos = apellidos;
     }
 
     public String getTelefono() {
-        return telefono; 
+        return telefono;
     }
     public void setTelefono(String telefono) {
-        this.telefono = telefono; 
+        this.telefono = telefono;
     }
 
     public String getDireccion() {
-        return direccion; 
+        return direccion;
     }
     public void setDireccion(String direccion) {
-        this.direccion = direccion; 
+        this.direccion = direccion;
     }
 }
