@@ -26,23 +26,6 @@
             </div>
             <div class="blue-line"></div>
         </div>
-        <!-- Logica para crear nuevo Paciente -->
-        <%
-        String usuariocreate = request.getParameter("usuariocreate");
-        String contrasenacreate = request.getParameter("contrasenacreate");
-        String nombrecreate = request.getParameter("nombrecreate");
-        String apellidoscreate = request.getParameter("apellidoscreate");
-        String telefonocreate = request.getParameter("telefonocreate");
-        String direccioncreate = request.getParameter("direccioncreate");
-
-        PacienteDAO pacienteDAO = new PacienteDAO();
-        Paciente nuevoPaciente = new Paciente(usuariocreate, contrasenacreate, nombrecreate, apellidoscreate, telefonocreate, direccioncreate);
-
-        try {
-            int registros = pacienteDAO.create(nuevoPaciente);
-        } catch (SQLException e) {
-            e.printStackTrace();
-    %>
         <!-- Formulario de nuevo Paciente -->
         <div id="new-paciente-form" class="create-form">
             <h3>Registrar Nuevo Paciente</h3>
@@ -78,6 +61,7 @@
             String busqueda = request.getParameter("busqueda");
             List<Paciente> pacientes = null;
             List<Paciente> pacientesFiltrados = new ArrayList<>();
+            PacienteDAO pacienteDAO = new PacienteDAO();
 
             try {
                 pacientes = pacienteDAO.obtenerPacientes();
@@ -90,8 +74,8 @@
                 } else {
                     pacientesFiltrados = pacientes;
                 }
-            } catch (SQLException e) {
-                e.printStackTrace();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
             }
 
             if (pacientesFiltrados != null && !pacientesFiltrados.isEmpty()) {
@@ -116,12 +100,12 @@
                                 <td colspan="6">
                                     <form action="gestionPaciente.jsp" method="post">
                                         <input type="hidden" name="idedit" value="<%= paciente.getIdPaciente() %>">
-                                        <label>Usuario: </label><input type="text" name="usuario" value="<%= paciente.getPaciente()%>">
-                                        <label>Contraseña: </label><input type="password" name="contasena" value="<%= paciente.getContrasena()%>">
-                                        <label>Nombre: </label><input type="text" name="nombre" value="<%= paciente.getNombre()%>">
-                                        <label>Apellidos: </label><input type="text" name="apellidos" value="<%= paciente.getApellidos()%>">
-                                        <label>Teléfono: </label><input type="text" name="telefono" value="<%= paciente.getTelefono()%>">
-                                        <label>Dirección: </label><input type="text" name="direccion" value="<%= paciente.getDireccion()%>">
+                                        <label>Usuario: </label><input type="text" name="usuarioedit" value="<%= paciente.getPaciente() %>">
+                                        <label>Contraseña: </label><input type="password" name="contrasenaedit" value="<%= paciente.getContrasena() %>">
+                                        <label>Nombre: </label><input type="text" name="nombreedit" value="<%= paciente.getNombre() %>">
+                                        <label>Apellidos: </label><input type="text" name="apellidosedit" value="<%= paciente.getApellidos() %>">
+                                        <label>Teléfono: </label><input type="text" name="telefonoedit" value="<%= paciente.getTelefono() %>">
+                                        <label>Dirección: </label><input type="text" name="direccionedit" value="<%= paciente.getDireccion() %>">
                                         <button type="submit" class="edit-form-save-button">Guardar</button>
                                     </form>
                                 </td>
@@ -132,8 +116,26 @@
             %>
         </tbody>
     </table>
-    <%
-        String idEditStr = request.getParameter("idedit");
+        <!-- Logica para crear nuevo Paciente -->
+        <%
+            //manejo edicion ----------------
+            String usuariocreate = request.getParameter("usuariocreate");
+            String contrasenacreate = request.getParameter("contrasenacreate");
+            String nombrecreate = request.getParameter("nombrecreate");
+            String apellidoscreate = request.getParameter("apellidoscreate");
+            String telefonocreate = request.getParameter("telefonocreate");
+            String direccioncreate = request.getParameter("direccioncreate");
+
+            Paciente nuevoPaciente = new Paciente(usuariocreate, contrasenacreate, nombrecreate, apellidoscreate, telefonocreate, direccioncreate);
+
+            try {
+                int registros = pacienteDAO.create(nuevoPaciente);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        //manejo edicion ----------------
+        String idtoedit = request.getParameter("id");
         String usuarioedit = request.getParameter("usuarioedit");
         String contrasenaedit = request.getParameter("contrasenaedit");
         String nombreedit = request.getParameter("nombreedit");
@@ -141,19 +143,19 @@
         String telefonoedit = request.getParameter("telefonoedit");
         String direccionedit = request.getParameter("direccionedit");
 
-        if (idEditStr != null && !idEditStr.isEmpty()) {
-            int idEdit = Integer.parseInt(idEditStr);
-            Paciente pacienteEdit = new Paciente(usuarioedit, contrasenaedit, nombreedit, apellidosedit, telefonoedit, direccionedit);
-            pacienteEdit.setIdPaciente(idEdit);
-            try {
-                int registrosEditados = pacienteDAO.actualizar(pacienteEdit);
-            } catch (SQLException e) {
-                e.printStackTrace();
+        int idedit = Integer.parseInt(idtoedit);
+
+        Paciente pacienteEdit = new Paciente(idedit,usuarioedit, contrasenaedit, nombreedit, apellidosedit, telefonoedit, direccionedit);
+
+        PacienteDAO pacienteDAOEdit = new PacienteDAO();
+
+            try{
+                int registrosEditados = pacienteDAOEdit.actualizar(pacienteEdit);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
             }
-        }
-    %>
-    <%
-        //manejo de la eliminacion
+
+        //manejo de la eliminacion ------------------
         String idParam = request.getParameter("id");
         if (idParam != null && !idParam.isEmpty()) {
             int id = Integer.parseInt(idParam);
@@ -161,8 +163,8 @@
 
             try {
                 int registrosEliminados = pacienteDAO.delete(id);
-            } catch (SQLException e) {
-                e.printStackTrace();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
             }
         }
 

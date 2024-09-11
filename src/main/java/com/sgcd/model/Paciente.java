@@ -21,6 +21,9 @@ public class Paciente {
     public Paciente() {
     }
 
+    public Paciente(int idedit, String usuarioedit, String contrasenaedit, String nombreedit, String apellidosedit, String telefonoedit, String direccionedit) {
+    }
+
     // Getters y Setters
     public int getIdPaciente(){
         return id; 

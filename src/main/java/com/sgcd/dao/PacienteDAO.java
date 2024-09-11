@@ -74,9 +74,8 @@ public class PacienteDAO {
     public int actualizar(Paciente paciente) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
-        int registros = 0;
         String SQL_UPDATE = "UPDATE pacientes SET usuario = ?, contraseña = ?, nombre = ?, apellidos = ?, telefono = ?, direccion = ?, aprobado = ? WHERE id = ?";
-
+        int registros = stmt.executeUpdate();
         try {
             conn = getConnection();
             stmt = conn.prepareStatement(SQL_UPDATE);
