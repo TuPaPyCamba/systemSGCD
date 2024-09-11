@@ -72,6 +72,7 @@
                 throw new RuntimeException(ex);
             }
 
+            if (pacientesFiltrados != null && !pacientesFiltrados.isEmpty()) {
             for (Paciente paciente : pacientesFiltrados) {
         %>
         <tr>
@@ -104,6 +105,7 @@
             </td>
         </tr>
         <%
+            }
             }
         %>
         </tbody>
