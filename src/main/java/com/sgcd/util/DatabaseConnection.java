@@ -27,32 +27,4 @@ public class DatabaseConnection {
             }
         }
     }
-
-//    public static void main(String[] args) throws SQLException {
-//        Connection conn = null;
-//        PreparedStatement stmt = null;
-//        ResultSet rs = null;
-//
-//        String SQL_SELECT_BY_ID = "SELECT * FROM pacientes";
-//        try {
-//            conn = getConnection();
-//            stmt = conn.prepareStatement(SQL_SELECT_BY_ID);
-//            rs = stmt.executeQuery();
-//            while (rs.next()) {
-//                System.out.println(rs.getInt("id") + " " + rs.getString("nombre"));
-//            }
-//        } catch (Exception e) {
-//            System.out.println(e);
-//        } finally {
-//            if (rs != null) {
-//                close(rs);
-//            }
-//            if (stmt != null) {
-//                close(stmt);
-//            }
-//            if (conn != null) {
-//                close(conn);
-//            }
-//        }
-//    }
 }
