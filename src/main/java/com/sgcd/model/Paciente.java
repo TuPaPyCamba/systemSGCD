@@ -9,6 +9,9 @@ public class Paciente {
     private String telefono;
     private String direccion;
 
+    public Paciente() {
+    }
+
     public Paciente(String usuario, String contrasena, String nombre, String apellidos, String telefono, String direccion) {
         this.usuario = usuario;
         this.contrasena = contrasena;
@@ -16,12 +19,6 @@ public class Paciente {
         this.apellidos = apellidos;
         this.telefono = telefono;
         this.direccion = direccion;
-    }
-
-    public Paciente() {
-    }
-
-    public Paciente(int idedit, String usuarioedit, String contrasenaedit, String nombreedit, String apellidosedit, String telefonoedit, String direccionedit) {
     }
 
     // Getters y Setters
