@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MedicoDAO {
 
@@ -32,6 +34,48 @@ public class MedicoDAO {
             if (stmt != null) close(stmt);
             if (conn != null) close(conn);
         }
+        return registros;
+    }
+
+    // Metodo para traer todos los registros
+    public List<Medico> obtenerMedicos() throws SQLException {
+        List<Medico> medicos = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String SQL_SELECT = "SELECT * FROM medicos";
+
+        try {
+            conn = getConnection();
+            stmt = conn.prepareStatement(SQL_SELECT);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Medico medico = new Medico();
+                medico.setId(rs.getInt("id"));
+                medico.setUsuario(rs.getString("usuario"));
+                medico.setContrasena(rs.getString("contrasena"));
+                medico.setNombre(rs.getString("nombre"));
+                medico.setApellidos(rs.getString("apellidos"));
+                medico.setEspecialidad(rs.getString("especialidad"));
+
+                medicos.add(medico);
+            }
+        }catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        } finally {
+            if (stmt != null) close(stmt);
+            if (conn != null) close(conn);
+            if (rs != null) close(rs);
+        }
+        return medicos;
+    }
+
+    // Metodo para editar
+    public int actualizar(Medico medico) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        int registros = 0;
         return registros;
     }
 

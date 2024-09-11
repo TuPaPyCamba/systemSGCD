@@ -8,6 +8,10 @@ public class Medico {
     private String apellidos;
     private String especialidad;
 
+    public Medico() {
+
+    }
+
     public Medico(String usuario, String contrasena, String nombre, String apellidos, String especialidad) {
         this.usuario = usuario;
         this.contrasena = contrasena;
