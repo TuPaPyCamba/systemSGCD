@@ -64,7 +64,7 @@ public class MedicoDAO {
 
                 medicos.add(medico);
             }
-        }catch (SQLException ex) {
+        } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         } finally {
             if (stmt != null) close(stmt);
@@ -174,4 +174,5 @@ public class MedicoDAO {
 
         return horasDisponibles;
     }
+
 }

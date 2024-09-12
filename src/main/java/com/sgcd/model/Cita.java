@@ -71,4 +71,5 @@ public class Cita {
         this.duracion = duracion;
     }
 
+
 }
