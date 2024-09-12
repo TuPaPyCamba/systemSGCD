@@ -4,93 +4,71 @@ import com.sgcd.model.Cita;
 import static com.sgcd.util.DatabaseConnection.close;
 import static com.sgcd.util.DatabaseConnection.getConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CitaDAO {
 
     // Metodo de creacion
-    public int create(Cita cita) throws SQLException {
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        int registros = 0;
-        String SQL_INSERT = "INSERT INTO Citas (paciente_id, medico_id, fecha, hora) VALUES (?, ?, ?, ?)";
-        try {
-            conn = getConnection();
-            stmt = conn.prepareStatement(SQL_INSERT);
-            stmt.setInt(1, cita.getPacienteId());
-            stmt.setInt(2, cita.getMedicoId());
-            stmt.setDate(3, cita.getFecha());
-            stmt.setTime(4, cita.getHora());
-            registros = stmt.executeUpdate();
-        } catch (SQLException ex) {
-            ex.printStackTrace(System.out);
-        } finally {
-            if (stmt != null) close(stmt);
-            if (conn != null) close(conn);
+    public boolean crearCita(int idPaciente, int idMedico, LocalDateTime fechaHora, String descripcion) {
+        // Verificar si el médico ya tiene una cita en esa fecha y hora
+        if (esHorarioOcupado(idMedico, fechaHora)) {
+            System.out.println("El médico ya tiene una cita en ese horario.");
+            return false;  // No se puede crear una cita si el horario está ocupado
         }
-        return registros;
-    }
 
-    // Metodo para buscar una cita por ID
-    public Cita findById(int id) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
-        ResultSet rs = null;
-        Cita cita = null;
-        String SQL_SELECT_BY_ID = "SELECT * FROM Citas WHERE id = ?";
+        // SQL para insertar una nueva cita
+        String sql = "INSERT INTO citas (idPaciente, idMedico, fechaHora, descripcion) VALUES (?, ?, ?, ?)";
 
         try {
             conn = getConnection();
-            stmt = conn.prepareStatement(SQL_SELECT_BY_ID);
-            stmt.setInt(1, id);
-            rs = stmt.executeQuery();
+            stmt = conn.prepareStatement(sql);
 
-            if (rs.next()) {
-                cita = new Cita();
-                cita.setId(rs.getInt("id"));
-                cita.setPacienteId(rs.getInt("paciente_id"));
-                cita.setMedicoId(rs.getInt("medico_id"));
-                cita.setFecha(rs.getDate("fecha"));
-                cita.setHora(rs.getTime("hora"));
+            // Asignar parámetros al PreparedStatement
+            stmt.setInt(1, idPaciente);
+            stmt.setInt(2, idMedico);
+            stmt.setTimestamp(3, Timestamp.valueOf(fechaHora));
+            stmt.setString(4, descripcion);
+
+            int filasInsertadas = stmt.executeUpdate();
+
+            if (filasInsertadas > 0) {
+                System.out.println("Cita creada exitosamente.");
+                return true;
             }
-        } catch (SQLException ex) {
-            ex.printStackTrace(System.out);
-        } finally {
-            if (rs != null) close(rs);
-            if (stmt != null) close(stmt);
-            if (conn != null) close(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return cita;
+        return false;  // Hubo un problema al crear la cita
     }
 
-    // Metodo para editar
-    public int update(Cita cita) throws SQLException {
+    public boolean esHorarioOcupado(int idMedico, LocalDateTime fechaHora) {
+        String sql = "SELECT COUNT(*) FROM citas WHERE idMedico = ? AND fechaHora = ?";
         Connection conn = null;
         PreparedStatement stmt = null;
-        int registros = 0;
-        String SQL_UPDATE = "UPDATE Citas SET paciente_id = ?, medico_id = ?, fecha = ?, hora = ? WHERE id = ?";
 
         try {
             conn = getConnection();
-            stmt = conn.prepareStatement(SQL_UPDATE);
-            stmt.setInt(1, cita.getPacienteId());
-            stmt.setInt(2, cita.getMedicoId());
-            stmt.setDate(3, cita.getFecha());
-            stmt.setTime(4, cita.getHora());
-            stmt.setInt(5, cita.getId());
-            registros = stmt.executeUpdate();
-        } catch (SQLException ex) {
-            ex.printStackTrace(System.out);
-        } finally {
-            if (stmt != null) close(stmt);
-            if (conn != null) close(conn);
+            stmt = conn.prepareStatement(sql);
+
+            stmt.setInt(1, idMedico);
+            stmt.setTimestamp(2, Timestamp.valueOf(fechaHora));
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                return count > 0;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return registros;
+
+        return false;
     }
 
     // Metodo para eliminar
@@ -98,7 +76,7 @@ public class CitaDAO {
         Connection conn = null;
         PreparedStatement stmt = null;
         int registros = 0;
-        String SQL_DELETE = "DELETE FROM Citas WHERE id = ?";
+        String SQL_DELETE = "DELETE FROM citas WHERE id = ?";
 
         try {
             conn = getConnection();
@@ -114,79 +92,13 @@ public class CitaDAO {
         return registros;
     }
 
-    // Método para obtener citas por paciente
-    public List<Cita> findCitasByPacienteId(int pacienteId) throws SQLException {
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-        List<Cita> citas = new ArrayList<>();
-        String SQL_SELECT_BY_PACIENTE = "SELECT * FROM Citas WHERE paciente_id = ?";
-
-        try {
-            conn = getConnection();
-            stmt = conn.prepareStatement(SQL_SELECT_BY_PACIENTE);
-            stmt.setInt(1, pacienteId);
-            rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                Cita cita = new Cita();
-                cita.setId(rs.getInt("id"));
-                cita.setPacienteId(rs.getInt("paciente_id"));
-                cita.setMedicoId(rs.getInt("medico_id"));
-                cita.setFecha(rs.getDate("fecha"));
-                cita.setHora(rs.getTime("hora"));
-                citas.add(cita);
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace(System.out);
-        } finally {
-            if (rs != null) close(rs);
-            if (stmt != null) close(stmt);
-            if (conn != null) close(conn);
-        }
-        return citas;
-    }
-
-    // Método para obtener citas por médico
-    public List<Cita> findCitasByMedicoId(int medicoId) throws SQLException {
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-        List<Cita> citas = new ArrayList<>();
-        String SQL_SELECT_BY_MEDICO = "SELECT * FROM Citas WHERE medico_id = ?";
-
-        try {
-            conn = getConnection();
-            stmt = conn.prepareStatement(SQL_SELECT_BY_MEDICO);
-            stmt.setInt(1, medicoId);
-            rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                Cita cita = new Cita();
-                cita.setId(rs.getInt("id"));
-                cita.setPacienteId(rs.getInt("paciente_id"));
-                cita.setMedicoId(rs.getInt("medico_id"));
-                cita.setFecha(rs.getDate("fecha"));
-                cita.setHora(rs.getTime("hora"));
-                citas.add(cita);
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace(System.out);
-        } finally {
-            if (rs != null) close(rs);
-            if (stmt != null) close(stmt);
-            if (conn != null) close(conn);
-        }
-        return citas;
-    }
-
     // Método para obtener todas las citas
     public List<Cita> findAllCitas() throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         List<Cita> citas = new ArrayList<>();
-        String SQL_SELECT_ALL = "SELECT * FROM Citas";
+        String SQL_SELECT_ALL = "SELECT * FROM citas";
 
         try {
             conn = getConnection();
@@ -196,16 +108,43 @@ public class CitaDAO {
             while (rs.next()) {
                 Cita cita = new Cita();
                 cita.setId(rs.getInt("id"));
-                cita.setPacienteId(rs.getInt("paciente_id"));
-                cita.setMedicoId(rs.getInt("medico_id"));
-                cita.setFecha(rs.getDate("fecha"));
-                cita.setHora(rs.getTime("hora"));
+                cita.setIdPaciente(rs.getInt("paciente_id"));
+                cita.setIdMedico(rs.getInt("medico_id"));
+                cita.setFechaHora(rs.getTimestamp("fechahora").toLocalDateTime());
                 citas.add(cita);
             }
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         } finally {
             if (rs != null) close(rs);
+            if (stmt != null) close(stmt);
+            if (conn != null) close(conn);
+        }
+        return citas;
+    }
+
+    public List<LocalDateTime> obtenerCitasPorMedicoYDia(int idmedico, LocalDate dia) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        String sql = "SELECT fechaHora FROM citas WHERE idmedico = ? AND DATE(fechaHora) = ?";
+        List<LocalDateTime> citas = new ArrayList<>();
+
+        try {
+
+            conn = getConnection();
+            stmt = conn.prepareStatement(sql);
+
+            stmt.setInt(1, idmedico);
+            stmt.setDate(2, Date.valueOf(dia));
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                citas.add(rs.getTimestamp("fechaHora").toLocalDateTime());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
             if (stmt != null) close(stmt);
             if (conn != null) close(conn);
         }

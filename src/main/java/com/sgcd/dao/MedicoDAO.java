@@ -8,8 +8,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class MedicoDAO {
 
@@ -130,32 +133,6 @@ public class MedicoDAO {
         return medico;
     }
 
-    // Método para editar
-    public int update(Medico medico) throws SQLException {
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        int registros = 0;
-        String SQL_UPDATE = "UPDATE medicos SET usuario = ?, contrasena = ?, nombre = ?, apellidos = ?, especialidad = ? WHERE id = ?";
-
-        try {
-            conn = getConnection();
-            stmt = conn.prepareStatement(SQL_UPDATE);
-            stmt.setString(1, medico.getUsuario());
-            stmt.setString(2, medico.getContrasena());
-            stmt.setString(3, medico.getNombre());
-            stmt.setString(4, medico.getApellidos());
-            stmt.setString(5, medico.getEspecialidad());
-            stmt.setInt(6, medico.getId());
-            registros = stmt.executeUpdate();
-        } catch (SQLException ex) {
-            ex.printStackTrace(System.out);
-        } finally {
-            if (stmt != null) close(stmt);
-            if (conn != null) close(conn);
-        }
-        return registros;
-    }
-
     // Método para eliminar
     public int delete(int id) throws SQLException {
         Connection conn = null;
@@ -175,5 +152,26 @@ public class MedicoDAO {
             if (conn != null) close(conn);
         }
         return registros;
+    }
+
+    public List<LocalDateTime> obtenerHorasDisponibles(int idMedico, LocalDate dia) {
+        // Horario de trabajo del médico (9 AM - 5 PM)
+        LocalTime horaInicio = LocalTime.of(9, 0);
+        LocalTime horaFin = LocalTime.of(17, 0);
+
+        // Obtener citas existentes para ese día
+        CitaDAO citaDAO = new CitaDAO();
+        List<LocalDateTime> citasOcupadas = citaDAO.obtenerCitasPorMedicoYDia(idMedico, dia);
+
+        // Crear la lista de horas disponibles
+        List<LocalDateTime> horasDisponibles = new ArrayList<>();
+        for (LocalTime hora = horaInicio; hora.isBefore(horaFin); hora = hora.plusHours(1)) {
+            LocalDateTime fechaHora = LocalDateTime.of(dia, hora);
+            if (!citasOcupadas.contains(fechaHora)) {
+                horasDisponibles.add(fechaHora);
+            }
+        }
+
+        return horasDisponibles;
     }
 }
