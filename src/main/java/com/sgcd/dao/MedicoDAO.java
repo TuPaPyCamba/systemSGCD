@@ -154,10 +154,31 @@ public class MedicoDAO {
         return registros;
     }
 
-    public List<LocalDateTime> obtenerHorasDisponibles(int idMedico, LocalDate dia) {
-        // Horario de trabajo del médico (9 AM - 5 PM)
-        LocalTime horaInicio = LocalTime.of(9, 0);
-        LocalTime horaFin = LocalTime.of(17, 0);
+    public List<LocalDateTime> obtenerHorasDisponiblesParaCitas(int idMedico, LocalDate dia) {
+        // Horario de médico para citas (10 AM - 13 PM)
+        LocalTime horaInicio = LocalTime.of(10, 0);
+        LocalTime horaFin = LocalTime.of(13, 0);
+
+        // Obtener citas existentes para ese día
+        CitaDAO citaDAO = new CitaDAO();
+        List<LocalDateTime> citasOcupadas = citaDAO.obtenerCitasPorMedicoYDia(idMedico, dia);
+
+        // Crear la lista de horas disponibles
+        List<LocalDateTime> horasDisponibles = new ArrayList<>();
+        for (LocalTime hora = horaInicio; hora.isBefore(horaFin); hora = hora.plusHours(1)) {
+            LocalDateTime fechaHora = LocalDateTime.of(dia, hora);
+            if (!citasOcupadas.contains(fechaHora)) {
+                horasDisponibles.add(fechaHora);
+            }
+        }
+
+        return horasDisponibles;
+    }
+
+    public List<LocalDateTime> obtenerHorasDisponiblesParaConsultas(int idMedico, LocalDate dia) {
+        // Horario de médico para citas (15 PM - 19 PM)
+        LocalTime horaInicio = LocalTime.of(15, 0);
+        LocalTime horaFin = LocalTime.of(19, 0);
 
         // Obtener citas existentes para ese día
         CitaDAO citaDAO = new CitaDAO();
