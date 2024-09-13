@@ -1,19 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-
+<%@ page import="jakarta.servlet.http.HttpSession" %>
+<%@ page import="com.sgcd.util.Autentificacion" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Inicio de Sesion</title>
-        <%
-            String tipoUsuario = (String) session.getAttribute("tipoUsuario");
-            String usuario = (String) session.getAttribute("usuario");
-            out.print("<p> tipousuario : "+tipoUsuario +" usuario : "+ usuario+" </p>");
-        %>
     </head>
     <body>
-        <form action="login" method="POST" style="display: flex; justify-content: center; align-items: center;">
+        <form action="inicioSesion.jsp" method="POST" style="display: flex; justify-content: center; align-items: center;">
             <div>
                 <div>
                     <p style="font-size:15px;">SGCD</p>
@@ -38,6 +33,34 @@
                 </div>
             </div>
         </form>
+        <%
+            
+
+            /* Autentificacion autentificacion = new Autentificacion();
+
+            String usuario = request.getParameter("usuario");
+            String contrasena = request.getParamenter("contrasena");
+
+            HttpSession session = request.getSession();
+
+            if (autentificacion.autentificarUsuario(usuario, contrasena, session)) {
+                String tipoUsuario = (String) session.getAttribute("tipoUsuario");
+                response.sendRedirect(ManejoPaginaCorrespondiente(tipoUsuario));
+            }
+
+            private String ManejoPaginaCorrespondiente(String tipoUsuario) {
+            switch (tipoUsuario) {
+            case "administrador":
+                return "/SystemSGCD/gestionPaciente.jsp";
+            case "paciente":
+                return "/SystemSGCD/index.jsp";
+            case "medico":
+                return "/SystemSGCD/index.jsp";
+            default:
+                return "/SystemSGCD/inicioSesion.jsp";
+            }
+} */
+        %>
     </body>
 </html>
 

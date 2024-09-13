@@ -13,8 +13,8 @@
     %>
 </head>
 <body>
-<form action="registroMedico.jsp.jsp" method="POST" style="display: flex; justify-content: center; align-items: center;">
-    <div>
+    <form action="registroMedico.jsp" method="POST" style="display: flex; justify-content: center; align-items: center;">
+        <div>
         <div>
             <p style="font-size:15px;">SGCD</p>
             <h1>INICIO DE SESIÓN MEDICO</h1>
