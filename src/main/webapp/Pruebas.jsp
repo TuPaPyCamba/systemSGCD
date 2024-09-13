@@ -1,15 +1,11 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.time.LocalDate" %>
-<%@ page import="java.time.LocalDateTime" %>
-<%@ page import="java.time.LocalTime" %>
 <%@ page import="com.sgcd.dao.MedicoDAO" %>
 <%@ page import="com.sgcd.dao.PacienteDAO" %>
 <%@ page import="com.sgcd.dao.CitaDAO" %>
 <%@ page import="com.sgcd.model.Paciente" %>
 <%@ page import="com.sgcd.model.Medico" %>
-<%@ page import="java.sql.SQLException" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="java.time.format.DateTimeParseException" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <!DOCTYPE html>
@@ -101,6 +97,11 @@
         %>
     </select><br><br>
 
+    <!--- Descripcion de la Cita ---->
+    <label for="descripcion">Descripcion de la cita</label>
+    <textarea id="descripcion" name="descripcion" rows="4" cols="50" required></textarea><br><br>
+
+
     <!-- Pasar los valores de idPaciente, idMedico y fecha al siguiente formulario -->
     <input type="hidden" name="idpaciente" value="<%= idpacientestr %>">
     <input type="hidden" name="idmedico" value="<%= idmedicostr %>">
@@ -118,19 +119,21 @@
     String idmedicostrcrea = request.getParameter("idmedico");
     String fechast = request.getParameter("fecha");
     String hora = request.getParameter("hora");
+    String descripcion = request.getParameter("descripcion");
 
     try {
         // Verificar que los parámetros no estén vacíos
-        if (!idpacientestrcrea.isEmpty() && !idmedicostrcrea.isEmpty() && !fechast.isEmpty() && !hora.isEmpty()) {
+        if (!idpacientestrcrea.isEmpty() && !idmedicostrcrea.isEmpty() && !fechast.isEmpty() && !hora.isEmpty() && !descripcion.isEmpty()) {
             int idpaciente = Integer.parseInt(idpacientestrcrea);
             int idmedico = Integer.parseInt(idmedicostrcrea);
             LocalDate fecha = LocalDate.parse(fechast);
 
             // Crear la cita
-            boolean citaCreada = citaDAO.crearCita(idpaciente, idmedico, fecha, hora, "Descripción de la cita");
+            boolean citaCreada = citaDAO.crearCita(idpaciente, idmedico, fecha, hora, descripcion);
 
             if (citaCreada) {
                 System.out.println("Cita creada exitosamente.");
+                response.sendRedirect("Pruebas.jsp");
             } else {
                 System.out.println("Error al crear la cita.");
             }

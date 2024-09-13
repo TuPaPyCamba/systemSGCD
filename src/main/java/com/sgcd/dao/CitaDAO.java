@@ -20,6 +20,12 @@ public class CitaDAO {
             return false;
         }
 
+        System.out.println(idPaciente);
+        System.out.println(idMedico);
+        System.out.println(fecha);
+        System.out.println(hora);
+        System.out.println(descripcion);
+
         String sql = "INSERT INTO citas (idPaciente, idMedico, fecha, hora, descripcion) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = getConnection();
@@ -92,6 +98,8 @@ public class CitaDAO {
         String sql = "SELECT hora FROM citas WHERE idmedico = ? AND fecha = ?";
         List<String> citas = new ArrayList<>();
 
+        System.out.println(dia);
+
         try {
 
             conn = getConnection();
@@ -123,6 +131,9 @@ public class CitaDAO {
         // Eliminar las horas ocupadas de la lista de horas disponibles
         List<String> horasDisponibles = new ArrayList<>(todasLasHoras);
         horasDisponibles.removeAll(citasOcupadas);
+
+        System.out.println(dia);
+        System.out.println(horasDisponibles);
 
         return horasDisponibles;
     }
