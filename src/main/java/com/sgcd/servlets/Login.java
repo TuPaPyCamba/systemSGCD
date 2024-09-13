@@ -13,18 +13,19 @@ import java.io.IOException;
  *
  * @author jh
  */
-@WebServlet(name="Login", urlPatterns={"/Login"})
+@WebServlet(name = "Login", urlPatterns = {"/auth/login"})
 public class Login extends HttpServlet {
 
     private Autentificacion autentificacion = new Autentificacion();
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String usuario = request.getParameter("usuario");
         String contrasena = request.getParameter("contrasena");
 
         HttpSession session = request.getSession();
 
-        if (autentificacion.autentificacionUsuario(usuario, contrasena, session)) {
+        if (autentificacion.autentificarUsuario(usuario, contrasena, session)) {
             String tipoUsuario = (String) session.getAttribute("tipoUsuario");
             response.sendRedirect(ManejoPaginaCorrespondiente(tipoUsuario));
         }
@@ -34,13 +35,13 @@ public class Login extends HttpServlet {
     private String ManejoPaginaCorrespondiente(String tipoUsuario) {
         switch (tipoUsuario) {
             case "administrador":
-                return "index.jsp";
+                return "/SystemSGCD/gestionPaciente.jsp";
             case "paciente":
-                return "gestionPaciente.jsp";
+                return "/SystemSGCD/index.jsp";
             case "medico":
-                return "gestionMedico.jsp";
+                return "/SystemSGCD/index.jsp";
             default:
-                return "login.jsp";
+                return "/SystemSGCD/inicioSesion.jsp";
         }
     }
 

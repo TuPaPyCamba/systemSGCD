@@ -6,17 +6,22 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Inicio de Sesion</title>
+        <%
+            String tipoUsuario = (String) session.getAttribute("tipoUsuario");
+            String usuario = (String) session.getAttribute("usuario");
+            out.print("<p> tipousuario : "+tipoUsuario +" usuario : "+ usuario+" </p>");
+        %>
     </head>
     <body>
-        <form action="inicioSesion.jsp" method="POST" style="display: flex; justify-content: center; align-items: center;">
+        <form action="/auth/login" method="POST" style="display: flex; justify-content: center; align-items: center;">
             <div>
                 <div>
                     <p style="font-size:15px;">SGCD</p>
                     <h1>INICIO DE SESIÓN</h1>
                 </div>
                 <div style="margin: 10px;">
-                    <label for="username" style="display: flex; justify-content: center; margin: 10px;">Usuario</label>
-                    <input type="text" name="username" id="username" placeholder="Nombre de Usuario" style=" border: none; height: 30px; width: 200px;">
+                    <label for="usuario" style="display: flex; justify-content: center; margin: 10px;">Usuario</label>
+                    <input type="text" name="usuario" id="usuario" placeholder="Nombre de Usuario" style=" border: none; height: 30px; width: 200px;">
 
                     <label for="contrasena" style="display: flex; justify-content: center; margin: 10px;">Contraseña</label>
                     <input type="contrasena" name="contrasena" id="contrasena" placeholder="******" style="border: none; height: 30px; width: 200px;">

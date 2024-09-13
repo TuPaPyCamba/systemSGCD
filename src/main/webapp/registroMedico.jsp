@@ -6,6 +6,11 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Registro de Medico</title>
+    <%
+            if (session.getAttribute("tipoUsuario")!= "administrador"){
+                response.sendRedirect("/SystemSGCD/inicioSesion.jsp");
+            }
+    %>
 </head>
 <body>
 <form action="registroMedico.jsp.jsp" method="POST" style="display: flex; justify-content: center; align-items: center;">
