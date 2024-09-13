@@ -81,7 +81,7 @@ header .container .btn:hover{
 ========*/
 
 .home .container{
-    background-image: url(./img/Banner.jpg);
+    background-image: url(../img/Banner.jpg);
     background-position: center;
     background-size: cover;
     width: 100%;

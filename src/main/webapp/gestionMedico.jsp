@@ -14,7 +14,7 @@
 <html>
 <head>
     <title>Gestion de Medico</title>
-    <link rel="stylesheet" href="Style.css">
+    <link rel="stylesheet" href="css/Style.css">
     <script>
         function toggleForm(button) {
             var fila = button.closest('tr');
