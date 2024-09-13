@@ -58,29 +58,16 @@ public class Agenda {
 //        consultaDAO.create(consulta);
 //    }
 
-    // Obtiene todas las citas
-    public List<Cita> getAllCitas() throws SQLException {
-        return citaDAO.findAllCitas();
-    }
 
     // Obtiene todas las consultas
     public List<Consulta> getAllConsultas() throws SQLException {
         return consultaDAO.findAllConsultas();
     }
 
-    // Obtiene todas las citas para un paciente específico
-    public List<Cita> getCitasPorPaciente(int pacienteId) throws SQLException {
-        return citaDAO.findCitasByPacienteId(pacienteId);
-    }
 
     // Obtiene todas las consultas para un paciente específico
     public List<Consulta> getConsultasPorPaciente(int pacienteId) throws SQLException {
         return consultaDAO.findConsultasByPacienteId(pacienteId);
-    }
-
-    // Obtiene todas las citas para un medico específico
-    public List<Cita> getCitasPorMedico(int medicoId) throws SQLException {
-        return citaDAO.findCitasByMedicoId(medicoId);
     }
 
     // Obtiene todas las consultas para un medico específico

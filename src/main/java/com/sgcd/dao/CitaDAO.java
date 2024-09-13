@@ -1,39 +1,35 @@
 package com.sgcd.dao;
 
 import com.sgcd.model.Cita;
+import com.sgcd.util.HorarioUtil;
+
 import static com.sgcd.util.DatabaseConnection.close;
 import static com.sgcd.util.DatabaseConnection.getConnection;
 
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CitaDAO {
 
-    // Metodo de creacion
-    public boolean crearCita(int idPaciente, int idMedico, LocalDateTime fechaHora, String descripcion) {
-        // Verificar si el médico ya tiene una cita en esa fecha y hora
-        if (esHorarioOcupado(idMedico, fechaHora)) {
+    public boolean crearCita(int idPaciente, int idMedico, LocalDate fecha, String hora, String descripcion) {
+        // Verificar si el horario ya está ocupado
+        if (esHorarioOcupado(idMedico, fecha, hora)) {
             System.out.println("El médico ya tiene una cita en ese horario.");
-            return false;  // No se puede crear una cita si el horario está ocupado
+            return false;
         }
 
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        // SQL para insertar una nueva cita
-        String sql = "INSERT INTO citas (idPaciente, idMedico, fechaHora, descripcion) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO citas (idPaciente, idMedico, fecha, hora, descripcion) VALUES (?, ?, ?, ?, ?)";
 
-        try {
-            conn = getConnection();
-            stmt = conn.prepareStatement(sql);
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            // Asignar parámetros al PreparedStatement
             stmt.setInt(1, idPaciente);
             stmt.setInt(2, idMedico);
-            stmt.setTimestamp(3, Timestamp.valueOf(fechaHora));
-            stmt.setString(4, descripcion);
+            stmt.setDate(3, Date.valueOf(fecha));
+            stmt.setString(4, hora);
+            stmt.setString(5, descripcion);
 
             int filasInsertadas = stmt.executeUpdate();
 
@@ -44,26 +40,24 @@ public class CitaDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;  // Hubo un problema al crear la cita
+
+        return false;
     }
 
-    public boolean esHorarioOcupado(int idMedico, LocalDateTime fechaHora) {
-        String sql = "SELECT COUNT(*) FROM citas WHERE idMedico = ? AND fechaHora = ?";
-        Connection conn = null;
-        PreparedStatement stmt = null;
-
-        try {
-            conn = getConnection();
-            stmt = conn.prepareStatement(sql);
+    private boolean esHorarioOcupado(int idMedico, LocalDate fecha, String hora) {
+        String sql = "SELECT COUNT(*) FROM citas WHERE idMedico = ? AND DATE(fecha) = ? AND hora = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, idMedico);
-            stmt.setTimestamp(2, Timestamp.valueOf(fechaHora));
+            stmt.setDate(2, Date.valueOf(fecha));
+            stmt.setString(3, hora);
+
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 int count = rs.getInt(1);
                 return count > 0;
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -92,42 +86,11 @@ public class CitaDAO {
         return registros;
     }
 
-    // Método para obtener todas las citas
-    public List<Cita> findAllCitas() throws SQLException {
+    public List<String> obtenerCitasPorMedicoYDia(int idmedico, LocalDate dia) {
         Connection conn = null;
         PreparedStatement stmt = null;
-        ResultSet rs = null;
-        List<Cita> citas = new ArrayList<>();
-        String SQL_SELECT_ALL = "SELECT * FROM citas";
-
-        try {
-            conn = getConnection();
-            stmt = conn.prepareStatement(SQL_SELECT_ALL);
-            rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                Cita cita = new Cita();
-                cita.setId(rs.getInt("id"));
-                cita.setIdPaciente(rs.getInt("paciente_id"));
-                cita.setIdMedico(rs.getInt("medico_id"));
-                cita.setFechaHora(rs.getTimestamp("fechahora").toLocalDateTime());
-                citas.add(cita);
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace(System.out);
-        } finally {
-            if (rs != null) close(rs);
-            if (stmt != null) close(stmt);
-            if (conn != null) close(conn);
-        }
-        return citas;
-    }
-
-    public List<LocalDateTime> obtenerCitasPorMedicoYDia(int idmedico, LocalDate dia) {
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        String sql = "SELECT fechaHora FROM citas WHERE idmedico = ? AND DATE(fechaHora) = ?";
-        List<LocalDateTime> citas = new ArrayList<>();
+        String sql = "SELECT hora FROM citas WHERE idmedico = ? AND fecha = ?";
+        List<String> citas = new ArrayList<>();
 
         try {
 
@@ -135,12 +98,12 @@ public class CitaDAO {
             stmt = conn.prepareStatement(sql);
 
             stmt.setInt(1, idmedico);
-            stmt.setDate(2, Date.valueOf(dia));
+            stmt.setDate(2, java.sql.Date.valueOf(dia));
 
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                citas.add(rs.getTimestamp("fechaHora").toLocalDateTime());
+                citas.add(rs.getString("hora"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -151,4 +114,17 @@ public class CitaDAO {
         return citas;
     }
 
+    public List<String> obtenerHorasDisponiblesParaCitas(int idMedico, LocalDate dia) {
+        System.out.println(dia);
+
+        List<String> todasLasHoras = HorarioUtil.obtenerHorasDisponibles();
+        List<String> citasOcupadas = new CitaDAO().obtenerCitasPorMedicoYDia(idMedico, dia);
+
+        // Eliminar las horas ocupadas de la lista de horas disponibles
+        List<String> horasDisponibles = new ArrayList<>(todasLasHoras);
+        horasDisponibles.removeAll(citasOcupadas);
+
+        return horasDisponibles;
+    }
 }
+

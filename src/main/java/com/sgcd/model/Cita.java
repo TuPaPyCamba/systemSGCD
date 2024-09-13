@@ -1,24 +1,25 @@
 package com.sgcd.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class Cita {
     private int id;
     private int idPaciente;
     private int idMedico;
-    private LocalDateTime fechaHora;
+    private LocalDate fecha;
+    private String hora;
     private String descripcion;
     private int duracion;
 
     public Cita() {
     }
 
-    public Cita(int idpaciente, int idmedico, LocalDateTime fechaHora, String descripcion, int duracion) {
+    public Cita(int idpaciente, int idmedico, LocalDate fecha, String hora, String descripcion) {
         this.idPaciente = idpaciente;
         this.idMedico = idmedico;
-        this.fechaHora = fechaHora;
+        this.fecha = fecha;
+        this.hora = hora;
         this.descripcion = descripcion;
-        this.duracion = duracion;
     }
 
     // Getters y Setters
@@ -46,30 +47,21 @@ public class Cita {
         this.idMedico = idmedico;
     }
 
-    public LocalDateTime getFechaHora() {
-        return fechaHora;
+    public LocalDate getFecha() {
+        return fecha;
     }
 
-    public void setFechaHora(LocalDateTime fechaHora) {
-        this.fechaHora = fechaHora;
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
     }
+
+    public String getHora() { return hora; }
+
+    public void setHora(String hora) { this.hora = hora; }
 
     public String getDescripcion() {
         return descripcion;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-
-    public int getDuracion() {
-        return duracion;
-    }
-
-    public void setDuracion(int duracion) {
-        this.duracion = duracion;
-    }
-
-
+    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
 }
