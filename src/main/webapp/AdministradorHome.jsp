@@ -1,4 +1,4 @@
-<%--
+<<%--
   Created by IntelliJ IDEA.
   User: maxim
   Date: 13/09/2024
@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 
     <!-- queries css -->
-    <link rel="stylesheet" href="/css/queries.css">
+    <link rel="stylesheet" href="./css/Dashboards.css">
     <title>Document</title>
 </head>
 <body>
