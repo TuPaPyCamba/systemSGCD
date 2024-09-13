@@ -13,23 +13,23 @@
         %>
     </head>
     <body>
-        <form action="/auth/login" method="POST" style="display: flex; justify-content: center; align-items: center;">
+        <form action="login" method="POST" style="display: flex; justify-content: center; align-items: center;">
             <div>
                 <div>
                     <p style="font-size:15px;">SGCD</p>
                     <h1>INICIO DE SESIÓN</h1>
                 </div>
                 <div style="margin: 10px;">
-                    <label for="usuario" style="display: flex; justify-content: center; margin: 10px;">Usuario</label>
-                    <input type="text" name="usuario" id="usuario" placeholder="Nombre de Usuario" style=" border: none; height: 30px; width: 200px;">
+                    <label for="usuario" style="display: flex; justify-content: center; margin: 10px;" >Usuario</label>
+                    <input type="text" name="usuario" id="usuario" placeholder="Nombre de Usuario" style=" border: none; height: 30px; width: 200px;" required>
 
                     <label for="contrasena" style="display: flex; justify-content: center; margin: 10px;">Contraseña</label>
-                    <input type="contrasena" name="contrasena" id="contrasena" placeholder="******" style="border: none; height: 30px; width: 200px;">
+                    <input type="contrasena" name="contrasena" id="contrasena" placeholder="******" style="border: none; height: 30px; width: 200px;" required>
 
                 </div>
                 <div style="display: flex; align-items: center; justify-content: space-evenly; margin-top: 20px;">
                     <button type="submit" value="Iniciar sesion" style="height: 35px; border-radius: 20px; width: 120px; background-color: whitesmoke; border: none; color:#626262; cursor: pointer;">Enviar</button>
-                    <button type="submit" value="Volver a Index.jsp" style="height: 35px; border-radius: 20px; width: 120px; background-color: whitesmoke; border: none; color:#626262; cursor: pointer;">
+                    <button value="Volver a Index.jsp" style="height: 35px; border-radius: 20px; width: 120px; background-color: whitesmoke; border: none; color:#626262; cursor: pointer;">
                         <a href="./index.jsp">Volver al menu</a>
                     </button>
                 </div>

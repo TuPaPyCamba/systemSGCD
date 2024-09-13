@@ -9,7 +9,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>Login</servlet-name>
-    <url-pattern>/auth/login</url-pattern>
+    <url-pattern>/login</url-pattern>
   </servlet-mapping>
 
   <!-- Configura el servlet para la página de inicio (opcional) -->

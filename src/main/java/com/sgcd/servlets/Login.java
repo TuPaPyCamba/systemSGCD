@@ -2,7 +2,6 @@ package com.sgcd.servlets;
 
 import com.sgcd.util.Autentificacion;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -13,7 +12,6 @@ import java.io.IOException;
  *
  * @author jh
  */
-@WebServlet(name = "Login", urlPatterns = {"/auth/login"})
 public class Login extends HttpServlet {
 
     private Autentificacion autentificacion = new Autentificacion();
