@@ -11,20 +11,17 @@ import java.sql.*;
 
 public class Autentificacion {
 
-    public boolean autentificacionUsuario(String usuario, String contrasena, HttpSession session) {
+    public boolean autentificarUsuario(String usuario, String contrasena, HttpSession session) {
         Connection conn = null;
         PreparedStatement stmt = null;
-        String SQL_AUTH = "SELECT 'administrador' AS tabla_origen, id, nombre_usuario "
-                + "FROM administrador "
-                + "WHERE nombre_usuario = ? AND contrasena = ? "
+        String SQL_AUTH = "SELECT 'administradores' AS tipoUsuario, id, usuario AS usuario FROM administradores "
+                + "WHERE usuario = ? AND contrasena = ? "
                 + "UNION ALL "
-                + "SELECT 'paciente' AS tabla_origen, id, nombre_usuario "
-                + "FROM paciente "
-                + "WHERE nombre_usuario = ? AND contrasena = ? "
+                + "SELECT 'pacientes' AS tipoUsuario, id, usuario AS usuario FROM pacientes "
+                + "WHERE usuario = ? AND contrasena = ? "
                 + "UNION ALL "
-                + "SELECT 'medico' AS tabla_origen, id, nombre_usuario "
-                + "FROM medico "
-                + "WHERE nombre_usuario = ? AND contrasena = ?";
+                + "SELECT 'medicos' AS tipoUsuario, id, usuario AS usuario FROM medicos "
+                + "WHERE usuario = ? AND contrasena = ?";
 
         try {
             conn = getConnection();
@@ -37,12 +34,13 @@ public class Autentificacion {
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    int usuarioId = rs.getInt("id");
-                    String tablaOrigen = rs.getString("tabla_origen");
+                    int usuarioIdInt = rs.getInt("id");
+                    String usuarioId = Integer.toString(usuarioIdInt);
+                    String tipoUsuario = rs.getString("tipoUsuario");
 
-                    session.setAttribute("userId", usuarioId);
-                    session.setAttribute("username", usuario);
-                    session.setAttribute("userType", tablaOrigen);
+                    session.setAttribute("usuarioId", usuarioId);
+                    session.setAttribute("usuario", usuario);
+                    session.setAttribute("tipoUsuario", tipoUsuario);
 
                     return true;
                 }

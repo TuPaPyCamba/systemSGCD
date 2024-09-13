@@ -11,6 +11,11 @@
     <link rel="stylesheet" href="./css/fontawesome.min.css">
 
     <title>Salud Dental</title>
+       <%
+//        if (session.getAttribute("tipoUsuario")!= "paciente" || session.getAttribute("tipoUsuario")!= "medico" || session.getAttribute("tipoUsuario")!= "administrador"){
+//            response.sendRedirect("/SystemSGCD/inicioSesion.jsp");
+//        }
+       %>
 </head>
 
 <body>
@@ -245,9 +250,6 @@
         <p>Todos los derechos reservados | Creado por @ <span>MexiCode</span></p>
     </div>
 </footer>
-
-
-
 </body>
 
 </html>
