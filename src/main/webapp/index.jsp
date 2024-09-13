@@ -1,14 +1,15 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/CSS/index.css">
+    <link rel="stylesheet" href="index.css">
 
     <!--Font Awesome-->
-    <link rel="stylesheet" href="/CSS/all.min.css">
-    <link rel="stylesheet" href="/CSS/fontawesome.min.css">
+    <link rel="stylesheet" href="all.min.css">
+    <link rel="stylesheet" href="fontawesome.min.css">
 
     <title>Salud Dental</title>
 </head>
@@ -64,7 +65,7 @@
 
     <div class="container">
         <div class="image">
-            <img src="/imgs/About.jpg" alt="">
+            <img src="./img/Banner.jpg" alt="">
         </div>
         <div class="content">
             <h1>Por qué preferirnos?</h1>
@@ -93,7 +94,7 @@
 
         <div class="box">
             <div class="image">
-                <img src="/imgs/Service-2.jpg" alt="">
+                <img src="./img/Service-2.jpg" alt="">
             </div>
             <div class="content">
                 <h1>Salud Oral</h1>
@@ -109,7 +110,7 @@
 
         <div class="box">
             <div class="image">
-                <img src="/imgs/Service-1.jpg" alt="">
+                <img src="./img/Service-1.jpg" alt="">
             </div>
             <div class="content">
                 <h1>Blanqueamiento Dental</h1>
@@ -125,7 +126,7 @@
 
         <div class="box">
             <div class="image">
-                <img src="/imgs/Service-3.jpg" alt="">
+                <img src="./img/Service-3.jpg" alt="">
             </div>
             <div class="content">
                 <h1>Transplantes</h1>
@@ -181,7 +182,7 @@
 
     <div class="container">
         <div class="image">
-            <img src="/imgs/dentist-2.jpg" alt="">
+            <img src="./img/dentist-2.jpg" alt="">
         </div>
 
         <form action="">
