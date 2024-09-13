@@ -9,15 +9,20 @@ package com.sgcd.util;
 public class Redireccion {
 
     public static String manejarPagina(String tipoUsuario) {
-        switch (tipoUsuario) {
-            case "administrador":
-                return "/SystemSGCD/gestionPaciente.jsp";
-            case "paciente":
-                return "/SystemSGCD/index.jsp";
-            case "medico":
-                return "/SystemSGCD/index.jsp";
+
+//        if (tipoUsuario == null) {
+//            return "/inicioSesion.jsp";
+//        }
+
+        switch (tipoUsuario.toLowerCase()) {
+            case "administradores":
+                return "/index.jsp";
+            case "pacientes":
+                return "/index.jsp";
+            case "medicos":
+                return "/index.jsp";
             default:
-                return "/SystemSGCD/inicioSesion.jsp";
+                return "/inicioSesion.jsp";
         }
     }
 

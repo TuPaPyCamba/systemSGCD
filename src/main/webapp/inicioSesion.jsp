@@ -7,13 +7,34 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Inicio de Sesion</title>
-        <%
-            String typeuser = (String) session.getAttribute("tipoUsuario");
-            String user = (String) session.getAttribute("usuario");
-    out.print("<p> tipousuario : "+typeuser +" usuario : "+ user+" </p>");
-        %>
+        <script>
+            function redireccionarUsuario(tipoUsuario) {
+                let url;
+                switch (tipoUsuario) {
+                    case "administradores":
+                        url = "/SystemSGCD/index.jsp";
+                        break;
+                    case "pacientes":
+                        url = "/SystemSGCD/index.jsp";
+                        break;
+                    case "medicos":
+                        url = "/SystemSGCD/index.jsp";
+                        break;
+                    default:
+                        url = "/SystemSGCD/inicioSesion.jsp";
+                        break;
+                    }
+                    window.location.href = url;
+                }
+        </script>
     </head>
     <body>
+        <%
+            String ide = String.valueOf(session.getAttribute("usuarioId"));
+            String typeuser = (String) session.getAttribute("tipoUsuario");
+            String user = (String) session.getAttribute("usuario");
+        %>
+        <p>tipo usuario: <%= typeuser %>, usuario: <%= user %>, id: <%= ide %></p>
         <form action="inicioSesion.jsp" method="POST" style="display: flex; justify-content: center; align-items: center;">
             <div>
                 <div>
@@ -40,9 +61,9 @@
             </div>
         </form>
         <%
-            System.out.println("Se ejecuta Codigo Auth");
 
             Autentificacion autentificacion = new Autentificacion();
+            Redireccion redireccion = new Redireccion();
 
             String usuario = request.getParameter("usuario");
             String contrasena = request.getParameter("contrasena");
@@ -52,11 +73,16 @@
 
             session = request.getSession();
 
-            Redireccion redireccion = new Redireccion();
-
+          
             if (autentificacion.autentificarUsuario(usuario, contrasena, session)) {
                 String tipoUsuario = (String) session.getAttribute("tipoUsuario");
-                response.sendRedirect(redireccion.manejarPagina(tipoUsuario));
+                if (tipoUsuario != null) {
+        %>
+                        <script>
+                            redireccionarUsuario('<%= tipoUsuario %>');
+                        </script>
+        <%
+                }
             }
 
         %>

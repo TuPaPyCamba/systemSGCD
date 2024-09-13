@@ -15,6 +15,11 @@
 <head>
     <title>Gestion de Medico</title>
     <link rel="stylesheet" href="Style.css">
+    <%
+//        if (!"administradores".equals(session.getAttribute("tipoUsuario"))) {
+//            response.sendRedirect("/SystemSGCD/inicioSesion.jsp");
+//        }
+    %>
     <script>
         function toggleForm(button) {
             var fila = button.closest('tr');

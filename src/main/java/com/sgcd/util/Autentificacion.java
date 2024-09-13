@@ -20,7 +20,7 @@ public class Autentificacion {
                 + "SELECT 'pacientes' AS tipoUsuario, id, usuario AS usuario FROM pacientes "
                 + "WHERE usuario = ? AND contrasena = ? "
                 + "UNION ALL "
-                + "SELECT 'medico' AS tipoUsuario, id, usuario AS usuario FROM medicos "
+                + "SELECT 'medicos' AS tipoUsuario, id, usuario AS usuario FROM medicos "
                 + "WHERE usuario = ? AND contrasena = ?";
 
         try {
@@ -34,7 +34,8 @@ public class Autentificacion {
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    int usuarioId = rs.getInt("id");
+                    int usuarioIdInt = rs.getInt("id");
+                    String usuarioId = Integer.toString(usuarioIdInt);
                     String tipoUsuario = rs.getString("tipoUsuario");
 
                     session.setAttribute("usuarioId", usuarioId);

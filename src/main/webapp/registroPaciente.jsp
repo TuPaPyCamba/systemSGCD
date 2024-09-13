@@ -7,9 +7,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Registro de Paciente</title>
         <%
-            if (session.getAttribute("tipoUsuario")!= "administrador"){
-                response.sendRedirect("/SystemSGCD/inicioSesion.jsp");
-            }
+//            if (!"administradores".equals(session.getAttribute("tipoUsuario"))) {
+//                response.sendRedirect("/SystemSGCD/inicioSesion.jsp");
+//            }
         %>
     </head>
     <body>
