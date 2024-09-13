@@ -61,7 +61,7 @@ public class MedicoDAO {
 
                 medicos.add(medico);
             }
-        }catch (SQLException ex) {
+        } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         } finally {
             if (stmt != null) close(stmt);
@@ -130,32 +130,6 @@ public class MedicoDAO {
         return medico;
     }
 
-    // Método para editar
-    public int update(Medico medico) throws SQLException {
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        int registros = 0;
-        String SQL_UPDATE = "UPDATE medicos SET usuario = ?, contrasena = ?, nombre = ?, apellidos = ?, especialidad = ? WHERE id = ?";
-
-        try {
-            conn = getConnection();
-            stmt = conn.prepareStatement(SQL_UPDATE);
-            stmt.setString(1, medico.getUsuario());
-            stmt.setString(2, medico.getContrasena());
-            stmt.setString(3, medico.getNombre());
-            stmt.setString(4, medico.getApellidos());
-            stmt.setString(5, medico.getEspecialidad());
-            stmt.setInt(6, medico.getId());
-            registros = stmt.executeUpdate();
-        } catch (SQLException ex) {
-            ex.printStackTrace(System.out);
-        } finally {
-            if (stmt != null) close(stmt);
-            if (conn != null) close(conn);
-        }
-        return registros;
-    }
-
     // Método para eliminar
     public int delete(int id) throws SQLException {
         Connection conn = null;
@@ -176,4 +150,5 @@ public class MedicoDAO {
         }
         return registros;
     }
+
 }

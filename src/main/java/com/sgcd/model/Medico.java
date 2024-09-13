@@ -38,4 +38,5 @@ public class Medico {
 
     public String getEspecialidad() { return especialidad; }
     public void setEspecialidad(String especialidad) { this.especialidad = especialidad; }
+
 }
