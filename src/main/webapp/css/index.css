@@ -81,7 +81,7 @@ html::-webkit-scrollbar-track{
     padding: 8px 15px;
     font-weight: 600;
     font-size: 1.2rem;
-    border-radius: 20px;
+    border-radius: 8px;
     line-height: 5;
 }
 
@@ -90,6 +90,7 @@ html::-webkit-scrollbar-track{
     border: 2px solid #fff;
     padding: 6px 15px;
     font-size: 1.2rem;
+    border-radius: 8px;
     transition: 0.3s all ease;
 }
 
@@ -126,7 +127,7 @@ html::-webkit-scrollbar-track{
 .about .container .image img{
     width: 37rem;
     height: 23rem;
-    box-shadow: 2rem 2rem 1rem rgba(0,0,0,0.3);
+    border-radius: 15px;
 }
 
 .about .container .content{
@@ -165,6 +166,7 @@ html::-webkit-scrollbar-track{
     transition: 0.3s all ease;
     border: 3px solid rgba(39, 140, 232, 1);
     font-weight: 600;
+    border-radius: 8px;
 }
 
 .about .container .content .btn:hover{
@@ -195,12 +197,9 @@ html::-webkit-scrollbar-track{
 
 .services .container .box{
     display: flex;
-    border: 4px solid rgba(39, 140, 232, 1);
     padding: 2rem 4rem;
     margin: 1.5rem 0;
-    border-radius: 0rem;
     padding-bottom: 3rem;
-    /* background-color: rgba(0,0,0,0.1); */
 }
 
 
@@ -209,9 +208,9 @@ html::-webkit-scrollbar-track{
 }
 
 .services .container .box .image img{
-    width: 31rem;
-    height: 19rem;
-    border-radius: 2rem;
+    width: 37rem;
+    height: 26rem;
+    border-radius: 15px;
 }
 
 .services .container .box .content{
@@ -230,8 +229,8 @@ html::-webkit-scrollbar-track{
     font-size: 1.4rem;
     padding: 18px 25px;
     width: 18.5rem;
-    border-radius: 125px;
     margin-bottom: 1.3rem;
+    border-radius: 8px;
 }
 
 .services .container .box .content p{
@@ -250,6 +249,7 @@ html::-webkit-scrollbar-track{
     font-size: 1.1rem;
     cursor: pointer;
     transition: 0.3s all ease;
+    border-radius: 8px;
 }
 
 /*============
@@ -291,12 +291,11 @@ html::-webkit-scrollbar-track{
 .contact .image iframe{
     width: 37rem;
     height: 24rem;
-    box-shadow: 2.5rem 2rem 7px rgba(0,0,0,0.3);
+    border-radius: 15px;
 }
 
 .contact .container form{
     flex:  1 1 30rem;
-    border: 3px solid rgba(39, 140, 232, 1);
     padding: 1rem 1.2rem;
 }
 
@@ -315,7 +314,6 @@ html::-webkit-scrollbar-track{
     padding-left: 10px;
     /* background-color: red; */
     font-size: 1.1rem;
-    border: 1px solid rgba(39, 140, 232, 1);
 }
 
 .contact .container form textarea{
@@ -324,7 +322,6 @@ html::-webkit-scrollbar-track{
     width: 30rem;
     height: 10rem;
     resize: none;
-    border: 1px solid rgba(39, 140, 232, 1);
     margin-top: 4px;
     margin-bottom: 5px;
 }
@@ -345,6 +342,74 @@ html::-webkit-scrollbar-track{
     transform: scaleX(1.1);
 }
 
+.contactoSection {
+    background-color: #f8f8f8; 
+    padding: 40px 20px;
+    border-radius: 12px;
+    margin: 20px auto;
+    text-align: center;
+    width: 600px;
+}
+
+.contactoSection h1 {
+    font-size: 32px;
+    color: #333;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.inputBoxContacto {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.inputBoxContacto label {
+    display: block;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+.inputBoxContacto input,
+.inputBoxContacto textarea {
+    width: 90%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    color: #333;
+    outline: none;
+    transition: border 0.3s ease;
+}
+
+.inputBoxContacto input:focus,
+.inputBoxContacto textarea:focus {
+    border-color: #007bff;
+}
+
+.inputBoxContacto textarea {
+    resize: none;
+}
+
+
+.buttonContacto {
+    background-color: #007bff; 
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 90%;
+}
+
+
+.ubicacionSection{
+    display: flex;
+    justify-content: space-evenly;
+}
 
 /*============
    Doubts
@@ -376,8 +441,8 @@ html::-webkit-scrollbar-track{
 
 .doubts .image img{
     width: 37rem;
-    height: 24rem;
-    box-shadow: 2.5rem 2rem 7px rgba(0,0,0,0.3);
+    height: 26rem;
+    border-radius: 15px;
 }
 
 .doubts .container form{
