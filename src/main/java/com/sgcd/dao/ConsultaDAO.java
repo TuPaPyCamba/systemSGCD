@@ -14,7 +14,7 @@ import java.util.List;
 public class ConsultaDAO {
 
     // Metodo de creacion
-    public boolean crearCita(int idpaciente, int idmedico, LocalDate fecha, String hora, String descripcion) throws SQLException {
+    public boolean crearConsulta(int idpaciente, int idmedico, LocalDate fecha, String hora, String descripcion) {
         // Verificar si el horario ya está ocupado para el Paciente
         if (esHorarioOcupadoParaPaciente(idpaciente, fecha, hora) && esHorarioOcupadoParaMedico(idmedico, fecha, hora)) {
             System.out.println("El Paciente ya tiene una cita programada en ese horario.");
@@ -44,12 +44,14 @@ public class ConsultaDAO {
                 System.out.println("Cita creada exitosamente.");
                 return true;
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return false;
     }
 
     // Metodo de verificacion medico
-    private boolean esHorarioOcupadoParaMedico(int idmedico, LocalDate fecha, String hora) throws SQLException {
+    private boolean esHorarioOcupadoParaMedico(int idmedico, LocalDate fecha, String hora) {
         String sql = "SELECT COUNT(*) FROM consultas WHERE idmedico = ? AND DATE(fecha) = ? AND hora = ?";
         try (Connection conn = getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -63,12 +65,14 @@ public class ConsultaDAO {
                 int count = rs.getInt(1);
                 return count > 0;
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return false;
     }
 
     // Metodo de verificacion paciente
-    private boolean esHorarioOcupadoParaPaciente(int idpaciente, LocalDate fecha, String hora) throws SQLException {
+    private boolean esHorarioOcupadoParaPaciente(int idpaciente, LocalDate fecha, String hora) {
         String sql = "SELECT COUNT(*) FROM concultas WHERE idpaciente = ? AND DATE(fecha) = ? AND hora = ?";
         try (Connection conn = getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -82,6 +86,8 @@ public class ConsultaDAO {
                 int count = rs.getInt(1);
                 return count > 0;
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return false;
     }
