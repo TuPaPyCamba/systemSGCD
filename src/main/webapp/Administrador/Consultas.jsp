@@ -56,8 +56,7 @@
     </div>
 
     <!-- Contenido del dashboard -->
-    <div class="content">
-      <div class="container">
+    <div class="container">
         <div class="g-container">
           <!-- banner de Consulta -->
           <div class="g-banner-container">

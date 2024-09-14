@@ -52,9 +52,8 @@
     </script>
 </head>
 <body>
-<div class="dashboard">
-
-    <!-- Menú lateral -->
+    <div class="dashboard">
+        <!-- Menú lateral -->
     <div class="sidebar">
         <h2><a href="../index.jsp">Salud Dental</a></h2>
         <a href="Home.jsp" class="menu-item">
@@ -89,9 +88,8 @@
         </div>
 
         <!-- Contenido del dashboard -->
-        <div class="content">
-            <div class="container">
-                <div class="g-container">
+        <div class="container">
+            <div class="g-container">
                     <!-- banner y boton para desplegar la creacion de paciente -->
                     <div class="g-banner-container">
                         <div class="g-banner-labelbutton-container">
@@ -190,7 +188,7 @@
             </div>
         </div>
     </div>
-</div>
+    </div>
     <!-- Logico de edit -->
         <%
                         String idEditStr = request.getParameter("idedit");

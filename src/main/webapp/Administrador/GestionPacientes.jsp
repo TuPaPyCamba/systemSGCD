@@ -89,9 +89,8 @@
         </div>
 
         <!-- Contenido del dashboard -->
-        <div class="content">
-            <div class="container">
-                <div class="g-container">
+        <div class="container">
+            <div class="g-container">
                     <!-- banner y boton para desplegar la creacion de paciente -->
                     <div class="g-banner-container">
                         <div class="g-banner-labelbutton-container">
@@ -193,9 +192,9 @@
                     </table>
                 </div>
             </div>
-        </div>
     </div>
-    <!-- Logico de edit -->
+</div>
+<!-- Logico de edit -->
         <%
                         String idEditStr = request.getParameter("idedit");
                         String usuarioedit = request.getParameter("usuarioedit");

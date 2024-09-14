@@ -52,9 +52,8 @@
         </div>
 
         <!-- Contenido del dashboard -->
-        <div class="content">
-            <div class="container">
-                <div class="g-container">
+        <div class="container">
+            <div class="g-container">
                     <div class="welcome-card">
                         <h2>¡Bienvenido al Dashboard de Gestión Dental  Nombreuser!</h2>
                         <p>Este es tu panel de control donde puedes gestionar tus consultas y observar tu agenda diaria.</p>

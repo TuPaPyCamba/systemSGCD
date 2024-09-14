@@ -15,12 +15,11 @@
   <title>Admin Home Page</title>
 </head>
 <body>
-<div class="dashboard">
-
-  <!-- Menú lateral -->
-  <div class="sidebar">
-    <<h2><a href="../index.jsp">Salud Dental</a></h2>
-    <a href="Home.jsp" class="menu-item">
+    <div class="dashboard">
+        <!-- Menú lateral -->
+    <div class="sidebar">
+      <h2><a href="../index.jsp">Salud Dental</a></h2>
+      <a href="Home.jsp" class="menu-item">
       <i class="fas fa-home"></i><span>Home</span>
     </a>
     <a href="GestionPacientes.jsp" class="menu-item">
@@ -52,11 +51,12 @@
     </div>
 
     <!-- Contenido del dashboard -->
-    <div class="content">
-      <div class="container">
+    <div class="container">
+        <div class="g-container">
 
       </div>
     </div>
   </div>
+    </div>
 </body>
 </html>

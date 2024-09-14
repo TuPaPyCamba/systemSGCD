@@ -39,6 +39,8 @@ body, html {
     flex: 1;
     display: flex;
     flex-direction: column;
+    width: 100%;
+    height: 100%;
     background-color: #dbdbdb;
 }
 
@@ -79,15 +81,6 @@ body, html {
     background-color: #e64a19;
 }
 
-/* Contenido principal */
-.content {
-    padding: 30px;
-}
-
-.content h2 {
-    margin-bottom: 20px;
-}
-
 /* Estilos de las tarjetas (cards) */
 .cards {
     display: flex;
@@ -113,11 +106,23 @@ body, html {
 /* Estilos de el contenedor*/
 
 .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 85%;
+    width: 100%;
+}
+
+.g-container{
     width: 100%;
     height: 100%;
+    max-height: 650px;
+    max-width: 1100px;
     border-radius: 15px;
-    background-color: #ffffff;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);
+    background-color: #f8f8f8;
+    padding: 20px;
+    margin: 20px;
+    overflow: auto;
 }
 
 .menu-item {

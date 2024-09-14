@@ -56,9 +56,8 @@
         </div>
 
         <!-- Contenido del dashboard -->
-        <div class="content">
-            <div class="container">
-                <div class="g-container">
+        <div class="container">
+            <div class="g-container">
                     <!-- banner de Citas -->
                     <div class="g-banner-container">
                         <div class="g-banner-labelbutton-container">
@@ -133,6 +132,6 @@
                 </div>
             </div>
         </div>
-    </div>
+</div>
 </body>
 </html>
