@@ -45,9 +45,9 @@
                 <h2>Nosotros cuidamos la salud de tus dientes</h2>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     Laboriosam eos quos </p>
-                <span>Dr. Alejandro MartÃ­nez</span>
+                <span>Dr. Alejandro Martínez</span>
                 <br>
-                <a href="" class="btn">Saber mÃ¡s</a>
+                <a href="" class="btn">Saber más</a>
             </div>
         </div>
     </div>
@@ -66,7 +66,7 @@
             <img src="./img/Banner.jpg" alt="">
         </div>
         <div class="content">
-            <h1>Por quÃ© preferirnos?</h1>
+            <h1>Por qué preferirnos?</h1>
             <h2>Somos expertos</h2>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci quaerat
                 consequatur illo? Dolore quam temporibus hic similique sunt. Quis quas
@@ -75,7 +75,7 @@
             <p class="p">Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus molestias
                 similique illo laborum voluptatibus deleniti porro totam at sint.</p>
 
-            <a href="" class="btn">Saber mÃ¡s</a>
+            <a href="" class="btn">Saber más</a>
         </div>
     </div>
 </section>
@@ -144,79 +144,94 @@
 <!---== Ubicacion y contacto Section ==--->
 
 <section class="contact" id="contact">
-    <div class="heading">
-        <h2>UbicaciÃ³n y contacto</h2>
-    </div>
+    <div class="ubicacionSection">
+        <div>
+            <div class="heading">
+                <h2>Ubicación y contacto</h2>
+            </div>
 
-    <div class="paragraph">
-        <p>Nos encontramos en Mar MediterrÃ¡neo #227; Col. Popotla</p>
-    </div>
+            <div class="paragraph">
+                <p>Nos encontramos en Mar Mediterráneo #227; Col. Popotla</p>
+            </div>
 
-    <div class="container">
-        <div class="image">
-            <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3761.9516900277167!2d-99.18267432423428!3d19.457649581827102!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1f898679c7b35%3A0x2a36459193a6193e!2sMar%20Mediterr%C3%A1neo%2C%20Ciudad%20de%20M%C3%A9xico%2C%20CDMX!5e0!3m2!1ses!2smx!4v1725935448595!5m2!1ses!2smx"
-                    width="500" height="350" style="border:0;" allowfullscreen="" loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <div class="container">
+                <div class="image">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3761.9516900277167!2d-99.18267432423428!3d19.457649581827102!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1f898679c7b35%3A0x2a36459193a6193e!2sMar%20Mediterr%C3%A1neo%2C%20Ciudad%20de%20M%C3%A9xico%2C%20CDMX!5e0!3m2!1ses!2smx!4v1725935448595!5m2!1ses!2smx"
+                        width="500" height="350" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
         </div>
-
-        <form action="">
+        <div class="contactoSection">
             <h1>Contacto</h1>
-            <input type="text" placeholder="Ingresa tu Nombre">
-            <input type="email" placeholder="Ingresa tu Email">
-            <input type="number" placeholder="Ingresa tu TelÃ©fono">
-            <textarea name="" placeholder="Mensaje" id="" cols="30" rows="10"></textarea>
-            <input type="submit" class="submit" value="Enviar">
-        </form>
+            <form action="">
+                <div class="inputBoxContacto">
+                    <input type="text" placeholder="Ingresa tu Nombre">
+                </div>
+                <div class="inputBoxContacto">
+                    <input type="email" placeholder="Ingresa tu Email">
+                </div>
+                <div class="inputBoxContacto">
+                    <input type="number" placeholder="Ingresa tu Teléfono">
+                </div>
+                <div class="inputBoxContacto">
+                    <textarea name="" placeholder="Mensaje" id="" cols="30" rows="10"></textarea>
+                </div>
+                <button type="submit" class="buttonContacto">Enviar</button>
+            </form>
+        </div>
     </div>
 </section>
 
 <!---== Dudas y comentarios Section ==--->
 
 <section class="doubts" id="doubts">
-    <div class="heading">
-        <h2>Dudas y comentarios</h2>
-    </div>
-
-    <div class="container">
-        <div class="image">
-            <img src="./img/dentist-2.jpg" alt="">
+    <div class="ubicacionSection">
+        <div>
+            <div class="heading">
+                <h2>Dudas y comentarios</h2>
+            </div>
+            <div class="container">
+                <div class="image">
+                    <img src="./img/dentist-2.jpg" alt="">
+                </div>
+            </div>
         </div>
-
-        <form action="">
+        <div class="contactoSection">
             <h1>Dudas y comentarios</h1>
-            <input type="text" placeholder="Ingresa tu Nombre">
-            <input type="email" placeholder="Ingresa tu Email">
-            <input type="number" placeholder="Ingresa tu TelÃ©fono">
-            <textarea name="" placeholder="Mensaje" id="" cols="30" rows="10"></textarea>
-            <input type="submit" class="submit" value="Appointment">
-        </form>
+            <form action="">
+                <div class="inputBoxContacto">
+                    <input type="text" placeholder="Ingresa tu Nombre">
+                </div>
+                <div class="inputBoxContacto">
+                    <input type="email" placeholder="Ingresa tu Email">
+                </div>
+                <div class="inputBoxContacto">
+                    <input type="number" placeholder="Ingresa tu Teléfono">
+                </div>
+                <div class="inputBoxContacto">
+                    <textarea name="" placeholder="Mensaje" id="" cols="30" rows="10"></textarea>
+                </div>
+                <button type="submit" class="buttonContacto">Enviar</button>
+            </form>
+        </div>
     </div>
 </section>
-
-<!--== Footer ==-->
-
 <footer>
     <div class="container">
 
         <div class="box">
-            <h2> <i class="fa-solid fa-tooth"></i> Salud Dental</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisi</p>
-            <p>Loreminpsu</p>
-            <div class="icons">
-                <a href="" class="fab fa-facebook-f"></a>
-                <a href="" class="fab fa-twitter"></a>
-                <a href="" class="fab fa-instagram"></a>
-                <a href="" class="fab fa-github"></a>
-            </div>
+            <h2>Salud Dental</h2>
+            <p>Somos un equipo de Doctores Profesionales</p>
         </div>
 
         <div class="box">
-            <h2>Acceso RÃ¡pido</h2>
+            <h2>Acceso Rápido</h2>
             <a href="#home">Home</a>
             <a href="#about">Quienes Somos</a>
             <a href="#sercies">Servicios</a>
-            <a href="#contact">UbicaciÃ³n y Contacto</a>
+            <a href="#contact">Ubicación y Contacto</a>
             <a href="#doubts">Dudas y comentarios</a>
             <a href="">Acceso</a>
         </div>
@@ -225,9 +240,9 @@
             <h2>Links</h2>
             <a href="">Ayuda</a>
             <a href="">Tienes una pregunta?</a>
-            <a href="">PolÃ­ticas de privacidad</a>
-            <a href="">TÃ©rminos y Condiciones</a>
-            <a href="">Nos interesa tu opiniÃ³n</a>
+            <a href="">Polí­ticas de privacidad</a>
+            <a href="">Términos y Condiciones</a>
+            <a href="">Nos interesa tu opinión</a>
         </div>
 
         <div class="box">
@@ -241,7 +256,7 @@
     </div>
 
     <div class="credit">
-        <p>Todos los derechos reservados | Creado por @ <span>MexiCode</span></p>
+        <p>Todos los derechos reservados | <span>MexiCode</span></p>
     </div>
 </footer>
 </body>
