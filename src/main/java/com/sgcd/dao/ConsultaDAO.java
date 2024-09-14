@@ -191,7 +191,7 @@ public class ConsultaDAO {
     // Obtener horas disponibles para consulta
     public List<String> obtenerHorasDisponiblesParaConsultaPorPaciente(int idpaciente, LocalDate fecha) {
 
-        List<String> todasLasHoras = HorarioUtil.obtenerHorasDisponibles();
+        List<String> todasLasHoras = HorarioUtil.obtenerHorasDisponiblesParaConsulta();
         List<String> consultasOcupadas = new ConsultaDAO().obtenerConsultasPorPacienteYDia(idpaciente, fecha);
 
         // Eliminar las horas ocupadas de la lista de horas disponibles

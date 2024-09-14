@@ -201,7 +201,7 @@ public class CitaDAO {
     public List<String> obtenerHorasDisponiblesParaCitas(int idMedico, LocalDate dia) {
         System.out.println(dia);
 
-        List<String> todasLasHoras = HorarioUtil.obtenerHorasDisponibles();
+        List<String> todasLasHoras = HorarioUtil.obtenerHorasDisponiblesParaCitas();
         List<String> citasOcupadas = new CitaDAO().obtenerCitasPorMedicoYDia(idMedico, dia);
 
         // Eliminar las horas ocupadas de la lista de horas disponibles

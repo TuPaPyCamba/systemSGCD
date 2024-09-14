@@ -20,7 +20,7 @@
 //            response.sendRedirect("/SystemSGCD/inicioSesion.jsp");
 //        }
     %>
-    <link rel="stylesheet" href="css/Style.css">
+    <link rel="stylesheet" href="cs">
     <script>
         function toggleForm(button) {
             var fila = button.closest('tr');
