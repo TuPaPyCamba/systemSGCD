@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="com.sgcd.util.CerrarSesion" language="java" %>
 <html lang="en">
 <head>
   <title>Ajustes</title>
@@ -46,7 +47,10 @@
       <div class="" style="display: hidden;"></div>
       <div class="user-info">
         <p>Bienvenido, Usuario</p>
-        <button>Logout</button>
+        <form action="" method="post">
+            <input type="hidden" name="action" value="logout">
+            <button type="submit">Cerrar Sesion</button>
+        </form>
       </div>
     </div>
 
@@ -58,5 +62,13 @@
     </div>
   </div>
     </div>
+    <%
+        if ("POST".equalsIgnoreCase(request.getMethod()) && "logout".equals(request.getParameter("action"))) {
+        CerrarSesion cerrarSesion = new CerrarSesion();
+        cerrarSesion.invalidarSesion(session);
+        response.sendRedirect("/SystemSGCD/InicioSesion/InicioSesion.jsp");
+        return;
+        }
+    %>
 </body>
 </html>

@@ -15,7 +15,7 @@
                 let url;
                 switch (tipoUsuario) {
                     case "administradores":
-                        url = "/SystemSGCD/index.jsp";
+                        url = "/SystemSGCD/Administrador/Home.jsp";
                         break;
                     case "pacientes":
                         url = "/SystemSGCD/index.jsp";
@@ -27,6 +27,7 @@
                         url = "/SystemSGCD/InicioSesion.jsp";
                         break;
                     }
+                    console.log("Redirigiendo a: " + url);
                     window.location.href = url;
                 }
         </script>
@@ -58,7 +59,8 @@
                 <h2 class="">Inicio de Sesion</h2>
                 <p class="loginDescription">Si ya eres usuario registrado ingresa tus datos</p>
 
-                <form action="/InicioSesion.jsp" method="POST" class="formBox">
+                <form action="../InicioSesion/InicioSesion.jsp" method="POST" class="formBox">
+    <!--<p><%= typeuser%><p> -->
                     <div class="inputBox">
                         <input type="text" name="usuario" id="usuario" class="input" placeholder="Nombre de Usuario" required>
                         <label class="inputLabel">Email</label>
@@ -83,6 +85,9 @@
           System.out.println(usuario);
           System.out.println(contrasena);
 
+          if (usuario != null && contrasena != null){
+
+            }
           session = request.getSession();
 
           if (autentificacion.autentificarUsuario(usuario, contrasena, session)) {

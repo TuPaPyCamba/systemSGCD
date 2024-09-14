@@ -2,6 +2,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="com.sgcd.model.Cita" %>
+<%@ page import="com.sgcd.util.CerrarSesion" language="java" %>
 <%--
   Created by IntelliJ IDEA.
   User: maxim
@@ -51,7 +52,10 @@
             <div class="" style="display: hidden;"></div>
             <div class="user-info">
                 <p>Bienvenido, Usuario</p>
-                <button>Logout</button>
+                <form action="" method="post">
+                    <input type="hidden" name="action" value="logout">
+                    <button type="submit">Cerrar Sesion</button>
+                </form>
             </div>
         </div>
 
@@ -133,5 +137,13 @@
             </div>
         </div>
 </div>
+<%
+    if ("POST".equalsIgnoreCase(request.getMethod()) && "logout".equals(request.getParameter("action"))) {
+    CerrarSesion cerrarSesion = new CerrarSesion();
+    cerrarSesion.invalidarSesion(session);
+    response.sendRedirect("/SystemSGCD/InicioSesion/InicioSesion.jsp");
+    return;
+    }
+%>
 </body>
 </html>
