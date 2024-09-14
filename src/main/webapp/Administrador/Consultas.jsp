@@ -15,7 +15,7 @@
     <head>
         <%
             if (!"administradores".equals(session.getAttribute("tipoUsuario"))) {
-                response.sendRedirect("/SystemSGCD/inicioSesion.jsp");
+                response.sendRedirect("/SystemSGCD/InicioSesion/InicioSesion.jsp");
             }
         %>
         <title>Gestion de Consultas</title>
