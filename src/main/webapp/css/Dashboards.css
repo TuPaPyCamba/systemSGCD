@@ -29,6 +29,11 @@ body, html {
     margin-bottom: 50px;
 }
 
+.sidebar h2 a {
+    color: inherit;
+    text-decoration: none;
+}
+
 /* Estilos del contenedor principal (main-content) */
 .main-content {
     flex: 1;
@@ -137,4 +142,41 @@ body, html {
 
 .menu-item span {
     font-size: 16px;
+}
+
+.welcome-card {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin: 20px 0;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.welcome-card h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.welcome-card p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.welcome-card .btn-explore {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.welcome-card .btn-explore:hover {
+    background-color: #555;
 }

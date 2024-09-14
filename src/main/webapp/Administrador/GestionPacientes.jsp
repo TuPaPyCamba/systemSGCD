@@ -16,6 +16,7 @@
     <title>Gestión de Pacientes</title>
     <link rel="stylesheet" href="../css/Style.css">
     <link rel="stylesheet" href="../css/Dashboards.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script>
         function toggleForm(button) {
             var fila = button.closest('tr');
@@ -55,7 +56,7 @@
 
     <!-- Menú lateral -->
     <div class="sidebar">
-        <h2>Salud Dental</h2>
+        <h2><a href="../index.jsp">Salud Dental</a></h2>
         <a href="Home.jsp" class="menu-item">
             <i class="fas fa-home"></i><span>Home</span>
         </a>
@@ -68,7 +69,7 @@
         <a href="GestionCitas.jsp" class="menu-item">
             <i class="fas fa-calendar-check"></i><span>Citas</span>
         </a>
-        <a href="GestionConsultas.jsp" class="menu-item">
+        <a href="Consultas.jsp" class="menu-item">
             <i class="fas fa-file-alt"></i><span>Consultas</span>
         </a>
         <a href="Settings.jsp" class="menu-item">
@@ -100,7 +101,7 @@
                         <div class="blue-line"></div>
                     </div>
                     <!-- Formulario de nuevo Paciente -->
-                    <div id="new-medico-form" class="create-form">
+                    <div id="new-paciente-form" class="create-form">
                         <h3>Registrar Nuevo Paciente</h3>
                         <form action="GestionPacientes.jsp" method="post" onsubmit="return confirmarRegistro() ">
                             <label>Usuario: </label><input type="text" name="usuariocreate" id="usuariocreate" required>

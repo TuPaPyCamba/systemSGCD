@@ -1,4 +1,8 @@
-<<%--
+<%@ page import="com.sgcd.dao.CitaDAO" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.sql.SQLException" %>
+<%@ page import="com.sgcd.model.Cita" %>
+<%--
   Created by IntelliJ IDEA.
   User: maxim
   Date: 13/09/2024
@@ -8,7 +12,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
-    <title>Gestion de Medico</title>
+    <title>Gestion de Consultas</title>
     <link rel="stylesheet" href="../css/Style.css">
     <link rel="stylesheet" href="../css/Dashboards.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -19,7 +23,7 @@
 
     <!-- Menú lateral -->
     <div class="sidebar">
-        <h2>Salud Dental</h2>
+        <h2><a href="../index.jsp">Salud Dental</a></h2>
         <a href="Home.jsp" class="menu-item">
             <i class="fas fa-home"></i><span>Home</span>
         </a>
@@ -32,7 +36,7 @@
         <a href="GestionCitas.jsp" class="menu-item">
             <i class="fas fa-calendar-check"></i><span>Citas</span>
         </a>
-        <a href="GestionConsultas.jsp" class="menu-item">
+        <a href="Consultas.jsp" class="menu-item">
             <i class="fas fa-file-alt"></i><span>Consultas</span>
         </a>
         <a href="Settings.jsp" class="menu-item">
@@ -54,7 +58,79 @@
         <!-- Contenido del dashboard -->
         <div class="content">
             <div class="container">
+                <div class="g-container">
+                    <!-- banner de Citas -->
+                    <div class="g-banner-container">
+                        <div class="g-banner-labelbutton-container">
+                            <h2 class="label-banner">Lista de Citas</h2>
+                        </div>
+                        <div class="blue-line"></div>
+                    </div>
+                    <!-- Tabla de registros -->
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Fecha</th>
+                            <th>Hora</th>
+                            <th>Descripcion</th>
+                            <th>Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <%
+                            List<Cita> citas = null;
+                            CitaDAO citaDAO = new CitaDAO();
 
+                            try {
+                                citas = citaDAO.findAllCitas();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
+
+                            if (citas != null && !citas.isEmpty()) {
+                                for(Cita cita : citas) {
+                        %>
+                        <tr>
+                            <td><%= cita.getId() %></td>
+                            <td><%= cita.getFecha()%></td>
+                            <td><%= cita.getHora()%></td>
+                            <td><%= cita.getDescripcion()%></td>
+                            <td>
+                                <form action="GestionCitas.jsp" method="post" style="display: inline">
+                                    <input type="hidden" name="id" value="<%= cita.getId() %>">
+                                    <button type="submit" class="btn-delete" onclick="return confirm('¿Estás seguro de que quieres eliminar a este Medico?');">Eliminar</button>
+                                </form>
+                                <button class="btn-edit" onclick="toggleForm(this)">Editar</button>
+                            </td>
+                        </tr>
+                        <%
+                            }
+                        } else {
+                        %>
+                        <tr>
+                            <td colspan="5">No se encontraron citas.</td>
+                        </tr>
+                        <%
+                            }
+                        %>
+                        <!-- Logico de eliminacion -->
+                        <%
+                            // Manejo de la eliminación de una cita
+                            String idParam = request.getParameter("id");
+                            if (idParam != null && !idParam.isEmpty()){
+                                int id = Integer.parseInt(idParam);
+                                try {
+                                    int registrosEliminados = citaDAO.delete(id);
+                                    response.sendRedirect("GestionCitas.jsp");
+                                } catch (SQLException ex) {
+                                    throw new RuntimeException(ex);
+                                }
+                            }
+                        %>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

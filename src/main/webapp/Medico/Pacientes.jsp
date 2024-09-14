@@ -23,14 +23,11 @@
         <a href="Home.jsp" class="menu-item">
             <i class="fas fa-home"></i><span>Home</span>
         </a>
-        <a href="GestionPacientes.jsp" class="menu-item">
+        <a href="Agenda.jsp" class="menu-item">
+            <i class="fas fa-calendar-alt"></i><span>Agenda</span>
+        </a>
+        <a href="Pacientes.jsp" class="menu-item">
             <i class="fas fa-user-injured"></i><span>Pacientes</span>
-        </a>
-        <a href="GestionMedicos.jsp" class="menu-item">
-            <i class="fas fa-user-md"></i><span>Medicos</span>
-        </a>
-        <a href="GestionCitas.jsp" class="menu-item">
-            <i class="fas fa-calendar-check"></i><span>Citas</span>
         </a>
         <a href="Consultas.jsp" class="menu-item">
             <i class="fas fa-file-alt"></i><span>Consultas</span>
@@ -54,12 +51,7 @@
         <!-- Contenido del dashboard -->
         <div class="content">
             <div class="container">
-                <div class="g-container">
-                    <div class="welcome-card">
-                        <h2>¡Bienvenido al Dashboard de Gestión Dental  <%= %>!</h2>
-                        <p>Este es tu panel de control donde puedes gestionar tus consultas y observar tu agenda diaria.</p>
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>

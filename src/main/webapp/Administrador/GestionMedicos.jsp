@@ -1,6 +1,4 @@
-<%@ page import="com.sgcd.dao.PacienteDAO" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.sgcd.model.Paciente" %>
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.sgcd.model.Medico" %>
@@ -18,6 +16,7 @@
     <title>Gestión de Medicos</title>
     <link rel="stylesheet" href="../css/Style.css">
     <link rel="stylesheet" href="../css/Dashboards.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script>
         function toggleForm(button) {
             var fila = button.closest('tr');
@@ -57,7 +56,7 @@
 
     <!-- Menú lateral -->
     <div class="sidebar">
-        <h2>Salud Dental</h2>
+        <h2><a href="../index.jsp">Salud Dental</a></h2>
         <a href="Home.jsp" class="menu-item">
             <i class="fas fa-home"></i><span>Home</span>
         </a>
@@ -70,7 +69,7 @@
         <a href="GestionCitas.jsp" class="menu-item">
             <i class="fas fa-calendar-check"></i><span>Citas</span>
         </a>
-        <a href="GestionConsultas.jsp" class="menu-item">
+        <a href="Consultas.jsp" class="menu-item">
             <i class="fas fa-file-alt"></i><span>Consultas</span>
         </a>
         <a href="Settings.jsp" class="menu-item">
@@ -96,8 +95,8 @@
                     <!-- banner y boton para desplegar la creacion de paciente -->
                     <div class="g-banner-container">
                         <div class="g-banner-labelbutton-container">
-                            <h2 class="label-banner">Gestion de Pacientes</h2>
-                            <button class="btn-newuser" onclick="toggleNewForm()" >Añadir Nuevo Paciente</button>
+                            <h2 class="label-banner">Gestion de Medicos</h2>
+                            <button class="btn-newuser" onclick="toggleNewForm()" >Añadir Nuevo Medicos</button>
                         </div>
                         <div class="blue-line"></div>
                     </div>
@@ -215,7 +214,7 @@
                     %>
     <!-- Logico de registro -->
         <%
-                        // Manejo de la creación de un nuevo paciente
+                        // Manejo de la creación de un nuevo Medico
                         String usuariocreate = request.getParameter("usuariocreate");
                         String contrasenacreate = request.getParameter("contrasenacreate");
                         String nombrecreate = request.getParameter("nombrecreate");
@@ -224,7 +223,7 @@
 
                         if (usuariocreate != null && contrasenacreate != null && nombrecreate != null && apellidoscreate != null
                                 && especialidadcreate != null) {
-                            // Solo intentamos crear un nuevo paciente si todos los campos están llenos
+                            // Solo intentamos crear un nuevo Medico si todos los campos están llenos
                             if (!usuariocreate.isEmpty() && !contrasenacreate.isEmpty() && !nombrecreate.isEmpty() && !apellidoscreate.isEmpty()
                                     && !especialidadcreate.isEmpty()) {
                                 Medico nuevoMedico = new Medico(usuariocreate, contrasenacreate, nombrecreate, apellidoscreate, especialidadcreate);
@@ -239,7 +238,7 @@
                     %>
     <!-- Logico de eliminacion -->
         <%
-                        // Manejo de la eliminación de un paciente
+                        // Manejo de la eliminación de un Medico
                         String idParam = request.getParameter("id");
                         if (idParam != null && !idParam.isEmpty()) {
                             int id = Integer.parseInt(idParam);
