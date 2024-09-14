@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/index.css">
-
+    <link rel="stylesheet" href="./css/navbarStyles.css">
     <!--Font Awesome-->
     <link rel="stylesheet" href="./css/fontawesome.min.css">
 
@@ -19,28 +19,22 @@
 </head>
 
 <body>
-
-<!-- Header -->
-
-<header>
-    <div class="container">
-        <div class="logo">
-            <h1><i class="fa solid fa-tooth"></i> Salud Dental</h1>
+    <div class="headerContainer">
+        <div class="headerLogo">
+            <h1 class="logoTitle"> Salud Dental</h1>
         </div>
-        <nav>
-            <a href="#home">Home</a>
-            <a href="#about">Quienes Somos</a>
-            <a href="#sercies">Servicios</a>
-            <a href="#contact">Ubicación y Contacto</a>
-            <a href="#doubts">Dudas y comentarios</a>
-            <a href="acces.html">Acceso</a>
-            <a href="queries.html">Consultas</a>
+        <nav class="headerNav">
+            <a href="#home" class="navLink">Home</a>
+            <a href="#about" class="navLink">Quienes Somos</a>
+            <a href="#sercies" class="navLink">Servicios</a>
+            <a href="#contact" class="navLink">Ubicación y Contacto</a>
+            <a href="#doubts" class="navLink">Dudas y comentarios</a>
+            <a href="../SystemSGCD/InicioSesion/InicioSesion.jsp" class="navLink">Iniciar Sesion</a>
+            <a href="queries.html" class="navLink">Consultas</a>
         </nav>
-        <a href="" class="btn">Citas</a>
+        <a href="" class="navLink">Citas</a>
     </div>
-</header>
-
-<!-- Home Section -->
+    <!-- Home Section -->
 
 <section class="home" id="home">
     <div class="container">
@@ -51,9 +45,9 @@
                 <h2>Nosotros cuidamos la salud de tus dientes</h2>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     Laboriosam eos quos </p>
-                <span>Dr. Alejandro Martínez</span>
+                <span>Dr. Alejandro MartÃ­nez</span>
                 <br>
-                <a href="" class="btn">Saber más</a>
+                <a href="" class="btn">Saber mÃ¡s</a>
             </div>
         </div>
     </div>
@@ -72,7 +66,7 @@
             <img src="./img/Banner.jpg" alt="">
         </div>
         <div class="content">
-            <h1>Por qué preferirnos?</h1>
+            <h1>Por quÃ© preferirnos?</h1>
             <h2>Somos expertos</h2>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci quaerat
                 consequatur illo? Dolore quam temporibus hic similique sunt. Quis quas
@@ -81,7 +75,7 @@
             <p class="p">Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus molestias
                 similique illo laborum voluptatibus deleniti porro totam at sint.</p>
 
-            <a href="" class="btn">Saber más</a>
+            <a href="" class="btn">Saber mÃ¡s</a>
         </div>
     </div>
 </section>
@@ -151,11 +145,11 @@
 
 <section class="contact" id="contact">
     <div class="heading">
-        <h2>Ubicación y contacto</h2>
+        <h2>UbicaciÃ³n y contacto</h2>
     </div>
 
     <div class="paragraph">
-        <p>Nos encontramos en Mar Mediterráneo #227; Col. Popotla</p>
+        <p>Nos encontramos en Mar MediterrÃ¡neo #227; Col. Popotla</p>
     </div>
 
     <div class="container">
@@ -170,7 +164,7 @@
             <h1>Contacto</h1>
             <input type="text" placeholder="Ingresa tu Nombre">
             <input type="email" placeholder="Ingresa tu Email">
-            <input type="number" placeholder="Ingresa tu Teléfono">
+            <input type="number" placeholder="Ingresa tu TelÃ©fono">
             <textarea name="" placeholder="Mensaje" id="" cols="30" rows="10"></textarea>
             <input type="submit" class="submit" value="Enviar">
         </form>
@@ -193,7 +187,7 @@
             <h1>Dudas y comentarios</h1>
             <input type="text" placeholder="Ingresa tu Nombre">
             <input type="email" placeholder="Ingresa tu Email">
-            <input type="number" placeholder="Ingresa tu Teléfono">
+            <input type="number" placeholder="Ingresa tu TelÃ©fono">
             <textarea name="" placeholder="Mensaje" id="" cols="30" rows="10"></textarea>
             <input type="submit" class="submit" value="Appointment">
         </form>
@@ -218,11 +212,11 @@
         </div>
 
         <div class="box">
-            <h2>Acceso Rápido</h2>
+            <h2>Acceso RÃ¡pido</h2>
             <a href="#home">Home</a>
             <a href="#about">Quienes Somos</a>
             <a href="#sercies">Servicios</a>
-            <a href="#contact">Ubicación y Contacto</a>
+            <a href="#contact">UbicaciÃ³n y Contacto</a>
             <a href="#doubts">Dudas y comentarios</a>
             <a href="">Acceso</a>
         </div>
@@ -231,9 +225,9 @@
             <h2>Links</h2>
             <a href="">Ayuda</a>
             <a href="">Tienes una pregunta?</a>
-            <a href="">Políticas de privacidad</a>
-            <a href="">Términos y Condiciones</a>
-            <a href="">Nos interesa tu opinión</a>
+            <a href="">PolÃ­ticas de privacidad</a>
+            <a href="">TÃ©rminos y Condiciones</a>
+            <a href="">Nos interesa tu opiniÃ³n</a>
         </div>
 
         <div class="box">
