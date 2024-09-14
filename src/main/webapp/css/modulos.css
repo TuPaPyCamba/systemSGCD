@@ -19,6 +19,16 @@
     margin-bottom: 20px;
 }
 
+.container{
+    max-height: 850px; 
+    max-width: 100%; 
+    overflow-x: auto; 
+    overflow-y: auto; 
+    border: 1px solid #ccc; 
+    padding: 10px;
+    margin: 0 auto; 
+}
+
 
 .g-banner-container {
     display: flex;
