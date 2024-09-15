@@ -21,7 +21,7 @@
                         url = "/SystemSGCD/index.jsp";
                         break;
                     case "medicos":
-                        url = "/SystemSGCD/index.jsp";
+                        url = "/SystemSGCD/Medico/Home.jsp";
                         break;
                     default:
                         url = "/SystemSGCD/InicioSesion.jsp";
@@ -85,9 +85,6 @@
           System.out.println(usuario);
           System.out.println(contrasena);
 
-          if (usuario != null && contrasena != null){
-
-            }
           session = request.getSession();
 
           if (autentificacion.autentificarUsuario(usuario, contrasena, session)) {

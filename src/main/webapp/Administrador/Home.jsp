@@ -9,7 +9,7 @@
 <%@ page import="com.sgcd.util.CerrarSesion" language="java" %>
 <html lang="en">
 <head>
-    <title>Gestion de Medico</title>
+    <title>Home</title>
     <%
             if (!"administradores".equals(session.getAttribute("tipoUsuario"))) {
                 response.sendRedirect("/SystemSGCD/InicioSesion/InicioSesion.jsp");

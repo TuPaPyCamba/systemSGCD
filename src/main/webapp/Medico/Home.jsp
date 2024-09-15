@@ -9,7 +9,11 @@
     <title>Admin Home Page</title>
 </head>
 <body>
-<div class="dashboard">
+    <%
+          String idSesion = String.valueOf(session.getAttribute("usuarioId"));
+          String usuarioSesion = (String) session.getAttribute("usuario");
+    %>
+    <div class="dashboard">
 
     <!-- Menú lateral -->
     <div class="sidebar">
@@ -37,7 +41,7 @@
         <div class="navbar">
             <div class="" style="display: hidden;"></div>
             <div class="user-info">
-                <p>Bienvenido, Usuario</p>
+                <p>Bienvenido, <%= usuarioSesion%></p>
                 <button>Logout</button>
             </div>
         </div>
