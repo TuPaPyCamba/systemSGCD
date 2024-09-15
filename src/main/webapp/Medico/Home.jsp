@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: maxim
-  Date: 13/09/2024
-  Time: 12:11 p. m.
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
@@ -51,12 +45,7 @@
         <!-- Contenido del dashboard -->
         <div class="content">
             <div class="container">
-                <div class="g-container">
-                    <div class="welcome-card">
-                        <h2>¡Bienvenido al Dashboard de Gestión Dental  Nombreuser!</h2>
-                        <p>Este es tu panel de control donde puedes gestionar tus consultas y observar tu agenda diaria.</p>
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>

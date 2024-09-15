@@ -242,5 +242,40 @@ public class CitaDAO {
         }
         return citas;
     }
+
+    // Obtener citas por medico y dia
+    public List<Cita> obtenerTodasCitas(int idmedico, LocalDate fecha) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<Cita> citas = new ArrayList<>();
+        String sql = "SELECT * FROM citas WHERE idmedico = ? AND fecha = ?";
+
+        try {
+            conn = getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, idmedico);
+            stmt.setDate(2, java.sql.Date.valueOf(fecha));
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Cita cita = new Cita();
+                cita.setId(rs.getInt("id"));
+                cita.setIdMedico(rs.getInt("idmedico"));
+                cita.setIdPaciente(rs.getInt("idpaciente"));
+                cita.setFecha(rs.getDate("fecha").toLocalDate());
+                cita.setHora(rs.getString("hora"));
+                cita.setDescripcion(rs.getString("descripcion"));
+                citas.add(cita);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) try { rs.close(); } catch (SQLException e) { e.printStackTrace(); }
+            if (stmt != null) try { stmt.close(); } catch (SQLException e) { e.printStackTrace(); }
+            if (conn != null) try { conn.close(); } catch (SQLException e) { e.printStackTrace(); }
+        }
+        return citas;
+    }
 }
 

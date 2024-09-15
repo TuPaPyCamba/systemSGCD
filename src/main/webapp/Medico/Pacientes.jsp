@@ -1,4 +1,8 @@
-<%--
+<%@ page import="java.sql.SQLException" %>
+<%@ page import="com.sgcd.model.Paciente" %>
+<%@ page import="com.sgcd.dao.PacienteDAO" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: maxim
   Date: 13/09/2024
@@ -12,7 +16,16 @@
     <link rel="stylesheet" href="../css/modulos.css">
     <link rel="stylesheet" href="../css/Dashboards.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <title>Admin Home Page</title>
+    <title>Pacientes</title>
+    <script>
+        function confirmarRegistro() {
+            return confirm("¿Estás seguro de que quieres registrar este Paciente?");
+        }
+
+        function confirmarEliminacion() {
+            return confirm("¿Estás seguro de que quieres eliminar este Paciente?");
+        }
+    </script>
 </head>
 <body>
 <div class="dashboard">
@@ -51,7 +64,68 @@
         <!-- Contenido del dashboard -->
         <div class="content">
             <div class="container">
+                <div class="g-container">
+                    <h2>Gestión de Pacientes</h2>
 
+                    <!-- Formulario de búsqueda -->
+                    <form action="GestionPacientes.jsp" method="get" class="search-form">
+                        <input type="text" name="busqueda" id="busqueda" placeholder="Buscar por nombre..." value="<%= request.getParameter("busqueda") %>">
+                        <button type="submit">Buscar</button>
+                    </form>
+
+                    <!-- Tabla de pacientes -->
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Apellidos</th>
+                            <th>Telefono</th>
+                            <th>Direccion</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <%
+                            String busqueda = request.getParameter("busqueda");
+                            List<Paciente> pacientes = null;
+                            List<Paciente> pacientesFiltrados = new ArrayList<>();
+                            PacienteDAO pacienteDAO = new PacienteDAO();
+
+                            try {
+                                pacientes = pacienteDAO.obtenerPacientes();
+                                if (busqueda != null && !busqueda.isEmpty()) {
+                                    for (Paciente paciente : pacientes) {
+                                        if (paciente.getNombre().toLowerCase().contains(busqueda.toLowerCase())) {
+                                            pacientesFiltrados.add(paciente);
+                                        }
+                                    }
+                                } else {
+                                    pacientesFiltrados = pacientes;
+                                }
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            }
+
+                            if (pacientesFiltrados != null && !pacientesFiltrados.isEmpty()) {
+                                for (Paciente paciente : pacientesFiltrados) {
+                        %>
+                        <tr>
+                            <td><%= paciente.getIdPaciente() %></td>
+                            <td><%= paciente.getNombre() %></td>
+                            <td><%= paciente.getApellidos() %></td>
+                            <td><%= paciente.getTelefono()%></td>
+                            <td><%= paciente.getDireccion()%></td>
+                        </tr>
+                        <%
+                                }
+                            }
+                        %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
             </div>
         </div>
     </div>

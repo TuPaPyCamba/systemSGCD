@@ -154,4 +154,50 @@ public class PacienteDAO {
         }
         return pacientes;
     }
+
+    // Metodo para traer registros filtrados o todos si no hay filtro
+    public List<Paciente> obtenerPacientes(String nombre) throws SQLException {
+        List<Paciente> pacientes = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String SQL_SELECT = "SELECT * FROM pacientes";
+
+        // Si se proporciona un nombre, añadir una cláusula WHERE
+        if (nombre != null && !nombre.isEmpty()) {
+            SQL_SELECT += " WHERE nombre LIKE ?";
+        }
+
+        try {
+            conn = getConnection();
+            stmt = conn.prepareStatement(SQL_SELECT);
+
+            // Si se proporciona un nombre, lo añadimos al query
+            if (nombre != null && !nombre.isEmpty()) {
+                stmt.setString(1, "%" + nombre + "%");
+            }
+
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Paciente paciente = new Paciente();
+                paciente.setIdPaciente(rs.getInt("id"));
+                paciente.setPaciente(rs.getString("usuario"));
+                paciente.setContrasena(rs.getString("contrasena"));
+                paciente.setNombre(rs.getString("nombre"));
+                paciente.setApellidos(rs.getString("apellidos"));
+                paciente.setTelefono(rs.getString("telefono"));
+                paciente.setDireccion(rs.getString("direccion"));
+
+                pacientes.add(paciente);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        } finally {
+            if (rs != null) close(rs);
+            if (stmt != null) close(stmt);
+            if (conn != null) close(conn);
+        }
+        return pacientes;
+    }
 }

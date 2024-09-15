@@ -1,5 +1,6 @@
 package com.sgcd.dao;
 
+import com.sgcd.model.Cita;
 import com.sgcd.model.Consulta;
 import com.sgcd.util.HorarioUtil;
 
@@ -237,6 +238,43 @@ public class ConsultaDAO {
             if (stmt != null) close(stmt);
             if (conn != null) close(conn);
         }
+        return consultas;
+    }
+
+    // Obtener citas por medico y dia
+    public List<Consulta> obtenerTodasConsultas(int idmedico, LocalDate fecha) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<Consulta> consultas = new ArrayList<>();
+        String sql = "SELECT * FROM consultas WHERE idmedico = ? AND fecha = ?";
+
+        try {
+            conn = getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, idmedico);
+            stmt.setDate(2, java.sql.Date.valueOf(fecha));
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                    Consulta consulta = new Consulta();
+                    consulta.setId(rs.getInt("id"));
+                    consulta.setIdMedico(rs.getInt("idmedico"));
+                    consulta.setIdPaciente(rs.getInt("idpaciente"));
+                    consulta.setFecha(rs.getDate("fecha").toLocalDate());
+                    consulta.setHora(rs.getString("hora"));
+                    consulta.setDescripcion(rs.getString("descripcion"));
+                    consultas.add(consulta);
+                }
+
+        } catch (SQLException e) {
+            e.printStackTrace(); // Consider using a logging framework in a real application
+        } finally {
+            if (rs != null) try { rs.close(); } catch (SQLException e) { e.printStackTrace(); }
+            if (stmt != null) try { stmt.close(); } catch (SQLException e) { e.printStackTrace(); }
+            if (conn != null) try { conn.close(); } catch (SQLException e) { e.printStackTrace(); }
+        }
+
         return consultas;
     }
 }

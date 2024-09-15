@@ -1,0 +1,187 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body, html {
+    height: 100%;
+}
+
+.dashboard {
+    display: flex;
+    height: 100vh;
+}
+
+/* Estilos del menú lateral (sidebar) */
+.sidebar {
+    width: 20%;
+    background-color:#278CE8;
+    color: #fff;
+    padding: 20px;
+    height: 100vh;
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+.sidebar h2 a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* Estilos del contenedor principal (main-content) */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background-color: #dbdbdb;
+}
+
+/* Barra de navegación superior (navbar) */
+.navbar {
+    background-color: #F1F1F1;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+    color: #020202;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar h1 {
+    font-size: 24px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-info p {
+    margin-right: 15px;
+}
+
+.user-info button {
+    padding: 10px 20px;
+    background-color: #ff5722;
+    border: none;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.user-info button:hover {
+    background-color: #e64a19;
+}
+
+/* Estilos de las tarjetas (cards) */
+.cards {
+    display: flex;
+    justify-content: space-around;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 30%;
+}
+
+.card h3 {
+    margin-bottom: 15px;
+}
+
+.card p {
+    color: #666;
+}
+
+/* Estilos de el contenedor*/
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 85%;
+    width: 100%;
+}
+
+.g-container{
+    width: 100%;
+    height: 100%;
+    max-height: 650px;
+    max-width: 1100px;
+    border-radius: 15px;
+    background-color: #f8f8f8;
+    padding: 20px;
+    margin: 20px;
+    overflow: auto;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    text-decoration: none;
+    padding: 15px;
+    margin: 5px 0;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.menu-item:hover {
+    color: black;
+    background-color: #DBDBDB;
+}
+
+.menu-item i {
+    margin-right: 10px;
+}
+
+.menu-item span {
+    font-size: 16px;
+}
+
+.welcome-card {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin: 20px 0;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.welcome-card h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.welcome-card p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.welcome-card .btn-explore {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.welcome-card .btn-explore:hover {
+    background-color: #555;
+}

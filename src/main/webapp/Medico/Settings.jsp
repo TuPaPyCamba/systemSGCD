@@ -1,4 +1,6 @@
-<%--
+<%@ page import="com.sgcd.dao.MedicoDAO" %>
+<%@ page import="com.sgcd.model.Medico" %>
+<%@ page import="java.sql.SQLException" %><%--
   Created by IntelliJ IDEA.
   User: maxim
   Date: 13/09/2024
@@ -51,7 +53,89 @@
     <!-- Contenido del dashboard -->
     <div class="content">
       <div class="container">
+        <div>
+          <div class="g-container">
+            <h1 class="text-2xl font-bold mb-4">Editar Médico</h1>
 
+            <%
+              // Obtener el ID del médico desde los parámetros de la solicitud
+              String idParam = request.getParameter("id");
+              if (idParam != null) {
+                int idMedico = Integer.parseInt(idParam);
+
+                try {
+                  // Crear una instancia de MedicoDAO y obtener el médico por ID
+                  MedicoDAO medicoDAO = new MedicoDAO();
+                  medico = 1;
+
+                  if (medico != null) {
+            %>
+            <!-- Formulario para editar información del médico -->
+            <form action="actualizarMedico.jsp" method="post" class="mb-4">
+              <input type="hidden" name="id" value="<%= medico.getId() %>">
+              <div class="mb-4">
+                <label for="usuario" class="block text-gray-700">Usuario:</label>
+                <input type="text" id="usuario" name="usuario" value="<%= medico.getUsuario() %>" required class="border px-3 py-2 rounded">
+              </div>
+              <div class="mb-4">
+                <label for="contrasena" class="block text-gray-700">Contraseña:</label>
+                <input type="password" id="contrasena" name="contrasena" value="<%= medico.getContrasena() %>" required class="border px-3 py-2 rounded">
+              </div>
+              <div class="mb-4">
+                <label for="nombre" class="block text-gray-700">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" value="<%= medico.getNombre() %>" required class="border px-3 py-2 rounded">
+              </div>
+              <div class="mb-4">
+                <label for="apellidos" class="block text-gray-700">Apellidos:</label>
+                <input type="text" id="apellidos" name="apellidos" value="<%= medico.getApellidos() %>" required class="border px-3 py-2 rounded">
+              </div>
+              <div class="mb-4">
+                <label for="especialidad" class="block text-gray-700">Especialidad:</label>
+                <input type="text" id="especialidad" name="especialidad" value="<%= medico.getEspecialidad() %>" required class="border px-3 py-2 rounded">
+              </div>
+              <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Actualizar</button>
+            </form>
+            <% } else { %>
+            <p class="mt-4 text-red-500">No se encontró el médico con el ID especificado.</p>
+            <% } %>
+
+            <a href="Pacientes.jsp" class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Volver a Pacientes</a>
+          </div>
+          <%
+            int id = Integer.parseInt(request.getParameter("id"));
+            String usuario = request.getParameter("usuario");
+            String contrasena = request.getParameter("contrasena");
+            String nombre = request.getParameter("nombre");
+            String apellidos = request.getParameter("apellidos");
+            String especialidad = request.getParameter("especialidad");
+
+            Medico medico = new Medico();
+            medico.setId(id);
+            medico.setUsuario(usuario);
+            medico.setContrasena(contrasena);
+            medico.setNombre(nombre);
+            medico.setApellidos(apellidos);
+            medico.setEspecialidad(especialidad);
+
+            MedicoDAO medicoDAO = new MedicoDAO();
+            try {
+              int registros = medicoDAO.actualizar(medico);
+
+              if (registros > 0) {
+                response.sendRedirect("Pacientes.jsp?msg=Medico actualizado con éxito.");
+              } else {
+                request.setAttribute("error", "No se actualizó ningún registro.");
+                request.getRequestDispatcher("editarMedico.jsp?id=" + id).forward(request, response);
+              }
+            } catch (SQLException e) {
+              e.printStackTrace();
+              request.setAttribute("error", "Error en la base de datos: " + e.getMessage());
+              request.getRequestDispatcher("editarMedico.jsp?id=" + id).forward(request, response);
+            }
+          }
+        %>
+        </div>
+        </div>
       </div>
     </div>
   </div>
