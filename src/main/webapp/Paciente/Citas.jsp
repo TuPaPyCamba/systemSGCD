@@ -17,17 +17,29 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
-  <title>Gestion de Medico</title>
-  <link rel="stylesheet" href="../css/modulos.css">
+    <title>Crear Cita</title>
+    <%
+        if (!"pacientes".equals(session.getAttribute("tipoUsuario"))) {
+            response.sendRedirect("/SystemSGCD/InicioSesion/InicioSesion.jsp");
+        }
+    %>
+    <link rel="stylesheet" href="../css/modulos.css">
   <link rel="stylesheet" href="../css/Dashboards.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <title>Admin Home Page</title>
 </head>
 <body>
     <%
-        String idSesionString = String.valueOf(session.getAttribute("usuarioId"));
-        String usuarioSesion = (String) session.getAttribute("usuario");
-        Integer idSesion = Integer.parseInt(idSesionString);
+        String idSesionString = null;
+        String usuarioSesion = null;
+        Integer idSesion = null;
+        Object tipoUsuario = session.getAttribute("tipoUsuario");
+
+    if(tipoUsuario != null){
+        idSesionString = String.valueOf(session.getAttribute("usuarioId"));
+        usuarioSesion = (String) session.getAttribute("usuario");
+        idSesion = Integer.parseInt(idSesionString);
+    }
     %>
     <%
     // Instancias de los DAOs
@@ -60,13 +72,22 @@
 
   <!-- Menú lateral -->
   <div class="sidebar">
-    <h2><a href="../index.jsp">Salud Dental</a></h2>
-    <a href="Home.jsp" class="menu-item">
-      <i class="fas fa-home"></i><span>Home</span>
-    </a>
-    <a href="Citas.jsp" class="menu-item">
-        <i class="fas fa-calendar-check"></i><span>Citas</span>
-    </a>
+      <h2><a href="../index.jsp">Salud Dental</a></h2>
+      <a href="Home.jsp" class="menu-item">
+          <i class="fas fa-home"></i><span>Home</span>
+      </a>
+      <a href="Agenda.jsp" class="menu-item">
+          <i class="fas fa-calendar-alt"></i><span>Agenda</span>
+      </a>
+      <a href="Medicos.jsp" class="menu-item">
+          <i class="fas fa-user-md"></i><span>Medicos</span>
+      </a>
+      <a href="Citas.jsp" class="menu-item">
+          <i class="fas fa-calendar-check"></i><span>Citas</span>
+      </a>
+      <a href="Settings.jsp" class="menu-item">
+          <i class="fas fa-cogs"></i><span>Ajustes</span>
+      </a>
   </div>
 
   <!-- Contenedor principal -->

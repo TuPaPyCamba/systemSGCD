@@ -17,9 +17,15 @@
 </head>
 <body>
     <%
-        String idSesionString = String.valueOf(session.getAttribute("usuarioId"));
-        String usuarioSesion = (String) session.getAttribute("usuario");
+        String idSesionString = null;
+        String usuarioSesion = null;
+        Object tipoUsuario = session.getAttribute("tipoUsuario");
+
+    if(tipoUsuario != null){
+        idSesionString = String.valueOf(session.getAttribute("usuarioId"));
+        usuarioSesion = (String) session.getAttribute("usuario");
         Integer idSesion = Integer.parseInt(idSesionString);
+    }
     %>
     <div class="dashboard">
         <!-- Menú lateral -->
@@ -47,10 +53,10 @@
         <!-- Barra de navegación superior -->
         <div class="navbar">
             <div class="" style="display: hidden;"></div>
-            <form action="" method="post">
-                <input type="hidden" name="action" value="logout">
-                <button type="submit">Cerrar Sesion</button>
-            </form>
+            <div class="user-info">
+                <p>Bienvenido, <%= usuarioSesion%></p>
+                <button>Logout</button>
+            </div>
         </div>
 
       <!-- Contenido del dashboard -->
@@ -249,13 +255,5 @@
         </div>
       </div>
     </div>
-    <%
-          if ("POST".equalsIgnoreCase(request.getMethod()) && "logout".equals(request.getParameter("action"))) {
-          CerrarSesion cerrarSesion = new CerrarSesion();
-          cerrarSesion.invalidarSesion(session);
-          response.sendRedirect("/SystemSGCD/InicioSesion/InicioSesion.jsp");
-          return;
-          }
-    %>
-</body>
+  </body>
 </html>

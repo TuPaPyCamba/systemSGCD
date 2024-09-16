@@ -17,7 +17,18 @@
   <title>Admin Home Page</title>
 </head>
 <body>
-<div class="dashboard">
+    <%
+    String idSesionString = null;
+    String usuarioSesion = null;
+    Object tipoUsuario = session.getAttribute("tipoUsuario");
+
+    if(tipoUsuario != null){
+        idSesionString = String.valueOf(session.getAttribute("usuarioId"));
+        usuarioSesion = (String) session.getAttribute("usuario");
+        Integer idSesion = Integer.parseInt(idSesionString);
+    }
+    %>
+    <div class="dashboard">
 
   <!-- Menú lateral -->
   <div class="sidebar">

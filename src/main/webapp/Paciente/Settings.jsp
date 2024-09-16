@@ -8,13 +8,29 @@ To change this template use File | Settings | File Templates.
 <html lang="en">
 <head>
     <title>Gestion de Medico</title>
+    <%
+        if (!"pacientes".equals(session.getAttribute("tipoUsuario"))) {
+            response.sendRedirect("/SystemSGCD/InicioSesion/InicioSesion.jsp");
+        }
+    %>
     <link rel="stylesheet" href="../css/modulos.css">
     <link rel="stylesheet" href="../css/Dashboards.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Admin Home Page</title>
 </head>
 <body>
-<div class="dashboard">
+    <%
+    String idSesionString = null;
+    String usuarioSesion = null;
+    Object tipoUsuario = session.getAttribute("tipoUsuario");
+
+    if(tipoUsuario != null){
+        idSesionString = String.valueOf(session.getAttribute("usuarioId"));
+        usuarioSesion = (String) session.getAttribute("usuario");
+        Integer idSesion = Integer.parseInt(idSesionString);
+    }
+    %>
+    <div class="dashboard">
 
     <!-- Menú lateral -->
     <div class="sidebar">

@@ -22,9 +22,15 @@
 </head>
 <body>
     <%
-            String idSesionString = String.valueOf(session.getAttribute("usuarioId"));
-            String usuarioSesion = (String) session.getAttribute("usuario");
-            Integer idSesion = Integer.parseInt(idSesionString);
+    String idSesionString = null;
+    String usuarioSesion = null;
+    Object tipoUsuario = session.getAttribute("tipoUsuario");
+
+    if(tipoUsuario != null){
+        idSesionString = String.valueOf(session.getAttribute("usuarioId"));
+        usuarioSesion = (String) session.getAttribute("usuario");
+        Integer idSesion = Integer.parseInt(idSesionString);
+    }
     %>
     <div class="dashboard">
 
