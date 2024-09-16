@@ -25,6 +25,11 @@
         <title>Admin Home Page</title>
     </head>
     <body>
+        <%
+            String idSesionString = String.valueOf(session.getAttribute("usuarioId"));
+            String usuarioSesion = (String) session.getAttribute("usuario");
+            Integer idSesion = Integer.parseInt(idSesionString);
+        %>
         <div class="dashboard">
 
         <!-- Menú lateral -->
@@ -56,7 +61,7 @@
             <div class="navbar">
                 <div class="" style="display: hidden;"></div>
                 <div class="user-info">
-                    <p>Bienvenido, Usuario</p>
+                    <p>Bienvenido, <%= usuarioSesion%></p>
                     <form action="" method="post">
                         <input type="hidden" name="action" value="logout">
                         <button type="submit">Cerrar Sesion</button>

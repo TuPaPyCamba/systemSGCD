@@ -4,6 +4,7 @@
 <%@ page import="com.sgcd.dao.PacienteDAO" %>
 <%@ page import="com.sgcd.dao.CitaDAO" %>
 <%@ page import="com.sgcd.model.Paciente" %>
+<%@ page import="com.sgcd.util.CerrarSesion" language="java" %>
 <%@ page import="com.sgcd.model.Medico" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %><%--
@@ -23,35 +24,38 @@
   <title>Admin Home Page</title>
 </head>
 <body>
-<%
-  // Instancias de los DAOs
-  CitaDAO citaDAO = new CitaDAO();
-  MedicoDAO medicoDAO = new MedicoDAO();
+    <%
+        String idSesionString = String.valueOf(session.getAttribute("usuarioId"));
+        String usuarioSesion = (String) session.getAttribute("usuario");
+        Integer idSesion = Integer.parseInt(idSesionString);
+    %>
+    <%
+    // Instancias de los DAOs
+    CitaDAO citaDAO = new CitaDAO();
+    MedicoDAO medicoDAO = new MedicoDAO();
 
-  // Obtener las listas de médicos y pacientes
-  List<Medico> listaMedicos = medicoDAO.obtenerMedicos();
+    // Obtener las listas de médicos y pacientes
+    List<Medico> listaMedicos = medicoDAO.obtenerMedicos();
 
-  // Variables para manejar la selección y la fecha
-  String idmedicostr = request.getParameter("idmedico");
-  String idpacientestr = request.getParameter("idpaciente");
-  String fechastr = request.getParameter("fecha");
+    // Variables para manejar la selección y la fecha
+    String idmedicostr = request.getParameter("idmedico");
+    String fechastr = request.getParameter("fecha");
 
-  List<String> horasDisponibles = new ArrayList<>();
-  boolean mostrarFormulario = true;
+    List<String> horasDisponibles = new ArrayList<>();
+    boolean mostrarFormulario = true;
 
-  if (idmedicostr != null && idpacientestr != null && fechastr != null) {
+    if (idmedicostr != null && idSesionString != null && fechastr != null) {
 
-    int idmedico = Integer.parseInt(idmedicostr);
-    int idpaciente = Integer.parseInt(idpacientestr);
-    LocalDate fecha = LocalDate.parse(fechastr);
+      int idmedico = Integer.parseInt(idmedicostr);
+      LocalDate fecha = LocalDate.parse(fechastr);
 
-    // Obtener las horas disponibles para el médico y el día seleccionado
-    horasDisponibles = citaDAO.obtenerHorasDisponiblesParaCitas(idmedico, fecha);
+      // Obtener las horas disponibles para el médico y el día seleccionado
+      horasDisponibles = citaDAO.obtenerHorasDisponiblesParaCitas(idmedico, fecha);
 
-    mostrarFormulario = false;
+      mostrarFormulario = false;
 
-  }
-%>
+}
+    %>
 <div class="dashboard">
 
   <!-- Menú lateral -->
@@ -60,17 +64,8 @@
     <a href="Home.jsp" class="menu-item">
       <i class="fas fa-home"></i><span>Home</span>
     </a>
-    <a href="Agenda.jsp" class="menu-item">
-      <i class="fas fa-calendar-alt"></i><span>Agenda</span>
-    </a>
-    <a href="GestionMedicos.jsp" class="menu-item">
-      <i class="fas fa-user-md"></i><span>Medicos</span>
-    </a>
     <a href="Citas.jsp" class="menu-item">
-      <i class="fas fa-calendar-check"></i><span>Citas</span>
-    </a>
-    <a href="Settings.jsp" class="menu-item">
-      <i class="fas fa-cogs"></i><span>Ajustes</span>
+        <i class="fas fa-calendar-check"></i><span>Citas</span>
     </a>
   </div>
 
@@ -80,17 +75,19 @@
     <div class="navbar">
       <div class="" style="display: hidden;"></div>
       <div class="user-info">
-        <p>Bienvenido, Usuario</p>
-        <button>Logout</button>
+          <p>Bienvenido, <%= usuarioSesion%></p>
+          <form action="" method="post">
+              <input type="hidden" name="action" value="logout">
+              <button type="submit">Cerrar Sesion</button>
+          </form>
       </div>
     </div>
 
     <!-- Contenido del dashboard -->
-    <div class="content">
-      <div class="container">
+    <div class="container">
         <div class="g-container">
-          <form action="Consultas.jsp" method="POST">
-            <!-- Selección de Médico -->
+            <form action="Citas.jsp" method="POST">
+                <!-- Selección de Médico -->
             <label for="idmedico">Seleccione Médico:</label>
             <select id="idmedico" name="idmedico" required>
               <%
@@ -115,8 +112,8 @@
             if (!mostrarFormulario) {
           %>
 
-          <form action="Consultas.jsp" method="POST">
-            <!-- Hora de la Cita -->
+          <form action="Citas.jsp" method="POST">
+              <!-- Hora de la Cita -->
             <label for="hora">Seleccione Hora:</label>
             <select id="hora" name="hora" required>
               <%
@@ -134,7 +131,6 @@
 
 
             <!-- Pasar los valores de idPaciente, idMedico y fecha al siguiente formulario -->
-            <input type="hidden" name="idpaciente" value="<%= idpacientestr %>">
             <input type="hidden" name="idmedico" value="<%= idmedicostr %>">
             <input type="hidden" name="fecha" value="<%= fechastr %>">
 
@@ -150,7 +146,6 @@
     <%
     // Instancia del DAO
 
-    String idpacientestrcrea = request.getParameter("idpaciente");
     String idmedicostrcrea = request.getParameter("idmedico");
     String fechast = request.getParameter("fecha");
     String hora = request.getParameter("hora");
@@ -158,17 +153,15 @@
 
     try {
         // Verificar que los parámetros no estén vacíos
-        if (!idpacientestrcrea.isEmpty() && !idmedicostrcrea.isEmpty() && !fechast.isEmpty() && !hora.isEmpty() && !descripcion.isEmpty()) {
-            int idpaciente = Integer.parseInt(idpacientestrcrea);
+        if (!idSesionString.isEmpty() && !idmedicostrcrea.isEmpty() && !fechast.isEmpty() && !hora.isEmpty() && !descripcion.isEmpty()) {
             int idmedico = Integer.parseInt(idmedicostrcrea);
             LocalDate fecha = LocalDate.parse(fechast);
 
             // Crear la cita
-            boolean citaCreada = citaDAO.crearCita(idpaciente, idmedico, fecha, hora, descripcion);
+            boolean citaCreada = citaDAO.crearCita(idSesion, idmedico, fecha, hora, descripcion);
 
             if (citaCreada) {
                 System.out.println("Cita creada exitosamente.");
-                response.sendRedirect("Pruebas.jsp");
             } else {
                 System.out.println("Error al crear la cita.");
             }
@@ -180,6 +173,14 @@
     } catch (Exception e) {
         System.out.println("Error al procesar la solicitud: " + e.getMessage());
     }
-%>
+    %>
+    <%
+        if ("POST".equalsIgnoreCase(request.getMethod()) && "logout".equals(request.getParameter("action"))) {
+        CerrarSesion cerrarSesion = new CerrarSesion();
+        cerrarSesion.invalidarSesion(session);
+        response.sendRedirect("/SystemSGCD/InicioSesion/InicioSesion.jsp");
+        return;
+        }
+    %>
 </body>
 </html>

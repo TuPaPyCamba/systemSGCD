@@ -47,10 +47,10 @@
         <!-- Barra de navegación superior -->
         <div class="navbar">
             <div class="" style="display: hidden;"></div>
-            <div class="user-info">
-                <p>Bienvenido, <%= usuarioSesion%></p>
-                <button>Logout</button>
-            </div>
+            <form action="" method="post">
+                <input type="hidden" name="action" value="logout">
+                <button type="submit">Cerrar Sesion</button>
+            </form>
         </div>
 
       <!-- Contenido del dashboard -->
@@ -111,6 +111,7 @@
                     <button
                         type="submit"
                         class="btn-delete"
+                        name="actioneliminar"
                         onclick="return confirm('¿Estás seguro de que quieres eliminar a este Medico?');">
                         Eliminar
                     </button>
@@ -205,6 +206,7 @@
                     <button
                         type="submit"
                         class="btn-delete"
+                        name="actioneliminar"
                         onclick="return confirm('¿Estás seguro de que quieres eliminar a este Medico?');">
                         Eliminar
                     </button>
@@ -247,5 +249,13 @@
         </div>
       </div>
     </div>
-  </body>
+    <%
+          if ("POST".equalsIgnoreCase(request.getMethod()) && "logout".equals(request.getParameter("action"))) {
+          CerrarSesion cerrarSesion = new CerrarSesion();
+          cerrarSesion.invalidarSesion(session);
+          response.sendRedirect("/SystemSGCD/InicioSesion/InicioSesion.jsp");
+          return;
+          }
+    %>
+</body>
 </html>

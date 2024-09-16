@@ -21,7 +21,12 @@
     <title>Admin Home Page</title>
 </head>
 <body>
-<div class="dashboard">
+    <%
+            String idSesionString = String.valueOf(session.getAttribute("usuarioId"));
+            String usuarioSesion = (String) session.getAttribute("usuario");
+            Integer idSesion = Integer.parseInt(idSesionString);
+    %>
+    <div class="dashboard">
 
     <!-- Menú lateral -->
     <div class="sidebar">
@@ -52,7 +57,7 @@
         <div class="navbar">
             <div class="" style="display: hidden;"></div>
             <div class="user-info">
-                <p>Bienvenido, Usuario</p>
+                <p>Bienvenido, <%= usuarioSesion%></p>
                 <form action="" method="post">
                     <input type="hidden" name="action" value="logout">
                     <button type="submit">Cerrar Sesion</button>
@@ -64,7 +69,7 @@
         <div class="container">
             <div class="g-container">
                     <div class="welcome-card">
-                        <h2>¡Bienvenido al Dashboard de Gestión Dental  Nombreuser!</h2>
+                        <h2>¡Bienvenido al Dashboard de Gestión Dental para Administradores!</h2>
                         <p>Este es tu panel de control donde puedes gestionar tus consultas y observar tu agenda diaria.</p>
                     </div>
                 </div>

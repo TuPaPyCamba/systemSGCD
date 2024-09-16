@@ -1,9 +1,3 @@
-Created by IntelliJ IDEA.
-User: maxim
-Date: 13/09/2024
-Time: 12:11 p. m.
-To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
@@ -25,8 +19,8 @@ To change this template use File | Settings | File Templates.
     <a href="Agenda.jsp" class="menu-item">
       <i class="fas fa-calendar-alt"></i><span>Agenda</span>
     </a>
-    <a href="GestionMedicos.jsp" class="menu-item">
-      <i class="fas fa-user-md"></i><span>Medicos</span>
+    <a href="Medicos.jsp" class="menu-item">
+        <i class="fas fa-user-md"></i><span>Medicos</span>
     </a>
     <a href="Citas.jsp" class="menu-item">
       <i class="fas fa-calendar-check"></i><span>Citas</span>

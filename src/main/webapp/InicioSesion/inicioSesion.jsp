@@ -18,7 +18,7 @@
                         url = "/SystemSGCD/Administrador/Home.jsp";
                         break;
                     case "pacientes":
-                        url = "/SystemSGCD/index.jsp";
+                        url = "/SystemSGCD/Paciente/Home.jsp";
                         break;
                     case "medicos":
                         url = "/SystemSGCD/Medico/Home.jsp";
@@ -33,11 +33,6 @@
         </script>
     </head>
     <body>
-        <%
-          String ide = String.valueOf(session.getAttribute("usuarioId"));
-          String typeuser = (String) session.getAttribute("tipoUsuario");
-          String user = (String) session.getAttribute("usuario");
-        %>
         <header class="headerContainer">
             <div class="headerLogo">
                 <h1 class="logoTitle"> Salud Dental</h1>
@@ -60,7 +55,6 @@
                 <p class="loginDescription">Si ya eres usuario registrado ingresa tus datos</p>
 
                 <form action="../InicioSesion/InicioSesion.jsp" method="POST" class="formBox">
-    <!--<p><%= typeuser%><p> -->
                     <div class="inputBox">
                         <input type="text" name="usuario" id="usuario" class="input" placeholder="Nombre de Usuario" required>
                         <label class="inputLabel">Email</label>

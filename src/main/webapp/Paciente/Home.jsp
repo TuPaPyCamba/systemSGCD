@@ -1,10 +1,5 @@
-Created by IntelliJ IDEA.
-User: maxim
-Date: 13/09/2024
-Time: 12:11 p. m.
-To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="com.sgcd.util.CerrarSesion" language="java" %>
 <html lang="en">
 <head>
   <title>Gestion de Medico</title>
@@ -14,7 +9,12 @@ To change this template use File | Settings | File Templates.
   <title>Admin Home Page</title>
 </head>
 <body>
-<div class="dashboard">
+    <%
+    String idSesionString = String.valueOf(session.getAttribute("usuarioId"));
+    String usuarioSesion = (String) session.getAttribute("usuario");
+    Integer idSesion = Integer.parseInt(idSesionString);
+    %>
+    <div class="dashboard">
 
   <!-- Menú lateral -->
   <div class="sidebar">
@@ -22,17 +22,8 @@ To change this template use File | Settings | File Templates.
     <a href="Home.jsp" class="menu-item">
       <i class="fas fa-home"></i><span>Home</span>
     </a>
-    <a href="Agenda.jsp" class="menu-item">
-      <i class="fas fa-calendar-alt"></i><span>Agenda</span>
-    </a>
-    <a href="GestionMedicos.jsp" class="menu-item">
-      <i class="fas fa-user-md"></i><span>Medicos</span>
-    </a>
     <a href="Citas.jsp" class="menu-item">
-      <i class="fas fa-calendar-check"></i><span>Citas</span>
-    </a>
-    <a href="Settings.jsp" class="menu-item">
-      <i class="fas fa-cogs"></i><span>Ajustes</span>
+        <i class="fas fa-calendar-check"></i><span>Citas</span>
     </a>
   </div>
 
@@ -40,19 +31,33 @@ To change this template use File | Settings | File Templates.
   <div class="main-content">
     <!-- Barra de navegación superior -->
     <div class="navbar">
-      <div class="" style="display: hidden;"></div>
-      <div class="user-info">
-        <p>Bienvenido, Usuario</p>
-        <button>Logout</button>
-      </div>
+        <div class="" style="display: hidden;"></div>
+        <div class="user-info">
+            <p>Bienvenido, <%= usuarioSesion%></p>
+            <form action="" method="post">
+                <input type="hidden" name="action" value="logout">
+                <button type="submit">Cerrar Sesion</button>
+            </form>
+        </div>
     </div>
 
-    <!-- Contenido del dashboard -->
-    <div class="content">
-      <div class="container">
-
-      </div>
-    </div>
+            <!-- Contenido del dashboard -->
+            <div class="container">
+                <div class="g-container">
+                    <div class="welcome-card">
+                        <h2>¡Bienvenido usuario Paciente!</h2>
+                        <p>Este es tu panel donde puedes crear citas.</p>
+                    </div>
+                </div>
+            </div>
   </div>
-</body>
+  <%
+        if ("POST".equalsIgnoreCase(request.getMethod()) && "logout".equals(request.getParameter("action"))) {
+        CerrarSesion cerrarSesion = new CerrarSesion();
+        cerrarSesion.invalidarSesion(session);
+        response.sendRedirect("/SystemSGCD/InicioSesion/InicioSesion.jsp");
+        return;
+        }
+    %>
+  </body>
 </html>
