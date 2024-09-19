@@ -113,6 +113,7 @@ public class MedicoDAO {
             rs = stmt.executeQuery();
 
             if (rs.next()) {
+                medico = new Medico();
                 medico.setId(rs.getInt("id"));
                 medico.setUsuario(rs.getString("usuario"));
                 medico.setContrasena(rs.getString("contrasena"));
@@ -150,5 +151,6 @@ public class MedicoDAO {
         }
         return registros;
     }
+
 
 }

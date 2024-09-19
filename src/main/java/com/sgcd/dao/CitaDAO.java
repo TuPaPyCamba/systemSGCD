@@ -199,7 +199,6 @@ public class CitaDAO {
 
     // Obtener horas disponibles para consulta
     public List<String> obtenerHorasDisponiblesParaCitas(int idMedico, LocalDate dia) {
-        System.out.println(dia);
 
         List<String> todasLasHoras = HorarioUtil.obtenerHorasDisponiblesParaCitas();
         List<String> citasOcupadas = new CitaDAO().obtenerCitasPorMedicoYDia(idMedico, dia);
@@ -207,6 +206,8 @@ public class CitaDAO {
         // Eliminar las horas ocupadas de la lista de horas disponibles
         List<String> horasDisponibles = new ArrayList<>(todasLasHoras);
         horasDisponibles.removeAll(citasOcupadas);
+
+        System.out.println(horasDisponibles);
 
         return horasDisponibles;
     }
@@ -255,6 +256,41 @@ public class CitaDAO {
             conn = getConnection();
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, idmedico);
+            stmt.setDate(2, java.sql.Date.valueOf(fecha));
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Cita cita = new Cita();
+                cita.setId(rs.getInt("id"));
+                cita.setIdMedico(rs.getInt("idmedico"));
+                cita.setIdPaciente(rs.getInt("idpaciente"));
+                cita.setFecha(rs.getDate("fecha").toLocalDate());
+                cita.setHora(rs.getString("hora"));
+                cita.setDescripcion(rs.getString("descripcion"));
+                citas.add(cita);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) try { rs.close(); } catch (SQLException e) { e.printStackTrace(); }
+            if (stmt != null) try { stmt.close(); } catch (SQLException e) { e.printStackTrace(); }
+            if (conn != null) try { conn.close(); } catch (SQLException e) { e.printStackTrace(); }
+        }
+        return citas;
+    }
+
+    // Obtener citas por paciente y dia
+    public List<Cita> obtenerTodasCitasPorPaciente(int idpaciente, LocalDate fecha) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<Cita> citas = new ArrayList<>();
+        String sql = "SELECT * FROM citas WHERE idpaciente = ? AND fecha = ?";
+
+        try {
+            conn = getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, idpaciente);
             stmt.setDate(2, java.sql.Date.valueOf(fecha));
             rs = stmt.executeQuery();
 

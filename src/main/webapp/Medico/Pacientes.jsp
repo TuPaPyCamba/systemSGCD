@@ -2,7 +2,8 @@
 <%@ page import="com.sgcd.model.Paciente" %>
 <%@ page import="com.sgcd.dao.PacienteDAO" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.ArrayList" %><%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.sgcd.util.CerrarSesion" %><%--
   Created by IntelliJ IDEA.
   User: maxim
   Date: 13/09/2024
@@ -12,34 +13,31 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
-    <title>Gestion de Medico</title>
+    <%
+    if (!"medicos".equals(session.getAttribute("tipoUsuario"))) {
+        response.sendRedirect("/SystemSGCD/InicioSesion/InicioSesion.jsp");
+    }
+    %>
+    <title>Tabla de Pacientes</title>
     <link rel="stylesheet" href="../css/modulos.css">
     <link rel="stylesheet" href="../css/Dashboards.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Pacientes</title>
-    <script>
-        function confirmarRegistro() {
-            return confirm("¿Estás seguro de que quieres registrar este Paciente?");
-        }
-
-        function confirmarEliminacion() {
-            return confirm("¿Estás seguro de que quieres eliminar este Paciente?");
-        }
-    </script>
 </head>
 <body>
-    <%
+<%
     String idSesionString = null;
     String usuarioSesion = null;
     Object tipoUsuario = session.getAttribute("tipoUsuario");
+    Integer idSesion = null;
 
     if(tipoUsuario != null){
         idSesionString = String.valueOf(session.getAttribute("usuarioId"));
         usuarioSesion = (String) session.getAttribute("usuario");
-        Integer idSesion = Integer.parseInt(idSesionString);
+        idSesion = Integer.parseInt(idSesionString);
     }
-    %>
-    <div class="dashboard">
+%>
+<div class="dashboard">
 
     <!-- Menú lateral -->
     <div class="sidebar">
@@ -67,20 +65,23 @@
         <div class="navbar">
             <div class="" style="display: hidden;"></div>
             <div class="user-info">
-                <p>Bienvenido, Usuario</p>
-                <button>Logout</button>
+                <p>Bienvenido, <%= usuarioSesion%></p>
+                <form action="" method="post">
+                    <input type="hidden" name="action" value="logout">
+                    <button type="submit">Cerrar Sesion</button>
+                </form>
             </div>
         </div>
 
         <!-- Contenido del dashboard -->
-        <div class="content">
-            <div class="container">
-                <div class="g-container">
-                    <h2>Gestión de Pacientes</h2>
+        <div class="container">
+            <div class="g-container">
+                    <h2>Tabla de Pacientes</h2>
 
                     <!-- Formulario de búsqueda -->
-                    <form action="GestionPacientes.jsp" method="get" class="search-form">
-                        <input type="text" name="busqueda" id="busqueda" placeholder="Buscar por nombre..." value="<%= request.getParameter("busqueda") %>">
+                    <form action="Pacientes.jsp" method="get" class="search-form">
+                        <input type="text" name="busqueda" id="busqueda" placeholder="Buscar por nombre..."
+                               value="<%= request.getParameter("busqueda") %>">
                         <button type="submit">Buscar</button>
                     </form>
 
@@ -121,11 +122,16 @@
                                 for (Paciente paciente : pacientesFiltrados) {
                         %>
                         <tr>
-                            <td><%= paciente.getIdPaciente() %></td>
-                            <td><%= paciente.getNombre() %></td>
-                            <td><%= paciente.getApellidos() %></td>
-                            <td><%= paciente.getTelefono()%></td>
-                            <td><%= paciente.getDireccion()%></td>
+                            <td><%= paciente.getIdPaciente() %>
+                            </td>
+                            <td><%= paciente.getNombre() %>
+                            </td>
+                            <td><%= paciente.getApellidos() %>
+                            </td>
+                            <td><%= paciente.getTelefono()%>
+                            </td>
+                            <td><%= paciente.getDireccion()%>
+                            </td>
                         </tr>
                         <%
                                 }
@@ -137,8 +143,14 @@
             </div>
         </div>
     </div>
-            </div>
-        </div>
-    </div>
+</div>
+<%
+    if ("POST".equalsIgnoreCase(request.getMethod()) && "logout".equals(request.getParameter("action"))) {
+        CerrarSesion cerrarSesion = new CerrarSesion();
+        cerrarSesion.invalidarSesion(session);
+        response.sendRedirect("/SystemSGCD/InicioSesion/InicioSesion.jsp");
+        return;
+    }
+%>
 </body>
 </html>

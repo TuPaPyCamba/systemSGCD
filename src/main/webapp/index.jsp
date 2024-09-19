@@ -30,9 +30,7 @@
             <a href="#contact" class="navLink">Ubicación y Contacto</a>
             <a href="#doubts" class="navLink">Dudas y comentarios</a>
             <a href="./InicioSesion/InicioSesion.jsp" class="navLink">Iniciar Sesion</a>
-            <a href="queries.html" class="navLink">Consultas</a>
         </nav>
-        <a href="" class="navLink">Citas</a>
     </div>
     <!-- Home Section -->
 

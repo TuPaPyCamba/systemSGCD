@@ -1,8 +1,8 @@
-<%@ page import="com.sgcd.model.Consulta" %>
-<%@ page import="com.sgcd.dao.ConsultaDAO" %>
+<%@ page import="com.sgcd.dao.CitaDAO" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.sql.SQLException" %>
-<%@ page import="com.sgcd.util.CerrarSesion" %>
+<%@ page import="com.sgcd.model.Cita" %>
+<%@ page import="com.sgcd.util.CerrarSesion" language="java" %>
 <%--
   Created by IntelliJ IDEA.
   User: maxim
@@ -37,7 +37,6 @@
         idSesion = Integer.parseInt(idSesionString);
     }
 %>
-
 <div class="dashboard">
 
     <!-- Menú lateral -->
@@ -69,8 +68,7 @@
         <div class="navbar">
             <div class="" style="display: hidden;"></div>
             <div class="user-info">
-                <p>Bienvenido, <%= usuarioSesion%>
-                </p>
+                <p>Bienvenido, <%= usuarioSesion%></p>
                 <form action="" method="post">
                     <input type="hidden" name="action" value="logout">
                     <button type="submit">Cerrar Sesion</button>
@@ -81,10 +79,10 @@
         <!-- Contenido del dashboard -->
         <div class="container">
             <div class="g-container">
-                <!-- banner de Consulta -->
+                <!-- banner de Citas -->
                 <div class="g-banner-container">
                     <div class="g-banner-labelbutton-container">
-                        <h2 class="label-banner">Lista de Consultas</h2>
+                        <h2 class="label-banner">Lista de Citas</h2>
                     </div>
                     <div class="blue-line"></div>
                 </div>
@@ -101,35 +99,36 @@
                     </thead>
                     <tbody>
                     <%
-                        List<Consulta> consultas = null;
-                        ConsultaDAO consultaDAO = new ConsultaDAO();
+                        List<Cita> citas = null;
+                        CitaDAO citaDAO = new CitaDAO();
 
                         try {
-                            consultas = consultaDAO.findAllConsultas();
+                            citas = citaDAO.findAllCitas();
                         } catch (SQLException ex) {
                             throw new RuntimeException(ex);
                         }
 
-                        if (consultas != null && !consultas.isEmpty()) {
-                            for (Consulta consulta : consultas) {
+                        if (citas != null && !citas.isEmpty()) {
+                            for (Cita cita : citas) {
                     %>
                     <tr>
-                        <td><%= consulta.getId() %>
+                        <td><%= cita.getId() %>
                         </td>
-                        <td><%= consulta.getFecha()%>
+                        <td><%= cita.getFecha()%>
                         </td>
-                        <td><%= consulta.getHora()%>
+                        <td><%= cita.getHora()%>
                         </td>
-                        <td><%= consulta.getDescripcion()%>
+                        <td><%= cita.getDescripcion()%>
                         </td>
                         <td>
-                            <form action="Consultas.jsp" method="post" style="display: inline">
-                                <input type="hidden" name="id" value="<%= consulta.getId() %>">
+                            <form action="Citas.jsp" method="post" style="display: inline">
+                                <input type="hidden" name="id" value="<%= cita.getId() %>">
                                 <button type="submit" class="btn-delete"
                                         onclick="return confirm('¿Estás seguro de que quieres eliminar a este Medico?');">
                                     Eliminar
                                 </button>
                             </form>
+                            <button class="btn-edit" onclick="toggleForm(this)">Editar</button>
                         </td>
                     </tr>
                     <%
@@ -137,20 +136,20 @@
                     } else {
                     %>
                     <tr>
-                        <td colspan="5">No se encontraron consultas.</td>
+                        <td colspan="5">No se encontraron citas.</td>
                     </tr>
                     <%
                         }
                     %>
                     <!-- Logico de eliminacion -->
                     <%
-                        // Manejo de la eliminación de una consulta
+                        // Manejo de la eliminación de una cita
                         String idParam = request.getParameter("id");
                         if (idParam != null && !idParam.isEmpty()) {
                             int id = Integer.parseInt(idParam);
                             try {
-                                int registrosEliminados = consultaDAO.delete(id);
-                                response.sendRedirect("Consultas.jsp");
+                                int registrosEliminados = citaDAO.delete(id);
+                                response.sendRedirect("Citas.jsp");
                             } catch (SQLException ex) {
                                 throw new RuntimeException(ex);
                             }

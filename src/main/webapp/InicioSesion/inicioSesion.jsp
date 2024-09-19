@@ -44,9 +44,7 @@
                 <a href="../index.jsp#contact" class="navLink">Ubicación y Contacto</a>
                 <a href="../index.jsp#doubts" class="navLink">Dudas y comentarios</a>
                 <a href="" class="navLink">Iniciar Sesion</a>
-                <a href="" class="navLink">Consultas</a>
             </nav>
-            <a href="" class="navLink">Citas</a>
         </header>
 
         <section class="loginSection">

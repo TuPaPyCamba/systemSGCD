@@ -1,0 +1,52 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Sep 14, 2024, 9:51:30 PM
+    Author     : jh
+*/
+
+.buscarCita{
+    width: 100%;
+    display: flex;
+    justify-content: start;
+}
+
+
+.seleccionarMedico {
+    display: flex;
+    width: 45%;
+    max-width: 100%;
+    margin: 20px;
+    background-color: #ffffff;
+    padding: 15 40px;
+    box-sizing: border-box;
+    flex-direction: column;
+}
+
+.seleccionarMedico input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px 0 0 5px;
+    font-size: 16px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.seleccionarMedico button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-sizing: border-box;
+}
+
+.seleccionarMedico button:hover {
+    background-color: #0056b3;
+}

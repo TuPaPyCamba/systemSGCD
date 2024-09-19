@@ -28,7 +28,7 @@ public class ConsultaDAO {
         System.out.println(hora);
         System.out.println(descripcion);
 
-        String sql = "INSERT INTO concultas (idpaciente, idmedico, fecha, hora, descripcion) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO consultas (idpaciente, idmedico, fecha, hora, descripcion) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -74,7 +74,7 @@ public class ConsultaDAO {
 
     // Metodo de verificacion paciente
     private boolean esHorarioOcupadoParaPaciente(int idpaciente, LocalDate fecha, String hora) {
-        String sql = "SELECT COUNT(*) FROM concultas WHERE idpaciente = ? AND DATE(fecha) = ? AND hora = ?";
+        String sql = "SELECT COUNT(*) FROM consultas WHERE idpaciente = ? AND DATE(fecha) = ? AND hora = ?";
         try (Connection conn = getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -116,7 +116,7 @@ public class ConsultaDAO {
 
     // Metodo para editar
     public int update(Consulta consulta) throws SQLException {
-        String sql = "UPDATE consultas SET paciente_id = ?, medico_id = ?, fecha = ?, hora = ?, descripcion = ? WHERE id = ?";
+        String sql = "UPDATE consultas SET idpaciente = ?, idmedico = ?, fecha = ?, hora = ?, descripcion = ? WHERE id = ?";
         Connection con = null;
         PreparedStatement stmt = null;
         int registros = 0;
@@ -224,8 +224,8 @@ public class ConsultaDAO {
             while (rs.next()) {
                 Consulta consulta = new Consulta();
                 consulta.setId(rs.getInt("id"));
-                consulta.setIdPaciente(rs.getInt("paciente_id"));
-                consulta.setIdMedico(rs.getInt("medico_id"));
+                consulta.setIdPaciente(rs.getInt("idpaciente"));
+                consulta.setIdMedico(rs.getInt("idmedico"));
                 consulta.setFecha(rs.getDate("fecha").toLocalDate());
                 consulta.setHora(rs.getString("hora"));
                 consulta.setDescripcion(rs.getString("descripcion"));
@@ -266,6 +266,43 @@ public class ConsultaDAO {
                     consulta.setDescripcion(rs.getString("descripcion"));
                     consultas.add(consulta);
                 }
+
+        } catch (SQLException e) {
+            e.printStackTrace(); // Consider using a logging framework in a real application
+        } finally {
+            if (rs != null) try { rs.close(); } catch (SQLException e) { e.printStackTrace(); }
+            if (stmt != null) try { stmt.close(); } catch (SQLException e) { e.printStackTrace(); }
+            if (conn != null) try { conn.close(); } catch (SQLException e) { e.printStackTrace(); }
+        }
+
+        return consultas;
+    }
+
+    // Obtener consulta por paciente y dia
+    public List<Consulta> obtenerTodasConsultasParaPaciente(int idpaciente, LocalDate fecha) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<Consulta> consultas = new ArrayList<>();
+        String sql = "SELECT * FROM consultas WHERE idpaciente = ? AND fecha = ?";
+
+        try {
+            conn = getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, idpaciente);
+            stmt.setDate(2, java.sql.Date.valueOf(fecha));
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Consulta consulta = new Consulta();
+                consulta.setId(rs.getInt("id"));
+                consulta.setIdMedico(rs.getInt("idmedico"));
+                consulta.setIdPaciente(rs.getInt("idpaciente"));
+                consulta.setFecha(rs.getDate("fecha").toLocalDate());
+                consulta.setHora(rs.getString("hora"));
+                consulta.setDescripcion(rs.getString("descripcion"));
+                consultas.add(consulta);
+            }
 
         } catch (SQLException e) {
             e.printStackTrace(); // Consider using a logging framework in a real application
