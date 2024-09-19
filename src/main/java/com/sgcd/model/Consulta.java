@@ -1,28 +1,49 @@
 package com.sgcd.model;
 
 import java.sql.Date;
-import java.sql.Time;
+import java.time.LocalDate;
 
 public class Consulta {
     private int id;
-    private int pacienteId;
-    private int medicoId;
-    private Date fecha;
-    private Time hora;
+    private int idPaciente;
+    private int idMedico;
+    private LocalDate fecha;
+    private String hora;
+    private String descripcion;
 
-    // Getters y Setters
+    public Consulta() {
+    }
+
+    public Consulta(int id, int idPaciente, int idMedico, LocalDate fecha, String hora, String descripcion) {
+        this.id = id;
+        this.idPaciente = idPaciente;
+        this.idMedico = idMedico;
+        this.fecha = fecha;
+        this.hora = hora;
+        this.descripcion = descripcion;
+    }
+
     public int getId() { return id; }
+
     public void setId(int id) { this.id = id; }
 
-    public int getPacienteId() { return pacienteId; }
-    public void setPacienteId(int pacienteId) { this.pacienteId = pacienteId; }
+    public int getIdPaciente() { return idPaciente; }
 
-    public int getMedicoId() { return medicoId; }
-    public void setMedicoId(int medicoId) { this.medicoId = medicoId; }
+    public void setIdPaciente(int idPaciente) { this.idPaciente = idPaciente; }
 
-    public Date getFecha() { return fecha; }
-    public void setFecha(Date fecha) { this.fecha = fecha; }
+    public int getIdMedico() { return idMedico; }
 
-    public Time getHora() { return hora; }
-    public void setHora(Time hora) { this.hora = hora; }
+    public void setIdMedico(int idMedico) { this.idMedico = idMedico; }
+
+    public LocalDate getFecha() { return fecha; }
+
+    public void setFecha(LocalDate fecha) { this.fecha = fecha; }
+
+    public String getHora() { return hora; }
+
+    public void setHora(String hora) { this.hora = hora; }
+
+    public String getDescripcion() { return descripcion;}
+
+    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
 }

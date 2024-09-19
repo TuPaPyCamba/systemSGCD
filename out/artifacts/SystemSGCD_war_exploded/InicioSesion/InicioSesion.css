@@ -1,0 +1,105 @@
+/* 
+    Created on : Sep 13, 2024, 4:34:51 PM
+    Author     : jh
+*/
+
+body{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: 'Arial', sans-serif;
+  background: url(../img/info.jpg) no-repeat;
+}
+
+a{
+  text-decoration: none;
+}
+
+/*============
+ Form
+========*/
+
+.loginSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 80vh;
+}
+
+.sectionForm {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    text-align: center;
+}
+
+.sectionForm h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.loginDescription {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.formBox {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.inputBox {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.inputBox .input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.inputBox .input:focus {
+    border-color: #007bff;
+}
+
+.inputLabel {
+    position: absolute;
+    top: -14px;
+    left: 15px;
+    font-size: 12px;
+    background-color: #fff;
+    padding: 0 5px;
+    color: #666;
+}
+
+
+/* Form Button */
+.formButton {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.formButton:hover {
+    background-color: #0056b3;
+}
+
+

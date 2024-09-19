@@ -1,0 +1,76 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Sep 13, 2024, 7:09:40 PM
+    Author     : jh
+*/
+
+/*============
+ Header
+========*/
+
+.headerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: #fff; 
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.headerLogo .logoTitle {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+    color: #333; 
+}
+
+.headerNav {
+    display: flex;
+    gap: 30px;
+}
+
+.headerNav .navLink {
+    color: #333; 
+    text-decoration: none;
+    font-size: 16px;
+    position: relative;
+    padding-bottom: 5px;
+    transition: color 0.3s ease;
+}
+
+.headerNav .navLink::after {
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #007bff; 
+    transition: width 0.3s ease;
+}
+
+.headerNav .navLink:hover {
+    color: #007bff; 
+}
+
+.headerNav .navLink:hover::after {
+    width: 100%; 
+}
+
+.navLink {
+    font-size: 16px;
+    color: #333;
+    text-decoration: none;
+    border-bottom: 2px solid transparent; 
+    padding-bottom: 5px;
+    transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.navLink:hover {
+    color: #007bff;
+    border-bottom-color: #007bff;
+}

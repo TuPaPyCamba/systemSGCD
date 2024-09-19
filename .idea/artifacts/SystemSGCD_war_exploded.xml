@@ -1,0 +1,18 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="SystemSGCD:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/SystemSGCD_war_exploded</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="SystemSGCD" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: com.mysql:mysql-connector-j:9.0.0" />
+          <element id="library" level="project" name="Maven: com.google.protobuf:protobuf-java:4.26.1" />
+          <element id="library" level="project" name="Maven: javax.json:javax.json-api:1.1.4" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="SystemSGCD/web/Web" />
+    </root>
+  </artifact>
+</component>
