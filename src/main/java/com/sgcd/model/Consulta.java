@@ -7,6 +7,7 @@ public class Consulta {
     private int id;
     private int idPaciente;
     private int idMedico;
+    private int idsucursal;
     private LocalDate fecha;
     private String hora;
     private String descripcion;
@@ -14,10 +15,11 @@ public class Consulta {
     public Consulta() {
     }
 
-    public Consulta(int id, int idPaciente, int idMedico, LocalDate fecha, String hora, String descripcion) {
+    public Consulta(int id, int idPaciente, int idMedico, int idsucursal, LocalDate fecha, String hora, String descripcion) {
         this.id = id;
         this.idPaciente = idPaciente;
         this.idMedico = idMedico;
+        this.idsucursal = idsucursal;
         this.fecha = fecha;
         this.hora = hora;
         this.descripcion = descripcion;
@@ -34,6 +36,10 @@ public class Consulta {
     public int getIdMedico() { return idMedico; }
 
     public void setIdMedico(int idMedico) { this.idMedico = idMedico; }
+
+    public int getIdsucursal() { return idsucursal; }
+
+    public void setIdsucursal(int idsucursal) { this.idsucursal = idsucursal; }
 
     public LocalDate getFecha() { return fecha; }
 

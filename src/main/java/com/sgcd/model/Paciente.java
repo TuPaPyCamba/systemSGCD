@@ -4,6 +4,7 @@ public class Paciente {
     private int id;
     private String usuario;
     private String contrasena;
+    private String email;
     private String nombre;
     private String apellidos;
     private String telefono;
