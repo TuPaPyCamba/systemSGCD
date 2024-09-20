@@ -75,7 +75,7 @@ public class MedicoDAO {
         return medicos;
     }
 
-    // Metodo para buscar un medico por id
+    // Metodo para buscar un medico por id (Funcional para la ultima version)
     public Medico obtenerMedico(int id) throws SQLException {
         Medico medico = null;
         Connection conn = null;

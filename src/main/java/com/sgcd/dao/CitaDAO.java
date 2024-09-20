@@ -13,7 +13,7 @@ import java.util.List;
 
 public class CitaDAO {
 
-    // Metodo de creacion (actualizado para sucursal y email)
+    // Metodo de creacion (actualizado para sucursal)
     public boolean crearCita(int idpaciente, int idmedico, int idsucursal, LocalDate fecha, String hora, String descripcion) {
         // Verificar si el horario ya está ocupado
         if (esHorarioOcupadoParaMedico(idmedico, fecha, hora)) {
@@ -245,7 +245,7 @@ public class CitaDAO {
         return citas;
     }
 
-    // Obtener citas por medico y dia (actualizado para sucursal y email)
+    // Obtener citas por medico y dia (funcional para la ultima version)
     public List<Cita> obtenerTodasCitas(int idmedico, LocalDate fecha) {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -265,6 +265,7 @@ public class CitaDAO {
                 cita.setId(rs.getInt("id"));
                 cita.setIdMedico(rs.getInt("idmedico"));
                 cita.setIdPaciente(rs.getInt("idpaciente"));
+                cita.setIdsucursal(rs.getInt("idsucursal"));
                 cita.setFecha(rs.getDate("fecha").toLocalDate());
                 cita.setHora(rs.getString("hora"));
                 cita.setDescripcion(rs.getString("descripcion"));
@@ -280,7 +281,7 @@ public class CitaDAO {
         return citas;
     }
 
-    // Obtener citas por paciente y dia
+    // Obtener citas por paciente y dia (funcional para la ultima version)
     public List<Cita> obtenerTodasCitasPorPaciente(int idpaciente, LocalDate fecha) {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -300,6 +301,7 @@ public class CitaDAO {
                 cita.setId(rs.getInt("id"));
                 cita.setIdMedico(rs.getInt("idmedico"));
                 cita.setIdPaciente(rs.getInt("idpaciente"));
+                cita.setIdsucursal(rs.getInt("idsucursal"));
                 cita.setFecha(rs.getDate("fecha").toLocalDate());
                 cita.setHora(rs.getString("hora"));
                 cita.setDescripcion(rs.getString("descripcion"));
