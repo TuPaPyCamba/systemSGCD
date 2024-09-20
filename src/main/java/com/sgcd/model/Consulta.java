@@ -1,6 +1,5 @@
 package com.sgcd.model;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
 public class Consulta {
@@ -25,6 +24,7 @@ public class Consulta {
         this.descripcion = descripcion;
     }
 
+    // Getters y Setters
     public int getId() { return id; }
 
     public void setId(int id) { this.id = id; }

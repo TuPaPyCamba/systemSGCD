@@ -14,8 +14,8 @@ import java.util.List;
 
 public class ConsultaDAO {
 
-    // Metodo de creacion
-    public boolean crearConsulta(int idpaciente, int idmedico, LocalDate fecha, String hora, String descripcion) {
+    // Metodo de creacion (funcional para la ultima version)
+    public boolean crearConsulta(int idpaciente, int idmedico, int  idsucursal, LocalDate fecha, String hora, String descripcion) {
         // Verificar si el horario ya está ocupado para el Paciente
         if (esHorarioOcupadoParaPaciente(idpaciente, fecha, hora) && esHorarioOcupadoParaMedico(idmedico, fecha, hora)) {
             System.out.println("El Paciente ya tiene una cita programada en ese horario.");
@@ -24,25 +24,27 @@ public class ConsultaDAO {
 
         System.out.println(idpaciente);
         System.out.println(idmedico);
+        System.out.println(idsucursal);
         System.out.println(fecha);
         System.out.println(hora);
         System.out.println(descripcion);
 
-        String sql = "INSERT INTO consultas (idpaciente, idmedico, fecha, hora, descripcion) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO consultas (idpaciente, idmedico, idsucursal, fecha, hora, descripcion) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, idpaciente);
             stmt.setInt(2, idmedico);
-            stmt.setDate(3, Date.valueOf(fecha));
-            stmt.setString(4, hora);
-            stmt.setString(5, descripcion);
+            stmt.setInt(3, idsucursal);
+            stmt.setDate(4, Date.valueOf(fecha));
+            stmt.setString(5, hora);
+            stmt.setString(6, descripcion);
 
             int filasInsertadas = stmt.executeUpdate();
 
             if (filasInsertadas > 0) {
-                System.out.println("Cita creada exitosamente.");
+                System.out.println("Conculta creada exitosamente.");
                 return true;
             }
         } catch (SQLException e) {
@@ -51,7 +53,7 @@ public class ConsultaDAO {
         return false;
     }
 
-    // Metodo de verificacion medico
+    // Metodo de verificacion medico (funcional para la ultima version)
     private boolean esHorarioOcupadoParaMedico(int idmedico, LocalDate fecha, String hora) {
         String sql = "SELECT COUNT(*) FROM consultas WHERE idmedico = ? AND DATE(fecha) = ? AND hora = ?";
         try (Connection conn = getConnection();
@@ -72,7 +74,7 @@ public class ConsultaDAO {
         return false;
     }
 
-    // Metodo de verificacion paciente
+    // Metodo de verificacion paciente (funcional para la ultima version)
     private boolean esHorarioOcupadoParaPaciente(int idpaciente, LocalDate fecha, String hora) {
         String sql = "SELECT COUNT(*) FROM consultas WHERE idpaciente = ? AND DATE(fecha) = ? AND hora = ?";
         try (Connection conn = getConnection();
@@ -94,7 +96,7 @@ public class ConsultaDAO {
     }
 
 
-    // Metodo para eliminar
+    // Metodo para eliminar (funcional para la ultima version)
     public int delete(int id) throws SQLException {
         String sql = "DELETE FROM consultas WHERE id = ?";
         Connection con = null;
@@ -114,9 +116,9 @@ public class ConsultaDAO {
         return registros;
     }
 
-    // Metodo para editar
+    // Metodo para editar (funcional para la ultima version)
     public int update(Consulta consulta) throws SQLException {
-        String sql = "UPDATE consultas SET idpaciente = ?, idmedico = ?, fecha = ?, hora = ?, descripcion = ? WHERE id = ?";
+        String sql = "UPDATE consultas SET idpaciente = ?, idmedico = ?, idsucursal = ?, fecha = ?, hora = ?, descripcion = ? WHERE id = ?";
         Connection con = null;
         PreparedStatement stmt = null;
         int registros = 0;
@@ -126,10 +128,11 @@ public class ConsultaDAO {
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, consulta.getIdPaciente());
             stmt.setInt(2, consulta.getIdMedico());
-            stmt.setDate(3, java.sql.Date.valueOf(consulta.getFecha()));
-            stmt.setString(4, consulta.getHora());
-            stmt.setString(5, consulta.getDescripcion());
-            stmt.setInt(6, consulta.getId());
+            stmt.setInt(3, consulta.getIdsucursal());
+            stmt.setDate(4, java.sql.Date.valueOf(consulta.getFecha()));
+            stmt.setString(5, consulta.getHora());
+            stmt.setString(6, consulta.getDescripcion());
+            stmt.setInt(7, consulta.getId());
 
             registros = stmt.executeUpdate();
         } finally {
@@ -139,7 +142,7 @@ public class ConsultaDAO {
         return registros;
     }
 
-    // Obtener Consultas por paciente y dia
+    // Obtener Consultas por paciente y dia (funcional para la ultima version)
     public List<String> obtenerConsultasPorPacienteYDia(int idpaciente, LocalDate fecha) {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -167,7 +170,7 @@ public class ConsultaDAO {
         return consultas;
     }
 
-    //Obtener Consultas por medico y dia
+    //Obtener Consultas por medico y dia (funcional para la ultima version)
     public  List<String> obtenerConsultasPorMedicoYDia(int idmedico, LocalDate fecha) {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -195,7 +198,7 @@ public class ConsultaDAO {
         return consultas;
     }
 
-    // Obtener horas disponibles para consulta
+    // Obtener horas disponibles para consulta (funcional para la ultima version)
     public List<String> obtenerHorasDisponiblesParaConsultaPorPaciente(int idpaciente, LocalDate fecha) {
 
         List<String> todasLasHoras = HorarioUtil.obtenerHorasDisponiblesParaConsulta();
@@ -208,7 +211,7 @@ public class ConsultaDAO {
         return horasDisponibles;
     }
 
-    // Método para obtener todas las consultas
+    // Método para obtener todas las consultas (funcional para la ultima version)
     public List<Consulta> findAllConsultas() throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -226,6 +229,7 @@ public class ConsultaDAO {
                 consulta.setId(rs.getInt("id"));
                 consulta.setIdPaciente(rs.getInt("idpaciente"));
                 consulta.setIdMedico(rs.getInt("idmedico"));
+                consulta.setIdsucursal(rs.getInt("idsucursal"));
                 consulta.setFecha(rs.getDate("fecha").toLocalDate());
                 consulta.setHora(rs.getString("hora"));
                 consulta.setDescripcion(rs.getString("descripcion"));
@@ -241,7 +245,7 @@ public class ConsultaDAO {
         return consultas;
     }
 
-    // Obtener citas por medico y dia
+    // Obtener citas por medico y dia (funcional para la ultima version)
     public List<Consulta> obtenerTodasConsultas(int idmedico, LocalDate fecha) {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -261,6 +265,7 @@ public class ConsultaDAO {
                     consulta.setId(rs.getInt("id"));
                     consulta.setIdMedico(rs.getInt("idmedico"));
                     consulta.setIdPaciente(rs.getInt("idpaciente"));
+                    consulta.setIdsucursal(rs.getInt("idsucursal"));
                     consulta.setFecha(rs.getDate("fecha").toLocalDate());
                     consulta.setHora(rs.getString("hora"));
                     consulta.setDescripcion(rs.getString("descripcion"));
@@ -278,7 +283,7 @@ public class ConsultaDAO {
         return consultas;
     }
 
-    // Obtener consulta por paciente y dia
+    // Obtener consulta por paciente y dia (funcional para la ultima version)
     public List<Consulta> obtenerTodasConsultasParaPaciente(int idpaciente, LocalDate fecha) {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -298,6 +303,7 @@ public class ConsultaDAO {
                 consulta.setId(rs.getInt("id"));
                 consulta.setIdMedico(rs.getInt("idmedico"));
                 consulta.setIdPaciente(rs.getInt("idpaciente"));
+                consulta.setIdsucursal(rs.getInt("idsucursal"));
                 consulta.setFecha(rs.getDate("fecha").toLocalDate());
                 consulta.setHora(rs.getString("hora"));
                 consulta.setDescripcion(rs.getString("descripcion"));
