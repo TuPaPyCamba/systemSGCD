@@ -75,6 +75,41 @@ public class MedicoDAO {
         return medicos;
     }
 
+    // Metodo para buscar un medico por id
+    public Medico obtenerMedico(int id) throws SQLException {
+        Medico medico = null;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String SQL_SELECT = "SELECT * FROM medicos WHERE id = ?";
+
+        try {
+            conn = getConnection();
+            stmt = conn.prepareStatement(SQL_SELECT);
+            stmt.setInt(1, id);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                medico = new Medico();
+                medico.setId(rs.getInt("id"));
+                medico.setUsuario(rs.getString("usuario"));
+                medico.setContrasena(rs.getString("contrasena"));
+                medico.setEmail(rs.getString("email"));
+                medico.setNombre(rs.getString("nombre"));
+                medico.setApellidos(rs.getString("apellidos"));
+                medico.setIdsucursal(rs.getString("idsucursal"));
+                medico.setEspecialidad(rs.getString("especialidad"));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        } finally {
+            if (stmt != null) close(stmt);
+            if (conn != null) close(conn);
+            if (rs != null) close(rs);
+        }
+        return medico;
+    }
+
     // Metodo para editar (actualizado para sucursal y email)
     public int actualizar(Medico medico) throws SQLException {
         Connection conn = null;

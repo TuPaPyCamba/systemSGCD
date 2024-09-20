@@ -197,7 +197,7 @@ public class CitaDAO {
         return citas;
     }
 
-    // Obtener horas disponibles para consulta (funcional para la ultima version)
+    // Obtener horas disponibles para cita (funcional para la ultima version)
     public List<String> obtenerHorasDisponiblesParaCitas(int idMedico, LocalDate dia) {
 
         List<String> todasLasHoras = HorarioUtil.obtenerHorasDisponiblesParaCitas();
@@ -212,7 +212,7 @@ public class CitaDAO {
         return horasDisponibles;
     }
 
-    // Metodo para obtener todas las consultas (funcional para la ultima version)
+    // Metodo para obtener todas las cita (funcional para la ultima version)
     public List<Cita> findAllCitas() throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -230,6 +230,7 @@ public class CitaDAO {
                 cita.setId(rs.getInt("id"));
                 cita.setIdMedico(rs.getInt("idmedico"));
                 cita.setIdPaciente(rs.getInt("idpaciente"));
+                cita.setIdsucursal(rs.getInt("idsucursal"));
                 cita.setFecha(rs.getDate("fecha").toLocalDate());
                 cita.setHora(rs.getString("hora"));
                 cita.setDescripcion(rs.getString("descripcion"));
@@ -244,7 +245,7 @@ public class CitaDAO {
         return citas;
     }
 
-    // Obtener citas por medico y dia
+    // Obtener citas por medico y dia (actualizado para sucursal y email)
     public List<Cita> obtenerTodasCitas(int idmedico, LocalDate fecha) {
         Connection conn = null;
         PreparedStatement stmt = null;
