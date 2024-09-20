@@ -142,7 +142,7 @@
                         <h2 class="label-banner">Crear Cita</h2>
                     </div>
                 </div>
-                <% // Muestra las sucursales disponibles
+                <% // Muestra las sucursales disponibles - PASO 1
                     if (mostrarSucursales) {
                 %>
                 <form action="Citas.jsp" method="POST"> <!-- Formulario para seleccionar la sucursal -->
@@ -151,7 +151,7 @@
                         <%
                             for (Sucursal sucursal : listaSucursales) {
                         %>
-                            <option value="<%= sucursal.getIdsucursal()%>">Nombre: <%= sucursal.getNombre() %>,
+                            <option value="<%= sucursal.getIdsucursal()%>" %>">Nombre: <%= sucursal.getNombre() %>,
                                 Direccion: <%= sucursal.getDireccion()%>
                             </option>
                         <%
@@ -163,12 +163,12 @@
                 <%
                 }
                 %>
-                <% // Muestra los medicos disponibles por sucursal
+                <% // Muestra los medicos disponibles por sucursal - PASO 2
                         if (mostrarMedicos) {
                     %>
-                    <h2>Sucursal seleccionada: <%= sucursalDAO %></h2>
+                    <h2>Sucursal seleccionada: <%= sucursalDAO.obtenerSucursalPorId(Integer.parseInt(idsucursalstr)).getNombre() %></h2>
                 <form action="Citas.jsp" method="POST">
-                    <input type="hidden" value="<%= id_sucursalstr %>" name="id-sucursal">
+                    <input type="hidden" value="<%= idsucursalstr %>" name="id-sucursal">
                     <input type="hidden" value="false" name="mostrar-medico">
                     <!-- Selección de Médico -->
                     <div class="seleccionarMedico">
@@ -198,13 +198,15 @@
                 %>
 
                     
-                    <% // Muestra los medicos disponibles
+                    <% // Muestra los medicos disponibles - PASO 3
                         System.out.println(fechastr);
                         if (mostrarFormulario) {
                     %>
-                    <h2>Sucursal seleccionada: <%= sucursalDAO %></h2>
-                    <h2>Medico seleccionado: <%= medicoDAO.findById(Integer.parseInt(idmedicostr)).getNombre() %></h2>
+                    <h2>Sucursal seleccionada: <%= sucursalDAO.obtenerSucursalPorId(Integer.parseInt(id_sucursalstr)).getNombre() %></h2>
+                    <h2>Medico seleccionado: <%= medicoDAO.obtenerMedico(Integer.parseInt(idmedicostr)).getNombre() %></h2>
                     <form action="Citas.jsp" method="POST">
+                        <input type="hidden" name="id-medico" value="<%= idmedicostr %>">
+                        <input type="hidden" name="id-sucursal" value="<%= id_sucursalstr %>">
                         <!-- Hora de la Cita -->
                         <p>Para concluir la cita ingresa los siguientes datos</p>
                         <div class="seleccionarMedico">
@@ -243,19 +245,25 @@
         // Instancia del DAO
 
         String idpacientestrcrea = idSesionString;
-        String idmedicostrcrea = request.getParameter("idmedico");
+        //String idmedicostrcrea = request.getParameter("idmedico");
+        
         String fechast = request.getParameter("fecha");
         String hora = request.getParameter("hora");
         String descripcion = request.getParameter("descripcion");
+        
+        String id_sucursal = request.getParameter("id-sucursal");
+        String id_medico = request.getParameter("id-medico");
         try {
             // Verificar que los parámetros no estén vacíos
-            if (!idmedicostrcrea.isEmpty() && !fechast.isEmpty() && !hora.isEmpty() && !descripcion.isEmpty()) {
+            if (!fechast.isEmpty() && !hora.isEmpty() && !descripcion.isEmpty() && !id_sucursal.isEmpty() && !id_medico.isEmpty()) {
                 int idpaciente = Integer.parseInt(idpacientestrcrea);
-                int idmedico = Integer.parseInt(idmedicostrcrea);
+                //int idmedico = Integer.parseInt(idmedicostrcrea);
                 LocalDate fecha = LocalDate.parse(fechast);
+                int idmedico = Integer.parseInt(id_medico);
+                int idsucursal = Integer.parseInt(id_sucursal);
 
                 // Crear la cita
-                boolean citaCreada = citaDAO.crearCita(idpaciente, idmedico, fecha, hora, descripcion);
+                boolean citaCreada = citaDAO.crearCita(idpaciente, idmedico, idsucursal, fecha, hora, descripcion);
 
                 if (citaCreada) {
                     System.out.println("Cita creada exitosamente.");
