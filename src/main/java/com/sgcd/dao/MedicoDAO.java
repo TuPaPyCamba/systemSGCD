@@ -104,42 +104,7 @@ public class MedicoDAO {
         return registros;
     }
 
-    // Método para buscar un médico por ID (actualizado para sucursal y email)
-    public Medico findById(int id) throws SQLException {
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-        Medico medico = null;
-        String SQL_SELECT_BY_ID = "SELECT * FROM medicos WHERE id = ?";
-
-        try {
-            conn = getConnection();
-            stmt = conn.prepareStatement(SQL_SELECT_BY_ID);
-            stmt.setInt(1, id);
-            rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                medico = new Medico();
-                medico.setId(rs.getInt("id"));
-                medico.setUsuario(rs.getString("usuario"));
-                medico.setContrasena(rs.getString("contrasena"));
-                medico.setEmail(rs.getString("email"));
-                medico.setNombre(rs.getString("nombre"));
-                medico.setApellidos(rs.getString("apellidos"));
-                medico.setIdsucursal(rs.getString("idsucursal"));
-                medico.setEspecialidad(rs.getString("especialidad"));
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace(System.out);
-        } finally {
-            if (rs != null) close(rs);
-            if (stmt != null) close(stmt);
-            if (conn != null) close(conn);
-        }
-        return medico;
-    }
-
-    // Método para eliminar (actualizado para sucursal y email xd bueno este ni actualizarlo es necesario)
+    // Método para eliminar (funcional para la ultima version)
     public int delete(int id) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;

@@ -13,30 +13,30 @@ import java.util.List;
 
 public class CitaDAO {
 
-    // Metodo de creacion
-    public boolean crearCita(int idPaciente, int idMedico, LocalDate fecha, String hora, String descripcion) {
+    // Metodo de creacion (actualizado para sucursal y email)
+    public boolean crearCita(int idpaciente, int idmedico, int idsucursal, LocalDate fecha, String hora, String descripcion) {
         // Verificar si el horario ya está ocupado
-        if (esHorarioOcupadoParaMedico(idMedico, fecha, hora)) {
+        if (esHorarioOcupadoParaMedico(idmedico, fecha, hora)) {
             System.out.println("El Medico ya tiene una cita en este horario.");
             return false;
         }
-
-        System.out.println(idPaciente);
-        System.out.println(idMedico);
+        System.out.println(idpaciente);
+        System.out.println(idmedico);
         System.out.println(fecha);
         System.out.println(hora);
         System.out.println(descripcion);
 
-        String sql = "INSERT INTO citas (idPaciente, idMedico, fecha, hora, descripcion) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO citas (idpaciente, idmedico, idsucursal, fecha, hora, descripcion) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, idPaciente);
-            stmt.setInt(2, idMedico);
-            stmt.setDate(3, Date.valueOf(fecha));
-            stmt.setString(4, hora);
-            stmt.setString(5, descripcion);
+            stmt.setInt(1, idpaciente);
+            stmt.setInt(2, idmedico);
+            stmt.setInt(3, idsucursal);
+            stmt.setDate(4, Date.valueOf(fecha));
+            stmt.setString(5, hora);
+            stmt.setString(6, descripcion);
 
             int filasInsertadas = stmt.executeUpdate();
 
@@ -47,11 +47,10 @@ public class CitaDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return false;
     }
 
-    // Metodo de verificacion medico
+    // Metodo de verificacion medico (funcional para la ultima version)
     private boolean esHorarioOcupadoParaMedico(int idMedico, LocalDate fecha, String hora) {
         String sql = "SELECT COUNT(*) FROM citas WHERE idmedico = ? AND DATE(fecha) = ? AND hora = ?";
         try (Connection conn = getConnection();
@@ -73,7 +72,7 @@ public class CitaDAO {
         return false;
     }
 
-    // Metodo de verificaicon paciente
+    // Metodo de verificaicon paciente (funcional para la ultima version)
     private boolean esHorarioOcupadoParaPaciente(int idMedico, LocalDate fecha, String hora) {
         String sql = "SELECT COUNT(*) FROM citas WHERE idmedico = ? AND DATE(fecha) = ? AND hora = ?";
         try (Connection conn = getConnection();
@@ -95,7 +94,7 @@ public class CitaDAO {
         return false;
     }
 
-    // Metodo para eliminar
+    // Metodo para eliminar (funcional para la ultima version)
     public int delete(int id) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -116,9 +115,9 @@ public class CitaDAO {
         return registros;
     }
 
-    // Metodo para editar
+    // Metodo para editar (funcional para la ultima version)
     public int update(Cita cita) throws SQLException {
-        String sql = "UPDATE citas SET paciente_id = ?, medico_id = ?, fecha = ?, hora = ?, descripcion = ? WHERE id = ?";
+        String sql = "UPDATE citas SET idpaciente = ?, idmedico = ?, idsucursal = ?, fecha = ?, hora = ?, descripcion = ? WHERE id = ?";
         Connection con = null;
         PreparedStatement stmt = null;
         int registros = 0;
@@ -128,10 +127,11 @@ public class CitaDAO {
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, cita.getIdPaciente());
             stmt.setInt(2, cita.getIdMedico());
-            stmt.setDate(3, java.sql.Date.valueOf(cita.getFecha()));
-            stmt.setString(4, cita.getHora());
-            stmt.setString(5, cita.getDescripcion());
-            stmt.setInt(6, cita.getId());
+            stmt.setInt(3, cita.getIdsucursal());
+            stmt.setDate(4, java.sql.Date.valueOf(cita.getFecha()));
+            stmt.setString(5, cita.getHora());
+            stmt.setString(6, cita.getDescripcion());
+            stmt.setInt(7, cita.getId());
 
             registros = stmt.executeUpdate();
         } finally {
@@ -141,7 +141,7 @@ public class CitaDAO {
         return registros;
     }
 
-    // Obtener citas por medico y dia
+    // Obtener citas por medico y dia (funcional para la ultima version)
     public List<String> obtenerCitasPorMedicoYDia(int idmedico, LocalDate fecha) {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -169,7 +169,7 @@ public class CitaDAO {
         return citas;
     }
 
-    // Obtener citas por paciente y dia
+    // Obtener citas por paciente y dia (funcional para la ultima version)
     public List<String> obtenerCitasPorPacienteYDia (int idpaciente, LocalDate fecha) {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -197,7 +197,7 @@ public class CitaDAO {
         return citas;
     }
 
-    // Obtener horas disponibles para consulta
+    // Obtener horas disponibles para consulta (funcional para la ultima version)
     public List<String> obtenerHorasDisponiblesParaCitas(int idMedico, LocalDate dia) {
 
         List<String> todasLasHoras = HorarioUtil.obtenerHorasDisponiblesParaCitas();
@@ -212,7 +212,7 @@ public class CitaDAO {
         return horasDisponibles;
     }
 
-    // Metodo para obtener todas las consultas
+    // Metodo para obtener todas las consultas (funcional para la ultima version)
     public List<Cita> findAllCitas() throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;

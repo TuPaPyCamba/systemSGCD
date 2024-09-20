@@ -122,4 +122,35 @@ public class SucursalDao {
         }
         return sucursales;
     }
+
+    // Metodo para obtener sucursal por id
+    public Sucursal obtenerSucursalPorId(int idsucursal) throws SQLException {
+        Sucursal sucursal = null;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM sucursales WHERE idsucursal = ?";
+
+        try {
+            conn = getConnection();
+            stmt = conn.prepareStatement(sql);
+
+            stmt.setInt(1, idsucursal);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                sucursal = new Sucursal();
+                sucursal.setIdsucursal(rs.getInt("idsucursal"));
+                sucursal.setNombre(rs.getString("nombre"));
+                sucursal.setDireccion(rs.getString("direccion"));
+                sucursal.setTelefono(rs.getString("telefono"));
+                sucursal.setCiudad(rs.getString("ciudad"));
+                sucursal.setEstado(rs.getString("estado"));
+                sucursal.setPais(rs.getString("pais"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return sucursal;
+    }
 }
