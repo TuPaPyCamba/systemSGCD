@@ -132,33 +132,19 @@ body {
   margin-bottom: 2rem;
 }
 
-.banner__header {
+.banner-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1rem;
 }
 
-.banner__title {
+.banner-header h1 {
   font-size: 1.5rem;
   color: var(--color-primary);
 }
 
-.banner__button {
-  background-color: var(--color-primary-light);
-  color: var(--color-surface);
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-  cursor: pointer;
-  transition: background-color var(--transition-speed);
-}
-
-.banner__button:hover {
-  background-color: var(--color-primary);
-}
-
-.banner__line {
+.banner-line {
   height: 2px;
   background-color: var(--color-primary-light);
 }

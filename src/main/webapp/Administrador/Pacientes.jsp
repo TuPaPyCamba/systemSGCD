@@ -96,11 +96,11 @@
             </header>
             <section class="dashboard">
                 <div class="banner">
-                    <div class="banner__header">
-                        <h1 class="banner__title">Gestión de Pacientes</h1>
-                        <button class="banner__button" onclick="toggleNewForm()">Añadir Nuevo Paciente</button>
+                    <div class="banner-header">
+                        <h1>Gestión de Pacientes</h1>
+                        <button class="button-blue" onclick="toggleNewForm()">Añadir Nuevo Paciente</button>
                     </div>
-                    <div class="banner__line"></div>
+                    <div class="banner-line"></div>
                 </div>
                 <form id="new-paciente-form" class="form" style="display: none;" action="Pacientes.jsp" method="post" onsubmit="return confirmarRegistro()">
                     <h2>Registrar Nuevo Paciente</h2>
@@ -185,15 +185,17 @@
                                 <button class="button-black" onclick="toggleForm(<%= paciente.getIdPaciente() %>)">Editar</button>
                                 <form action="Pacientes.jsp" method="post" style="display: inline">
                                     <input type="hidden" name="id" value="<%= paciente.getIdPaciente() %>">
-                                    <button class="button-red" type="submit" class="btn-delete" onclick="return confirm('¿Estás seguro de que quieres eliminar este paciente?');">
+                                    <button class="button-red" type="submit" onclick="return confirm('¿Estás seguro de que quieres eliminar este paciente?');">
                                         Eliminar
                                     </button>
                                 </form>
                             </td>
                         </tr>
+
                         <tr id='sectionEdit<%= paciente.getIdPaciente() %>' style="display: none;">
                             <td colspan="6">
                                 <form action="Pacientes.jsp" class="form" method="post">
+                                    <input type="hidden" name="idedit" value="<%= paciente.getIdPaciente() %>">
                                     <div class="form-group">
                                         <label for="usuarioedit<%= paciente.getIdPaciente() %>">Usuario:</label>
                                         <input type="text" name="usuarioedit" id="usuarioedit<%= paciente.getIdPaciente() %>" value="<%= paciente.getPaciente() %>">

@@ -61,10 +61,10 @@
             </header>
                     <section class="dashboard">
                         <div class="banner">
-                            <div class="banner__header">
-                                <h1 class="banner__title">Panel Administrador</h1>
+                            <div class="banner-header">
+                                <h1>Panel Administrador</h1>
                             </div>
-                            <div class="banner__line"></div>
+                            <div class="banner-line"></div>
                         </div>
                         <p>Este es tu panel de control donde puedes gestionar el Sistema.</p>
                     </section>
