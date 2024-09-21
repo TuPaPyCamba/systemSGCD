@@ -35,6 +35,7 @@
     }
     %>
     <div class="container">
+        <!-- Menú lateral -->
         <navbar class="sidebar">
             <h2><a href="../index.jsp">Salud Dental</a></h2>
             <nav>
@@ -48,7 +49,9 @@
             </nav>
         </navbar>
 
+        <!-- Contenedor principal -->
         <div class="main-content">
+            <!-- Barra de navegación superior -->
             <header class="navbar">
                 <div class="user-info">
                     <p>Bienvenido, <span id="username"><%= usuarioSesion%></span></p>
