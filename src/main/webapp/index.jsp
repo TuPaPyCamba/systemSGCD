@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/index.css">
-    <link rel="stylesheet" href="./css/navbarStyles.css">
+    <link rel="stylesheet" href="./css/index-navbar.css">
     <!--Font Awesome-->
     <link rel="stylesheet" href="./css/fontawesome.min.css">
 

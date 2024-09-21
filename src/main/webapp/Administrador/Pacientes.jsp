@@ -1,4 +1,5 @@
 <%@ page import="com.sgcd.dao.PacienteDAO" %>
+<%@ page buffer="8192kb" autoFlush="false" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.sgcd.model.Paciente" %>
 <%@ page import="java.sql.SQLException" %>
@@ -12,30 +13,28 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<html lang="en">
     <head>
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/sidebar.css">
+        <link rel="stylesheet" href="../css/table.css">
+        <link rel="stylesheet" href="../css/search-bar.css">
+        <link rel="stylesheet" href="../css/form.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <%
             if (!"administradores".equals(session.getAttribute("tipoUsuario"))) {
                 response.sendRedirect("/SystemSGCD/InicioSesion/InicioSesion.jsp");
             }
         %>
         <title>Gestión de Pacientes</title>
-    <link rel="stylesheet" href="../css/modulos.css">
-    <link rel="stylesheet" href="../css/Dashboards.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script>
-        function toggleForm(button) {
-            var fila = button.closest('tr');
-            var siguienteFila = fila.nextElementSibling;
-
-            if (siguienteFila.classList.contains('edit-form')) {
-                if (siguienteFila.style.display === "none" || siguienteFila.style.display === "") {
-                    siguienteFila.style.display = "table-row";
-                    button.textContent = "Cerrar";
-                } else {
-                    siguienteFila.style.display = "none";
-                    button.textContent = "Editar";
-                }
+        <script>
+        function toggleForm(patientId) {
+            var form = document.getElementById('sectionEdit' + patientId);
+            if (form.style.display === 'none' || form.style.display === '') {
+                form.style.display = 'table-row';
+            } else {
+                form.style.display = 'none';
             }
         }
 
@@ -58,183 +57,183 @@
     </script>
 </head>
 <body>
-<%
-    String idSesionString = null;
-    String usuarioSesion = null;
-    Object tipoUsuario = session.getAttribute("tipoUsuario");
-    Integer idSesion = null;
+    <%
+        String idSesionString = null;
+        String usuarioSesion = null;
+        Object tipoUsuario = session.getAttribute("tipoUsuario");
+        Integer idSesion = null;
 
-    if(tipoUsuario != null){
-        idSesionString = String.valueOf(session.getAttribute("usuarioId"));
-        usuarioSesion = (String) session.getAttribute("usuario");
-        idSesion = Integer.parseInt(idSesionString);
-    }
-%>
-<div class="dashboard">
+        if(tipoUsuario != null){
+            idSesionString = String.valueOf(session.getAttribute("usuarioId"));
+            usuarioSesion = (String) session.getAttribute("usuario");
+            idSesion = Integer.parseInt(idSesionString);
+        }
+    %>
+    <div class="container">
+        <navbar class="sidebar">
+            <h2><a href="../index.jsp">Salud Dental</a></h2>
+            <nav>
+                <ul>
+                    <li><a href="Home.jsp" class="menu-item">&#127968; Home</a></li>
+                    <li><a href="Pacientes.jsp" class="menu-item">&#128100; Pacientes</a></li>
+                    <li><a href="Medicos.jsp" class="menu-item">&#128104;&#8205;&#9877;&#65039; Medicos</a></li>
+                    <li><a href="Citas.jsp" class="menu-item">&#128197; Citas</a></li>
+                    <li><a href="Consultas.jsp" class="menu-item">&#128196; Consultas</a></li>
+                    <li><a href="Settings.jsp" class="menu-item">&#9881;&#65039; Ajustes</a></li>
+                </ul>
+            </nav>
+        </navbar>
 
-    <!-- Menú lateral -->
-    <div class="sidebar">
-        <h2><a href="../index.jsp">Salud Dental</a></h2>
-        <a href="Home.jsp" class="menu-item">
-            <i class="fas fa-home"></i><span>Home</span>
-        </a>
-        <a href="Pacientes.jsp" class="menu-item">
-            <i class="fas fa-user-injured"></i><span>Pacientes</span>
-        </a>
-        <a href="Medicos.jsp" class="menu-item">
-            <i class="fas fa-user-md"></i><span>Medicos</span>
-        </a>
-        <a href="Citas.jsp" class="menu-item">
-            <i class="fas fa-calendar-check"></i><span>Citas</span>
-        </a>
-        <a href="Consultas.jsp" class="menu-item">
-            <i class="fas fa-file-alt"></i><span>Consultas</span>
-        </a>
-        <a href="Settings.jsp" class="menu-item">
-            <i class="fas fa-cogs"></i><span>Ajustes</span>
-        </a>
-    </div>
-
-    <!-- Contenedor principal -->
-    <div class="main-content">
-        <!-- Barra de navegación superior -->
-        <div class="navbar">
-            <div class="" style="display: hidden;"></div>
-            <div class="user-info">
-                <p>Bienvenido, <%= usuarioSesion%></p>
-                <form action="" method="post">
-                    <input type="hidden" name="action" value="logout">
-                    <button type="submit">Cerrar Sesion</button>
-                </form>
-            </div>
-        </div>
-
-        <!-- Contenido del dashboard -->
-        <div class="container">
-            <div class="g-container">
-                <!-- banner y boton para desplegar la creacion de paciente -->
-                <div class="g-banner-container">
-                    <div class="g-banner-labelbutton-container">
-                        <h2 class="label-banner">Gestion de Pacientes</h2>
-                        <button class="btn-newuser" onclick="toggleNewForm()">Añadir Nuevo Paciente</button>
-                    </div>
-                    <div class="blue-line"></div>
-                </div>
-                <!-- Formulario de nuevo Paciente -->
-                <div id="new-paciente-form" class="create-form">
-                    <h3>Registrar Nuevo Paciente</h3>
-                    <form action="Pacientes.jsp" method="post" onsubmit="return confirmarRegistro() ">
-                        <label>Usuario: </label><input type="text" name="usuariocreate" id="usuariocreate" required>
-                        <label>Contraseña: </label><input type="password" name="contrasenacreate" id="contrasenacreate"
-                                                          required>
-                        <label>Nombre: </label><input type="text" name="nombrecreate" id="nombrecreate" required>
-                        <label>Apellidos: </label><input type="text" name="apellidoscreate" id="apellidoscreate"
-                                                         required>
-                        <label>Teléfono: </label><input type="text" name="telefonocreate" id="telefonocreate" required>
-                        <label>Dirección: </label><input type="text" name="direccioncreate" id="direccioncreate"
-                                                         required>
-                        <button type="submit" class="create-form-save-button">Guardar</button>
-                        <button type="button" class="create-form-edit-button" onclick="toggleNewForm()">Cancelar
-                        </button>
+        <main class="main-content">
+            <header class="navbar">
+                <div class="user-info">
+                    <p>Bienvenido, <span id="username"><%= usuarioSesion%></span></p>
+                    <form action="" method="post">
+                        <input type="hidden" name="action" value="logout">
+                        <button class="button-red" type="submit">Cerrar Sesión</button>
                     </form>
                 </div>
-                <!-- Formulario de Busqueda para el filtro -->
-                <form action="Pacientes.jsp" method="get" class="search-form">
-                    <input type="text" name="busqueda" id="busqueda" placeholder="Buscar..."
-                           value="<%= request.getParameter("busqueda") %>">
-                    <button type="submit">Buscar</button>
+            </header>
+            <section class="dashboard">
+                <div class="banner">
+                    <div class="banner__header">
+                        <h1 class="banner__title">Gestión de Pacientes</h1>
+                        <button class="banner__button" onclick="toggleNewForm()">Añadir Nuevo Paciente</button>
+                    </div>
+                    <div class="banner__line"></div>
+                </div>
+                <form id="new-paciente-form" class="form" style="display: none;" action="Pacientes.jsp" method="post" onsubmit="return confirmarRegistro()">
+                    <h2>Registrar Nuevo Paciente</h2>
+                    <div class="form-group">
+                        <label for="usuariocreate">Usuario:</label>
+                        <input type="text" name="usuariocreate" id="usuariocreate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contrasenacreate">Contraseña:</label>
+                        <input type="password" name="contrasenacreate" id="contrasenacreate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nombrecreate">Nombre:</label>
+                        <input type="text" name="nombrecreate" id="nombrecreate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="apellidoscreate">Apellidos:</label>
+                        <input type="text" name="apellidoscreate" id="apellidoscreate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefonocreate">Teléfono:</label>
+                        <input type="tel" name="telefonocreate" id="telefonocreate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="direccioncreate">Dirección:</label>
+                        <input type="text" name="direccioncreate" id="direccioncreate" required>
+                    </div>
+                    <div class="form-actions">
+                        <button class="button-blue" type="submit" >Guardar</button>
+                        <button class="button-red" type="button" onclick="toggleNewForm()">Cancelar</button>
+                    </div>
                 </form>
-                <!-- Tabla de registros -->
+
+                <form action="Pacientes.jsp" method="get" class="search-form">
+                    <input type="text" name="busqueda" id="busqueda" placeholder="Buscar..." value="<%= request.getParameter("busqueda") %>">
+                    <button class="button-black" type="submit">Buscar</button>
+                </form>
+
                 <table class="table">
                     <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Apellidos</th>
-                        <th>Telefono</th>
-                        <th>Direccion</th>
-                        <th>Acciones</th>
-                    </tr>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Apellidos</th>
+                            <th>Teléfono</th>
+                            <th>Dirección</th>
+                            <th>Acciones</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <%
-                        String busqueda = request.getParameter("busqueda");
-                        List<Paciente> pacientes = null;
-                        List<Paciente> pacientesFiltrados = new ArrayList<>();
-                        PacienteDAO pacienteDAO = new PacienteDAO();
+                        <%
+                            String busqueda = request.getParameter("busqueda");
+                            List<Paciente> pacientes = null;
+                            List<Paciente> pacientesFiltrados = new ArrayList<>();
+                            PacienteDAO pacienteDAO = new PacienteDAO();
 
-                        try {
-                            pacientes = pacienteDAO.obtenerPacientes();
-                            if (busqueda != null && !busqueda.isEmpty()) {
-                                for (Paciente paciente : pacientes) {
-                                    if (paciente.getNombre().toLowerCase().contains(busqueda.toLowerCase())) {
-                                        pacientesFiltrados.add(paciente);
+                            try {
+                                pacientes = pacienteDAO.obtenerPacientes();
+                                if (busqueda != null && !busqueda.isEmpty()) {
+                                    for (Paciente paciente : pacientes) {
+                                        if (paciente.getNombre().toLowerCase().contains(busqueda.toLowerCase())) {
+                                            pacientesFiltrados.add(paciente);
+                                        }
                                     }
+                                } else {
+                                    pacientesFiltrados = pacientes;
                                 }
-                            } else {
-                                pacientesFiltrados = pacientes;
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
                             }
-                        } catch (SQLException ex) {
-                            throw new RuntimeException(ex);
-                        }
 
-                        if (pacientesFiltrados != null && !pacientesFiltrados.isEmpty()) {
-                            for (Paciente paciente : pacientesFiltrados) {
-                    %>
-                    <tr>
-                        <td><%= paciente.getIdPaciente() %>
-                        </td>
-                        <td><%= paciente.getNombre()%>
-                        </td>
-                        <td><%= paciente.getApellidos()%>
-                        </td>
-                        <td><%= paciente.getTelefono()%>
-                        </td>
-                        <td><%= paciente.getDireccion()%>
-                        </td>
-                        <td>
-                            <form action="Pacientes.jsp" method="post" style="display: inline">
-                                <input type="hidden" name="id" value="<%= paciente.getIdPaciente() %>">
-                                <button type="submit" class="btn-delete"
-                                        onclick="return confirm('¿Estás seguro de que quieres eliminar este paciente?');">
-                                    Eliminar
-                                </button>
-                            </form>
-                            <button class="btn-edit" onclick="toggleForm(this)">Editar</button>
-                        </td>
-                    </tr>
-                    <!-- Formulario de edicion -->
-                    <tr class="edit-form">
-                        <td colspan="6">
-                            <form action="Pacientes.jsp" method="post">
-                                <input type="hidden" name="idedit" value="<%= paciente.getIdPaciente() %>">
-                                <label>Usuario: </label><input type="text" name="usuarioedit"
-                                                               value="<%= paciente.getPaciente()%>">
-                                <label>Contraseña: </label><input type="password" name="contrasenaedit"
-                                                                  value="<%= paciente.getContrasena()%>">
-                                <label>Nombre: </label><input type="text" name="nombreedit"
-                                                              value="<%= paciente.getNombre()%>">
-                                <label>Apellidos: </label><input type="text" name="apellidosedit"
-                                                                 value="<%= paciente.getApellidos()%>">
-                                <label>Teléfono: </label><input type="text" name="telefonoedit"
-                                                                value="<%= paciente.getTelefono()%>">
-                                <label>Dirección: </label><input type="text" name="direccionedit"
-                                                                 value="<%= paciente.getDireccion()%>">
-                                <button type="submit" class="edit-form-save-button">Guardar</button>
-                            </form>
-                        </td>
-                    </tr>
-                    <%
+                            if (pacientesFiltrados != null && !pacientesFiltrados.isEmpty()) {
+                                for (Paciente paciente : pacientesFiltrados) {
+                        %>
+                        <tr>
+                            <td><%= paciente.getIdPaciente() %></td>
+                            <td><%= paciente.getNombre() %></td>
+                            <td><%= paciente.getApellidos() %></td>
+                            <td><%= paciente.getTelefono() %></td>
+                            <td><%= paciente.getDireccion() %></td>
+                            <td>
+                                <button class="button-black" onclick="toggleForm(<%= paciente.getIdPaciente() %>)">Editar</button>
+                                <form action="Pacientes.jsp" method="post" style="display: inline">
+                                    <input type="hidden" name="id" value="<%= paciente.getIdPaciente() %>">
+                                    <button class="button-red" type="submit" class="btn-delete" onclick="return confirm('¿Estás seguro de que quieres eliminar este paciente?');">
+                                        Eliminar
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        <tr id='sectionEdit<%= paciente.getIdPaciente() %>' style="display: none;">
+                            <td colspan="6">
+                                <form action="Pacientes.jsp" class="form" method="post">
+                                    <div class="form-group">
+                                        <label for="usuarioedit<%= paciente.getIdPaciente() %>">Usuario:</label>
+                                        <input type="text" name="usuarioedit" id="usuarioedit<%= paciente.getIdPaciente() %>" value="<%= paciente.getPaciente() %>">
+                                    </div>
+                                        <div class="form-group">
+                                            <label for="contrasenaedit<%= paciente.getIdPaciente() %>">Contraseña:</label>
+                                        <input type="password" name="contrasenaedit" id="contrasenaedit<%= paciente.getIdPaciente() %>" value="<%= paciente.getContrasena() %>">
+                                    </div>
+                                        <div class="form-group">
+                                            <label for="nombreedit<%= paciente.getIdPaciente() %>">Nombre:</label>
+                                        <input type="text" name="nombreedit" id="nombreedit<%= paciente.getIdPaciente() %>" value="<%= paciente.getNombre() %>">
+                                    </div>
+                                        <div class="form-group">
+                                            <label for="apellidosedit<%= paciente.getIdPaciente() %>">Apellidos:</label>
+                                        <input type="text" name="apellidosedit" id="apellidosedit<%= paciente.getIdPaciente() %>" value="<%= paciente.getApellidos() %>">
+                                    </div>
+                                        <div class="form-group">
+                                            <label for="telefonoedit<%= paciente.getIdPaciente() %>">Teléfono:</label>
+                                        <input type="tel" name="telefonoedit" id="telefonoedit<%= paciente.getIdPaciente() %>" value="<%= paciente.getTelefono() %>">
+                                    </div>
+                                        <div class="form-group">
+                                            <label for="direccionedit<%= paciente.getIdPaciente() %>">Dirección:</label>
+                                            <input type="text" name="direccionedit" id="direccionedit<%= paciente.getIdPaciente() %>" value="<%= paciente.getDireccion() %>">
+                                        </div>
+                                        <div class="form-actions">
+                                            <button type="submit" class="button-blue">Guardar</button>
+                                        </div>
+                                </form>
+                            </td>
+                        </tr>
+                        <%
+                                }
                             }
-                        }
-                    %>
+                        %>
                     </tbody>
                 </table>
-            </div>
-        </div>
+            </section>
+        </main>
     </div>
-</div>
-<!-- Logico de edit -->
+    <!-- Logico de edit -->
 <%
     String idEditStr = request.getParameter("idedit");
     String usuarioedit = request.getParameter("usuarioedit");
