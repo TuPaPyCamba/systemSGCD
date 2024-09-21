@@ -12,19 +12,20 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
-<head>
-    <%
+    <head>
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/sidebar.css">
+        <link rel="stylesheet" href="../css/table.css">
+        <link rel="stylesheet" href="../css/search-bar.css">
+        <link rel="stylesheet" href="../css/form.css">
+        <%
         if (!"administradores".equals(session.getAttribute("tipoUsuario"))) {
             response.sendRedirect("/SystemSGCD/InicioSesion/InicioSesion.jsp");
         }
-    %>
-    <title>Gestion de Consultas</title>
-    <link rel="stylesheet" href="../css/modulos.css">
-    <link rel="stylesheet" href="../css/Dashboards.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <title>Admin Home Page</title>
-</head>
-<body>
+        %>
+        <title>Gestion de Consultas</title>
+    </head>
+    <body>
 <%
     String idSesionString = null;
     String usuarioSesion = null;
@@ -37,65 +38,50 @@
         idSesion = Integer.parseInt(idSesionString);
     }
 %>
-<div class="dashboard">
-
-    <!-- Menú lateral -->
-    <div class="sidebar">
+<div class="container">
+    <navbar class="sidebar">
         <h2><a href="../index.jsp">Salud Dental</a></h2>
-        <a href="Home.jsp" class="menu-item">
-            <i class="fas fa-home"></i><span>Home</span>
-        </a>
-        <a href="Pacientes.jsp" class="menu-item">
-            <i class="fas fa-user-injured"></i><span>Pacientes</span>
-        </a>
-        <a href="Medicos.jsp" class="menu-item">
-            <i class="fas fa-user-md"></i><span>Medicos</span>
-        </a>
-        <a href="Citas.jsp" class="menu-item">
-            <i class="fas fa-calendar-check"></i><span>Citas</span>
-        </a>
-        <a href="Consultas.jsp" class="menu-item">
-            <i class="fas fa-file-alt"></i><span>Consultas</span>
-        </a>
-        <a href="Settings.jsp" class="menu-item">
-            <i class="fas fa-cogs"></i><span>Ajustes</span>
-        </a>
-    </div>
+        <nav>
+            <ul>
+                <li><a href="Home.jsp" class="menu-item">&#127968; Home</a></li>
+                <li><a href="Pacientes.jsp" class="menu-item">&#128100; Pacientes</a></li>
+                <li><a href="Medicos.jsp" class="menu-item">&#128104;&#8205;&#9877;&#65039; Medicos</a></li>
+                <li><a href="Citas.jsp" class="menu-item">&#128197; Citas</a></li>
+                <li><a href="Consultas.jsp" class="menu-item">&#128196; Consultas</a></li>
+                <li><a href="Settings.jsp" class="menu-item">&#9881;&#65039; Ajustes</a></li>
+            </ul>
+        </nav>
+    </navbar>
 
-    <!-- Contenedor principal -->
-    <div class="main-content">
-        <!-- Barra de navegación superior -->
-        <div class="navbar">
-            <div class="" style="display: hidden;"></div>
+    <main class="main-content">
+        <header class="navbar">
             <div class="user-info">
-                <p>Bienvenido, <%= usuarioSesion%></p>
+                <p>Bienvenido, <span id="username"><%= usuarioSesion%></span></p>
                 <form action="" method="post">
                     <input type="hidden" name="action" value="logout">
-                    <button type="submit">Cerrar Sesion</button>
+                    <button class="button-red" type="submit">Cerrar Sesión</button>
                 </form>
             </div>
-        </div>
+        </header>
 
         <!-- Contenido del dashboard -->
-        <div class="container">
-            <div class="g-container">
-                <!-- banner de Citas -->
-                <div class="g-banner-container">
-                    <div class="g-banner-labelbutton-container">
-                        <h2 class="label-banner">Lista de Citas</h2>
-                    </div>
-                    <div class="blue-line"></div>
+        <section class="dashboard">
+            <div class="banner">
+                <div class="banner-header">
+                    <h1>Lista de Citas</h1>
                 </div>
-                <!-- Tabla de registros -->
+                <div class="banner-line"></div>
+            </div>
+            <!-- Tabla de registros -->
                 <table class="table">
                     <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Fecha</th>
-                        <th>Hora</th>
-                        <th>Descripcion</th>
-                        <th>Acciones</th>
-                    </tr>
+                        <tr>
+                            <th>ID</th>
+                            <th>Fecha</th>
+                            <th>Hora</th>
+                            <th>Descripcion</th>
+                            <th>Acciones</th>
+                        </tr>
                     </thead>
                     <tbody>
                     <%
@@ -112,23 +98,18 @@
                             for (Cita cita : citas) {
                     %>
                     <tr>
-                        <td><%= cita.getId() %>
-                        </td>
-                        <td><%= cita.getFecha()%>
-                        </td>
-                        <td><%= cita.getHora()%>
-                        </td>
-                        <td><%= cita.getDescripcion()%>
-                        </td>
+                        <td><%= cita.getId() %></td>
+                        <td><%= cita.getFecha()%></td>
+                        <td><%= cita.getHora()%></td>
+                        <td><%= cita.getDescripcion()%></td>
                         <td>
+                            <button class="button-black" onclick="toggleForm(<%= cita.getId() %>)">Editar</button>
                             <form action="Citas.jsp" method="post" style="display: inline">
                                 <input type="hidden" name="id" value="<%= cita.getId() %>">
-                                <button type="submit" class="btn-delete"
-                                        onclick="return confirm('¿Estás seguro de que quieres eliminar a este Medico?');">
+                                <button type="submit" class="button-red" onclick="return confirm('¿Estás seguro de que quieres eliminar a esta cita?');">
                                     Eliminar
                                 </button>
                             </form>
-                            <button class="btn-edit" onclick="toggleForm(this)">Editar</button>
                         </td>
                     </tr>
                     <%
@@ -157,8 +138,8 @@
                     %>
                     </tbody>
                 </table>
-            </div>
-        </div>
+        </section>
+    </main>
     </div>
 </div>
 <%
