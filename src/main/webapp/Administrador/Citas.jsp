@@ -48,7 +48,6 @@
                 <li><a href="Medicos.jsp" class="menu-item">&#128104;&#8205;&#9877;&#65039; Medicos</a></li>
                 <li><a href="Citas.jsp" class="menu-item">&#128197; Citas</a></li>
                 <li><a href="Consultas.jsp" class="menu-item">&#128196; Consultas</a></li>
-                <li><a href="Settings.jsp" class="menu-item">&#9881;&#65039; Ajustes</a></li>
             </ul>
         </nav>
     </navbar>
@@ -103,7 +102,6 @@
                         <td><%= cita.getHora()%></td>
                         <td><%= cita.getDescripcion()%></td>
                         <td>
-                            <button class="button-black" onclick="toggleForm(<%= cita.getId() %>)">Editar</button>
                             <form action="Citas.jsp" method="post" style="display: inline">
                                 <input type="hidden" name="id" value="<%= cita.getId() %>">
                                 <button type="submit" class="button-red" onclick="return confirm('¿Estás seguro de que quieres eliminar a esta cita?');">
@@ -140,7 +138,6 @@
                 </table>
         </section>
     </main>
-    </div>
 </div>
 <%
     if ("POST".equalsIgnoreCase(request.getMethod()) && "logout".equals(request.getParameter("action"))) {
