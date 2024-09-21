@@ -8,60 +8,74 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.sgcd.util.CerrarSesion" language="java" %>
 <html lang="en">
-<head>
-    <title>Admin Home</title>
-    <%
-        if (!"administradores".equals(session.getAttribute("tipoUsuario"))) {
-            response.sendRedirect("/SystemSGCD/InicioSesion/InicioSesion.jsp");
-        }
-    %>
-    <link rel="stylesheet" href="../css/general.css">
-</head>
-<body>
-<%
-    String idSesionString = null;
-    String usuarioSesion = null;
-    Object tipoUsuario = session.getAttribute("tipoUsuario");
-    Integer idSesion = null;
+    <head>
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/sidebar.css">
+        <link rel="stylesheet" href="../css/table.css">
+        <link rel="stylesheet" href="../css/search-bar.css">
+        <link rel="stylesheet" href="../css/form.css">
+        <title>Admin Home</title>
+        <%
+            if (!"administradores".equals(session.getAttribute("tipoUsuario"))) {
+                response.sendRedirect("/SystemSGCD/InicioSesion/InicioSesion.jsp");
+            }
+        %>
+    </head>
+    <body>
+        <%
+        String idSesionString = null;
+        String usuarioSesion = null;
+        Object tipoUsuario = session.getAttribute("tipoUsuario");
+        Integer idSesion = null;
 
     if(tipoUsuario != null){
         idSesionString = String.valueOf(session.getAttribute("usuarioId"));
         usuarioSesion = (String) session.getAttribute("usuario");
         idSesion = Integer.parseInt(idSesionString);
     }
-%>
-<div class="container">
-    <div class="sidebar">
-        <h2><a href="./index.jsp">Salud Dental</a></h2>
-        <ul class="nav-links">
-            <li><a href="Pacientes.jsp">Inicio</a></li>
-            <li><a href="Pacientes.jsp">Pacientes</a></li>
-            <li><a href="Medicos.jsp">Medicos</a></li>
-            <li><a href="Citas.jsp">Citas</a></li>
-            <li><a href="Consultas.jsp">Consultas</a></li>
-        </ul>
-    </div>
+    %>
+    <div class="container">
+        <navbar class="sidebar">
+            <h2><a href="../index.jsp">Salud Dental</a></h2>
+            <nav>
+                <ul>
+                    <li><a href="Home.jsp" class="menu-item">&#127968; Home</a></li>
+                    <li><a href="Pacientes.jsp" class="menu-item">&#128100; Pacientes</a></li>
+                    <li><a href="Medicos.jsp" class="menu-item">&#128104;&#8205;&#9877;&#65039; Medicos</a></li>
+                    <li><a href="Citas.jsp" class="menu-item">&#128197; Citas</a></li>
+                    <li><a href="Consultas.jsp" class="menu-item">&#128196; Consultas</a></li>
+                    <li><a href="Settings.jsp" class="menu-item">&#9881;&#65039; Ajustes</a></li>
+                </ul>
+            </nav>
+        </navbar>
 
-    <div class="main-content">
-        <div class="header">
-            <p class="welcome-message">Bienvenido, <%= usuarioSesion%></p>
-            <form action="" method="post" class="logout-form">
-                <input type="hidden" name="action" value="logout">
-                <button type="submit">Cerrar Sesion</button>
-            </form>
-        </div>
-        <div class="welcome-container">
-            <h2>¡Bienvenido Administrador <%= usuarioSesion%>!</h2>
-            <p>Este es tu panel de control donde puedes gestionar el Sistema.</p>
+        <div class="main-content">
+            <header class="navbar">
+                <div class="user-info">
+                    <p>Bienvenido, <span id="username"><%= usuarioSesion%></span></p>
+                    <form action="" method="post">
+                        <input type="hidden" name="action" value="logout">
+                        <button class="button-red" type="submit">Cerrar Sesión</button>
+                    </form>
+                </div>
+            </header>
+                    <section class="dashboard">
+                        <div class="banner">
+                            <div class="banner__header">
+                                <h1 class="banner__title">Panel Administrador</h1>
+                            </div>
+                            <div class="banner__line"></div>
+                        </div>
+                        <p>Este es tu panel de control donde puedes gestionar el Sistema.</p>
+                    </section>
         </div>
     </div>
-</div>
-<%
-    if ("POST".equalsIgnoreCase(request.getMethod()) && "logout".equals(request.getParameter("action"))) {
-        CerrarSesion cerrarSesion = new CerrarSesion();
-        cerrarSesion.invalidarSesion(session);
-        response.sendRedirect("/SystemSGCD/InicioSesion/InicioSesion.jsp");
-        return;
-    }
-%>
-</body>
+    <%
+        if ("POST".equalsIgnoreCase(request.getMethod()) && "logout".equals(request.getParameter("action"))) {
+            CerrarSesion cerrarSesion = new CerrarSesion();
+            cerrarSesion.invalidarSesion(session);
+            response.sendRedirect("/SystemSGCD/InicioSesion/InicioSesion.jsp");
+            return;
+        }
+    %>
+    </body>
