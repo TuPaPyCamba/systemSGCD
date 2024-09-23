@@ -134,7 +134,7 @@
             <!-- banner  -->
             <div class="banner">
                 <div class="banner-header">
-                    <h1>Reservar Citas</h1>
+                    <h1>Reservar Cita</h1>
                 </div>
                 <div class="banner-line"></div>
             </div>

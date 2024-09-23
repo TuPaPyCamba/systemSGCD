@@ -121,7 +121,7 @@
         for (Paciente paciente : pacientesFiltrados) {
                     %>
                     <tr>
-                        <td><%= paciente.getIdPaciente() %></td>
+                        <td><%= paciente.getId() %></td>
                         <td><%= paciente.getNombre() %></td>
                         <td><%= paciente.getApellidos() %></td>
                         <td><%= paciente.getTelefono()%></td>

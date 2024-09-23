@@ -52,7 +52,7 @@
 
     <!-- Contenedor principal -->
     <main class="main-content">
-        !-- Barra de navegación superior -->
+        <!-- Barra de navegación superior -->
         <header class="navbar">
             <div class="user-info">
                 <p>Bienvenido, <span id="username"><%= usuarioSesion%></span></p>
