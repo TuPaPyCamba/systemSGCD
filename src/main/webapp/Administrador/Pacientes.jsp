@@ -255,7 +255,7 @@
     if (idEditStr != null && !idEditStr.isEmpty()) {
         int idEdit = Integer.parseInt(idEditStr);
         Paciente pacienteEdit = new Paciente(usuarioedit, contrasenaedit, nombreedit, apellidosedit, telefonoedit, direccionedit);
-        pacienteEdit.setIdUsuario(idEdit);
+        pacienteEdit.setId(idEdit);
         try {
             int registrosEditados = pacienteDAO.actualizar(pacienteEdit);
             response.sendRedirect("Pacientes.jsp");
