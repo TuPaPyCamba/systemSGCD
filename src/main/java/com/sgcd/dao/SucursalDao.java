@@ -30,7 +30,7 @@ public class SucursalDao {
         PreparedStatement stmt = null;
         int registros = 0;
         // Consulta SQL para insertar un nuevo registro de sucursal
-        String sql = "INSERT INTO sucursal (nombre, direccion, telefono, ciudad, estado, pais) VALUES (?,?,?,?,?,?)";
+        String sql = "INSERT INTO sucursales (nombre, direccion, telefono, ciudad, estado, pais) VALUES (?,?,?,?,?,?)";
 
         try {
             // Establece la conexión a la base de datos
@@ -64,12 +64,12 @@ public class SucursalDao {
      * @return Número de registros actualizados
      * @throws SQLException Si ocurre un error en la base de datos.
      */
-    private int actualizarSucursal(Sucursal sucursal) throws SQLException {
+    public int actualizarSucursal(Sucursal sucursal) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         int registros = 0;
         // Consulta SQL para actualizar los datos del objeto sucursal
-        String sql = "UPDATE sucursales SET nombre = ?, direccion = ?, telefono = ?, ciudad = ?, estado = ?, pais = ? WHERE id = ?";
+        String sql = "UPDATE sucursales SET nombre = ?, direccion = ?, telefono = ?, ciudad = ?, estado = ?, pais = ? WHERE idsucursal = ?";
 
         try {
             // Establece la conexión a la base de datos
@@ -83,6 +83,7 @@ public class SucursalDao {
             stmt.setString(4, sucursal.getCiudad());
             stmt.setString(5, sucursal.getEstado());
             stmt.setString(6, sucursal.getPais());
+            stmt.setInt(7, sucursal.getIdsucursal());
 
             registros = stmt.executeUpdate(); // Ejecutar la actualización
         } catch (SQLException e) {
