@@ -4,7 +4,6 @@ public class Medico {
     private int id;
     private String usuario;
     private String contrasena;
-    private String email;
     private String nombre;
     private String apellidos;
     private String idsucursal;
@@ -14,11 +13,10 @@ public class Medico {
 
     }
 
-    public Medico(int id, String usuario, String contrasena, String email, String nombre, String apellidos, String idsucursal, String especialidad) {
+    public Medico(int id, String usuario, String contrasena, String nombre, String apellidos, String idsucursal, String especialidad) {
         this.id = id;
         this.usuario = usuario;
         this.contrasena = contrasena;
-        this.email = email;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.idsucursal = idsucursal;
@@ -49,14 +47,6 @@ public class Medico {
 
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getNombre() {

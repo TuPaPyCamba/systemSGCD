@@ -4,7 +4,6 @@ public class Administrador {
     private int id;
     private String usuario;
     private String contrasena;
-    private String email;
     private int idsucursal;
     private String nombre;
     private String apellidos;
@@ -12,11 +11,10 @@ public class Administrador {
     public Administrador(){
     }
 
-    public Administrador(int id, String usuario, String contrasena, String email, int idsucursal, String nombre, String apellidos) {
+    public Administrador(int id, String usuario, String contrasena, int idsucursal, String nombre, String apellidos) {
         this.id = id;
         this.usuario = usuario;
         this.contrasena = contrasena;
-        this.email = email;
         this.idsucursal = idsucursal;
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -46,14 +44,6 @@ public class Administrador {
 
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public int getIdsucursal() {

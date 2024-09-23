@@ -84,6 +84,7 @@ public class SucursalDao {
             stmt.setString(5, sucursal.getEstado());
             stmt.setString(6, sucursal.getPais());
 
+
             registros = stmt.executeUpdate(); // Ejecutar la actualización
         } catch (SQLException e) {
             e.printStackTrace(System.out); // Manejo de excepciones
