@@ -54,7 +54,7 @@ public class ConsultaDAO {
             int filasInsertadas = stmt.executeUpdate();
 
             if (filasInsertadas > 0) {
-                System.out.println("Conculta creada exitosamente.");
+                System.out.println("Consulta creada exitosamente.");
                 return true;
             }
         } catch (SQLException e) {
