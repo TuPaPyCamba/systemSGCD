@@ -1,4 +1,4 @@
-<%@page import="com.sgcd.dao.MedicoDAO"%>
+<%@ page import="com.sgcd.dao.MedicoDAO" %>
 <%@ page import="com.sgcd.dao.ConsultaDAO" %>
 <%@ page import="com.sgcd.dao.PacienteDAO" %>
 <%@ page import="com.sgcd.model.Paciente" %>
@@ -175,14 +175,13 @@
         String fechast = request.getParameter("fecha");
         String hora = request.getParameter("hora");
         String descripcion = request.getParameter("descripcion");
-        String idsucursalstr = new MedicoDAO().obtenerMedico(Integer.parseInt(idSesionString)).getIdsucursal();
+        int idsucursal = new MedicoDAO().obtenerMedico(idSesion).getIdsucursal();
 
         try {
             // Verificar que los parámetros no estén vacíos
             if (idpacientestrcrea != null && fechast != null && hora != null && descripcion != null) {
                 int idpaciente = Integer.parseInt(idpacientestrcrea);
                 int idmedico = Integer.parseInt(idmedicostrcrea);
-                int idsucursal = Integer.parseInt(idsucursalstr);
                 LocalDate fecha = LocalDate.parse(fechast);
 
                 // Crear la consulta
