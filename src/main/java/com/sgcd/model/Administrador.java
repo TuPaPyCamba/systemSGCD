@@ -3,19 +3,27 @@ package com.sgcd.model;
 public class Administrador {
     private int id;
     private String usuario;
-    private String contraseña;
+    private String contrasena;
+    private String email;
+    private int idsucursal;
     private String nombre;
     private String apellidos;
 
-    public Administrador(int id, String usuario, String contraseña, String nombre, String apellidos) {
+    public Administrador(){
+    }
+
+    public Administrador(int id, String usuario, String contrasena, String email, int idsucursal, String nombre, String apellidos) {
         this.id = id;
         this.usuario = usuario;
-        this.contraseña = contraseña;
+        this.contrasena = contrasena;
+        this.email = email;
+        this.idsucursal = idsucursal;
         this.nombre = nombre;
         this.apellidos = apellidos;
     }
 
     // Getters y Setters
+
     public int getId() {
         return id;
     }
@@ -32,12 +40,28 @@ public class Administrador {
         this.usuario = usuario;
     }
 
-    public String getContraseña() {
-        return contraseña;
+    public String getContrasena() {
+        return contrasena;
     }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getIdsucursal() {
+        return idsucursal;
+    }
+
+    public void setIdsucursal(int idsucursal) {
+        this.idsucursal = idsucursal;
     }
 
     public String getNombre() {
@@ -54,30 +78,5 @@ public class Administrador {
 
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
-    }
-
-    // Métodos para gestionar usuarios y consultas
-    public void agregarPaciente(Paciente paciente) {
-
-    }
-
-    public void eliminarPaciente(int id) {
-
-    }
-
-    public void agregarMedico(Medico medico) {
-
-    }
-
-    public void eliminarMedico(int id) {
-
-    }
-
-    public void agregarConsulta(Consulta consulta) {
-
-    }
-
-    public void eliminarConsulta(int id) {
-
     }
 }

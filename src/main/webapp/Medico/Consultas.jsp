@@ -1,3 +1,4 @@
+<%@page import="com.sgcd.dao.MedicoDAO"%>
 <%@ page import="com.sgcd.dao.ConsultaDAO" %>
 <%@ page import="com.sgcd.dao.PacienteDAO" %>
 <%@ page import="com.sgcd.model.Paciente" %>
@@ -110,7 +111,7 @@
                             <%
                                 for (Paciente paciente : listaPacientes) {
                             %>
-                            <option value="<%= paciente.getIdPaciente() %>"><%= paciente.getNombre() %>
+                            <option value="<%= paciente.getId()%>"><%= paciente.getNombre() %>
                             </option>
                             <%
                                 }
@@ -174,16 +175,18 @@
         String fechast = request.getParameter("fecha");
         String hora = request.getParameter("hora");
         String descripcion = request.getParameter("descripcion");
+        String idsucursalstr = new MedicoDAO().obtenerMedico(Integer.parseInt(idSesionString)).getIdsucursal();
 
         try {
             // Verificar que los parámetros no estén vacíos
             if (idpacientestrcrea != null && fechast != null && hora != null && descripcion != null) {
                 int idpaciente = Integer.parseInt(idpacientestrcrea);
                 int idmedico = Integer.parseInt(idmedicostrcrea);
+                int idsucursal = Integer.parseInt(idsucursalstr);
                 LocalDate fecha = LocalDate.parse(fechast);
 
                 // Crear la consulta
-                boolean citaCreada = consultaDAO.crearConsulta(idpaciente, idmedico, fecha, hora, descripcion);
+                boolean citaCreada = consultaDAO.crearConsulta(idpaciente, idmedico, idsucursal, fecha, hora, descripcion);
 
                 if (citaCreada) {
                     System.out.println("Consulta creada exitosamente.");
@@ -192,7 +195,7 @@
                     System.out.println("Error al crear la conculta.");
                 }
             } else {
-                System.out.println("Uno o más campos están vacíos.");
+                System.out.println("Uno o más campos están vacíos al agendar consulta.");
             }
         } catch (NumberFormatException e) {
             System.out.println("Error en el formato de los números: " + e.getMessage());

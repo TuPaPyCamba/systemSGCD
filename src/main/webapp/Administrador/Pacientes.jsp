@@ -183,15 +183,15 @@
                                 for (Paciente paciente : pacientesFiltrados) {
                         %>
                         <tr>
-                            <td><%= paciente.getIdPaciente() %></td>
+                            <td><%= paciente.getId() %></td>
                             <td><%= paciente.getNombre() %></td>
                             <td><%= paciente.getApellidos() %></td>
                             <td><%= paciente.getTelefono() %></td>
                             <td><%= paciente.getDireccion() %></td>
                             <td>
-                                <button class="button-black" onclick="toggleForm(<%= paciente.getIdPaciente() %>)">Editar</button>
+                                <button class="button-black" onclick="toggleForm(<%= paciente.getId() %>)">Editar</button>
                                 <form action="Pacientes.jsp" method="post" style="display: inline">
-                                    <input type="hidden" name="id" value="<%= paciente.getIdPaciente() %>">
+                                    <input type="hidden" name="id" value="<%= paciente.getId() %>">
                                     <button class="button-red" type="submit" onclick="return confirm('¿Estás seguro de que quieres eliminar este paciente?');">
                                         Eliminar
                                     </button>
@@ -199,33 +199,33 @@
                             </td>
                         </tr>
 
-                        <tr id='sectionEdit<%= paciente.getIdPaciente() %>' style="display: none;">
+                        <tr id='sectionEdit<%= paciente.getId() %>' style="display: none;">
                             <td colspan="6">
                                 <form action="Pacientes.jsp" class="form" method="post">
-                                    <input type="hidden" name="idedit" value="<%= paciente.getIdPaciente() %>">
+                                    <input type="hidden" name="idedit" value="<%= paciente.getId() %>">
                                     <div class="form-group">
-                                        <label for="usuarioedit<%= paciente.getIdPaciente() %>">Usuario:</label>
-                                        <input type="text" name="usuarioedit" id="usuarioedit<%= paciente.getIdPaciente() %>" value="<%= paciente.getPaciente() %>">
+                                        <label for="usuarioedit<%= paciente.getId() %>">Usuario:</label>
+                                        <input type="text" name="usuarioedit" id="usuarioedit<%= paciente.getId() %>" value="<%= paciente.getUsuario() %>">
                                     </div>
                                         <div class="form-group">
-                                            <label for="contrasenaedit<%= paciente.getIdPaciente() %>">Contraseña:</label>
-                                        <input type="password" name="contrasenaedit" id="contrasenaedit<%= paciente.getIdPaciente() %>" value="<%= paciente.getContrasena() %>">
-                                    </div>
+                                            <label for="contrasenaedit<%= paciente.getId() %>">Contraseña:</label>
+                                            <input type="password" name="contrasenaedit" id="contrasenaedit<%= paciente.getId() %>" value="<%= paciente.getContrasena() %>">
+                                        </div>
                                         <div class="form-group">
-                                            <label for="nombreedit<%= paciente.getIdPaciente() %>">Nombre:</label>
-                                        <input type="text" name="nombreedit" id="nombreedit<%= paciente.getIdPaciente() %>" value="<%= paciente.getNombre() %>">
-                                    </div>
+                                            <label for="nombreedit<%= paciente.getId() %>">Nombre:</label>
+                                            <input type="text" name="nombreedit" id="nombreedit<%= paciente.getId() %>" value="<%= paciente.getNombre() %>">
+                                        </div>
                                         <div class="form-group">
-                                            <label for="apellidosedit<%= paciente.getIdPaciente() %>">Apellidos:</label>
-                                        <input type="text" name="apellidosedit" id="apellidosedit<%= paciente.getIdPaciente() %>" value="<%= paciente.getApellidos() %>">
-                                    </div>
+                                            <label for="apellidosedit<%= paciente.getId() %>">Apellidos:</label>
+                                            <input type="text" name="apellidosedit" id="apellidosedit<%= paciente.getId() %>" value="<%= paciente.getApellidos() %>">
+                                        </div>
                                         <div class="form-group">
-                                            <label for="telefonoedit<%= paciente.getIdPaciente() %>">Teléfono:</label>
-                                        <input type="tel" name="telefonoedit" id="telefonoedit<%= paciente.getIdPaciente() %>" value="<%= paciente.getTelefono() %>">
-                                    </div>
+                                            <label for="telefonoedit<%= paciente.getId() %>">Teléfono:</label>
+                                            <input type="tel" name="telefonoedit" id="telefonoedit<%= paciente.getId() %>" value="<%= paciente.getTelefono() %>">
+                                        </div>
                                         <div class="form-group">
-                                            <label for="direccionedit<%= paciente.getIdPaciente() %>">Dirección:</label>
-                                            <input type="text" name="direccionedit" id="direccionedit<%= paciente.getIdPaciente() %>" value="<%= paciente.getDireccion() %>">
+                                            <label for="direccionedit<%= paciente.getId() %>">Dirección:</label>
+                                            <input type="text" name="direccionedit" id="direccionedit<%= paciente.getId() %>" value="<%= paciente.getDireccion() %>">
                                         </div>
                                         <div class="form-actions">
                                             <button type="submit" class="button-blue">Guardar</button>
@@ -255,7 +255,7 @@
     if (idEditStr != null && !idEditStr.isEmpty()) {
         int idEdit = Integer.parseInt(idEditStr);
         Paciente pacienteEdit = new Paciente(usuarioedit, contrasenaedit, nombreedit, apellidosedit, telefonoedit, direccionedit);
-        pacienteEdit.setIdPaciente(idEdit);
+        pacienteEdit.setIdUsuario(idEdit);
         try {
             int registrosEditados = pacienteDAO.actualizar(pacienteEdit);
             response.sendRedirect("Pacientes.jsp");
