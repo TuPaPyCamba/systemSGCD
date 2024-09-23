@@ -60,6 +60,8 @@ public class CitaDAOTest extends TestCase {
         cita.setDescripcion("Update Test Desc");
         CitaDAO citaDAO = new CitaDAO();
         int registrosRealizados = citaDAO.update(cita);
+        String textUpdateCita = (registrosRealizados == 1) ? "Se Actualizo La Cita Con El ID: " + cita.getId() : "Hubo Un Error Al Actualizar Los Datos De La Cita";
+        System.out.println(textUpdateCita);
         assertEquals(1, registrosRealizados);
     }
     
@@ -88,7 +90,7 @@ public class CitaDAOTest extends TestCase {
     public void testFindAllCitas() throws SQLException {
         CitaDAO citaDAO = new CitaDAO();
         List<Cita> citas = citaDAO.findAllCitas();
-        System.out.println("Citas Agendadas Encontradas");
+        System.out.println("Se Encontraron " + citas.size() + " Citas Registradas");
         for (Cita cita : citas) {
             System.out.println("-- DATOS CITA --");
             System.out.println("ID Cita: " + cita.getId());
@@ -133,7 +135,4 @@ public class CitaDAOTest extends TestCase {
         }
         assertNotNull(citasPaciente);
     }
-    
-    
-    
 }
