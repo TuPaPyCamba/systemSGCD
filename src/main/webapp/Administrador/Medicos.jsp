@@ -239,7 +239,8 @@
 
     if (idEditStr != null && !idEditStr.isEmpty()) {
         int idEdit = Integer.parseInt(idEditStr);
-        Medico medicoEdit = new Medico(usuarioedit, contrasenaedit, nombreedit, apellidosedit, idsucursaledit, especialidadedit);
+        int idsucursaltoeditint = Integer.parseInt(idsucursaledit);
+        Medico medicoEdit = new Medico(usuarioedit, contrasenaedit, nombreedit, apellidosedit, idsucursaltoeditint, especialidadedit);
         medicoEdit.setId(idEdit);
         try {
             int registrosEditados = medicoDAO.actualizar(medicoEdit);
