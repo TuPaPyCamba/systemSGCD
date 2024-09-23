@@ -122,8 +122,8 @@
                         <input type="text" name="apellidoscreate" id="apellidoscreate" required>
                     </div>
                     <div class="form-group">
-                        <label for="especialidadcreate">Especialidad:</label>
-                        <input type="text" name="especialidadcreate" id="especialidadcreate" required>
+                        <label for="idsucursalcreate">Sucursal</label>
+                        <input type="text" name="idsucursalcreate" id="idsucursalcreate" required>
                     </div>
                     <div class="form-actions">
                         <button class="button-blue" type="submit" >Guardar</button>
@@ -191,6 +191,7 @@
                         <td colspan="6">
                             <form action="Medicos.jsp" class="form" method="post">
                                 <input type="hidden" name="idedit" value="<%= medico.getId() %>">
+                                <input type="hidden" name="idsucursaledit" value="<%= medico.getIdsucursal() %>">
                                 <div class="form-group">
                                     <label for="usuarioedit<%= medico.getId() %>">Usuario:</label>
                                     <input type="text" name="usuarioedit" id="usuarioedit<%= medico.getId() %>" value="<%= medico.getUsuario() %>">
@@ -229,6 +230,7 @@
                     <!-- Logico de edit -->
                     <%
     String idEditStr = request.getParameter("idedit");
+    String idsucursaledit = request.getParameter("idsucursaledit");
     String usuarioedit = request.getParameter("usuarioedit");
     String contrasenaedit = request.getParameter("contrasenaedit");
     String nombreedit = request.getParameter("nombreedit");
@@ -237,7 +239,7 @@
 
     if (idEditStr != null && !idEditStr.isEmpty()) {
         int idEdit = Integer.parseInt(idEditStr);
-        Medico medicoEdit = new Medico(usuarioedit, contrasenaedit, nombreedit, apellidosedit, especialidadedit);
+        Medico medicoEdit = new Medico(usuarioedit, contrasenaedit, nombreedit, apellidosedit, idsucursaledit, especialidadedit);
         medicoEdit.setId(idEdit);
         try {
             int registrosEditados = medicoDAO.actualizar(medicoEdit);
@@ -252,6 +254,7 @@
     // Manejo de la creación de un nuevo Medico
     String usuariocreate = request.getParameter("usuariocreate");
     String contrasenacreate = request.getParameter("contrasenacreate");
+    String idsucursalcreate = request.getParameter("idsucursalcreate");
     String nombrecreate = request.getParameter("nombrecreate");
     String apellidoscreate = request.getParameter("apellidoscreate");
     String especialidadcreate = request.getParameter("especialidadcreate");
@@ -261,7 +264,7 @@
         // Solo intentamos crear un nuevo Medico si todos los campos están llenos
         if (!usuariocreate.isEmpty() && !contrasenacreate.isEmpty() && !nombrecreate.isEmpty() && !apellidoscreate.isEmpty()
                 && !especialidadcreate.isEmpty()) {
-            Medico nuevoMedico = new Medico(usuariocreate, contrasenacreate, nombrecreate, apellidoscreate, especialidadcreate);
+            Medico nuevoMedico = new Medico(usuariocreate, contrasenacreate, nombrecreate, apellidoscreate, idsucursalcreate, especialidadcreate);
             try {
                 int registros = medicoDAO.create(nuevoMedico);
                 response.sendRedirect("Medicos.jsp");
