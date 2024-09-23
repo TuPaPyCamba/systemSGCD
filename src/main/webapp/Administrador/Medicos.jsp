@@ -265,9 +265,11 @@
         // Solo intentamos crear un nuevo Medico si todos los campos están llenos
         if (!usuariocreate.isEmpty() && !contrasenacreate.isEmpty() && !nombrecreate.isEmpty() && !apellidoscreate.isEmpty()
                 && !especialidadcreate.isEmpty()) {
-            Medico nuevoMedico = new Medico(usuariocreate, contrasenacreate, nombrecreate, apellidoscreate, idsucursalcreate, especialidadcreate);
+                int idsucursalint = Integer.parseInt(idsucursalcreate);
+            Medico nuevoMedico = new Medico(usuariocreate, contrasenacreate, nombrecreate, apellidoscreate, idsucursalint, especialidadcreate);
             try {
                 int registros = medicoDAO.create(nuevoMedico);
+                System.out.println("Creando medico");
                 response.sendRedirect("Medicos.jsp");
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);

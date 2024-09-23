@@ -3,11 +3,10 @@ package com.sgcd.dao;
 import com.sgcd.model.Medico;
 import static com.sgcd.util.DatabaseConnection.close;
 import static com.sgcd.util.DatabaseConnection.getConnection;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +41,7 @@ public class MedicoDAO {
             stmt.setString(2, medico.getContrasena());
             stmt.setString(3, medico.getNombre());
             stmt.setString(4, medico.getApellidos());
-            stmt.setString(5, medico.getIdsucursal());
+            stmt.setInt(5, medico.getIdsucursal());
             stmt.setString(6, medico.getEspecialidad());
 
             // Ejecutar la consulta y verificar si la inserción fue exitosa
@@ -86,7 +85,7 @@ public class MedicoDAO {
                 medico.setContrasena(rs.getString("contrasena"));
                 medico.setNombre(rs.getString("nombre"));
                 medico.setApellidos(rs.getString("apellidos"));
-                medico.setIdsucursal(rs.getString("idsucursal"));
+                medico.setIdsucursal(rs.getInt("idsucursal"));
                 medico.setEspecialidad(rs.getString("especialidad"));
 
                 medicos.add(medico); // Agrega el objeto a la lista
@@ -133,7 +132,7 @@ public class MedicoDAO {
                 medico.setContrasena(rs.getString("contrasena"));
                 medico.setNombre(rs.getString("nombre"));
                 medico.setApellidos(rs.getString("apellidos"));
-                medico.setIdsucursal(rs.getString("idsucursal"));
+                medico.setIdsucursal(rs.getInt("idsucursal"));
                 medico.setEspecialidad(rs.getString("especialidad"));
             }
         } catch (SQLException ex) {
@@ -171,7 +170,7 @@ public class MedicoDAO {
             stmt.setString(2, medico.getContrasena());
             stmt.setString(3, medico.getNombre());
             stmt.setString(4, medico.getApellidos());
-            stmt.setString(5, medico.getIdsucursal());
+            stmt.setInt(5, medico.getIdsucursal());
             stmt.setString(6, medico.getEspecialidad());
             stmt.setInt(7, medico.getId());
 
@@ -248,7 +247,7 @@ public class MedicoDAO {
                 medico.setContrasena(rs.getString("contrasena"));
                 medico.setNombre(rs.getString("nombre"));
                 medico.setApellidos(rs.getString("apellidos"));
-                medico.setIdsucursal(rs.getString("idsucursal"));
+                medico.setIdsucursal(rs.getInt("idsucursal"));
                 medico.setEspecialidad(rs.getString("especialidad"));
 
                 medicos.add(medico); // Agrega el objeto a la lista
