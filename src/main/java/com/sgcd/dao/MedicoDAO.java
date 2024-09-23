@@ -30,7 +30,7 @@ public class MedicoDAO {
         PreparedStatement stmt = null;
         int registros = 0;
         // Consulta SQL para insertar un nuevo registro de medico
-        String SQL_INSERT = "INSERT INTO medicos (usuario, contrasena, email, nombre, apellidos, idsucursal, especialidad) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String SQL_INSERT = "INSERT INTO medicos (usuario, contrasena, nombre, apellidos, idsucursal, especialidad) VALUES (?, ?, ?, ?, ?, ?)";
 
         try {
             // Establece la conexión a la base de datos
@@ -40,11 +40,10 @@ public class MedicoDAO {
             // Establecer los parámetros en la consulta
             stmt.setString(1, medico.getUsuario());
             stmt.setString(2, medico.getContrasena());
-            stmt.setString(3, medico.getEmail());
-            stmt.setString(4, medico.getNombre());
-            stmt.setString(5, medico.getApellidos());
-            stmt.setString(6, medico.getIdsucursal());
-            stmt.setString(7, medico.getEspecialidad());
+            stmt.setString(3, medico.getNombre());
+            stmt.setString(4, medico.getApellidos());
+            stmt.setString(5, medico.getIdsucursal());
+            stmt.setString(6, medico.getEspecialidad());
 
             // Ejecutar la consulta y verificar si la inserción fue exitosa
             registros = stmt.executeUpdate();
@@ -85,7 +84,6 @@ public class MedicoDAO {
                 medico.setId(rs.getInt("id"));
                 medico.setUsuario(rs.getString("usuario"));
                 medico.setContrasena(rs.getString("contrasena"));
-                medico.setEmail(rs.getString("email"));
                 medico.setNombre(rs.getString("nombre"));
                 medico.setApellidos(rs.getString("apellidos"));
                 medico.setIdsucursal(rs.getString("idsucursal"));
@@ -133,7 +131,6 @@ public class MedicoDAO {
                 medico.setId(rs.getInt("id"));
                 medico.setUsuario(rs.getString("usuario"));
                 medico.setContrasena(rs.getString("contrasena"));
-                medico.setEmail(rs.getString("email"));
                 medico.setNombre(rs.getString("nombre"));
                 medico.setApellidos(rs.getString("apellidos"));
                 medico.setIdsucursal(rs.getString("idsucursal"));
@@ -162,7 +159,7 @@ public class MedicoDAO {
         PreparedStatement stmt = null;
         int registros = 0;
         // Consulta SQL para actualizar los datos del objeto medico
-        String SQL_UPDATE = "UPDATE medicos SET usuario = ?, contrasena = ?, email = ?, nombre = ?, apellidos = ?, idsucursal = ?, especialidad = ? WHERE id = ?";
+        String SQL_UPDATE = "UPDATE medicos SET usuario = ?, contrasena = ?, nombre = ?, apellidos = ?, idsucursal = ?, especialidad = ? WHERE id = ?";
 
         try {
             // Establece la conexión a la base de datos
@@ -172,12 +169,11 @@ public class MedicoDAO {
             // Establecer los parámetros en la consulta
             stmt.setString(1, medico.getUsuario());
             stmt.setString(2, medico.getContrasena());
-            stmt.setString(3, medico.getEmail());
-            stmt.setString(4, medico.getNombre());
-            stmt.setString(5, medico.getApellidos());
-            stmt.setString(6, medico.getIdsucursal());
-            stmt.setString(7, medico.getEspecialidad());
-            stmt.setInt(8, medico.getId());
+            stmt.setString(3, medico.getNombre());
+            stmt.setString(4, medico.getApellidos());
+            stmt.setString(5, medico.getIdsucursal());
+            stmt.setString(6, medico.getEspecialidad());
+            stmt.setInt(7, medico.getId());
 
             registros = stmt.executeUpdate(); // Ejecutar la actualización
         } catch (SQLException ex) {
@@ -250,7 +246,6 @@ public class MedicoDAO {
                 medico.setId(rs.getInt("id"));
                 medico.setUsuario(rs.getString("usuario"));
                 medico.setContrasena(rs.getString("contrasena"));
-                medico.setEmail(rs.getString("email"));
                 medico.setNombre(rs.getString("nombre"));
                 medico.setApellidos(rs.getString("apellidos"));
                 medico.setIdsucursal(rs.getString("idsucursal"));

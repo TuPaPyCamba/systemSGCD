@@ -28,7 +28,7 @@ public class AdministradorDAO {
         PreparedStatement stmt = null;
         int registros = 0;
         // Consulta SQL para insertar un nuevo administrador
-        String sql = "INSERT INTO administradores(usuario, contrasena, email, idsucursal, nombre, apellidos) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO administradores(usuario, contrasena, idsucursal, nombre, apellidos) VALUES (?, ?, ?, ?, ?)";
 
         try{
             // Establece la conexión a la base de datos
@@ -38,10 +38,9 @@ public class AdministradorDAO {
             // Establecer los parámetros en la consulta
             stmt.setString(1, admin.getUsuario());
             stmt.setString(2, admin.getContrasena());
-            stmt.setString(3, admin.getEmail());
-            stmt.setInt(4, admin.getIdsucursal());
-            stmt.setString(5, admin.getNombre());
-            stmt.setString(6, admin.getApellidos());
+            stmt.setInt(3, admin.getIdsucursal());
+            stmt.setString(4, admin.getNombre());
+            stmt.setString(5, admin.getApellidos());
 
             registros = stmt.executeUpdate(); // Se ejecuta la consulta
         } catch (SQLException ex) {
@@ -65,7 +64,7 @@ public class AdministradorDAO {
         PreparedStatement stmt = null;
         int registros = 0;
         // Consulta SQL para actualizar un registro de administrador
-        String sql = "UPDATE administradores SET usuario = ?, contrasena = ?, email = ?, idsucursal = ?, nombre = ?, apellidos = ? WHERE id = ?";
+        String sql = "UPDATE administradores SET usuario = ?, contrasena = ?, idsucursal = ?, nombre = ?, apellidos = ? WHERE id = ?";
 
         try {
             // Establece la conexión a la base de datos
@@ -75,11 +74,10 @@ public class AdministradorDAO {
             // Establecer los parámetros en la consulta
             stmt.setString(1, admin.getUsuario());
             stmt.setString(2, admin.getContrasena());
-            stmt.setString(3, admin.getEmail());
-            stmt.setInt(4, admin.getIdsucursal());
-            stmt.setString(5, admin.getNombre());
-            stmt.setString(6, admin.getApellidos());
-            stmt.setInt(7, admin.getId());
+            stmt.setInt(3, admin.getIdsucursal());
+            stmt.setString(4, admin.getNombre());
+            stmt.setString(5, admin.getApellidos());
+            stmt.setInt(6, admin.getId());
 
             registros = stmt.executeUpdate(); // Se ejecuta la consulta de actualización
             System.out.println("Registros actualizados: " + registros);
@@ -149,7 +147,6 @@ public class AdministradorDAO {
                 admin.setId(rs.getInt("id"));
                 admin.setUsuario(rs.getString("usuario"));
                 admin.setContrasena(rs.getString("contrasena"));
-                admin.setEmail(rs.getString("email"));
                 admin.setIdsucursal(rs.getInt("idsucursal"));
                 admin.setNombre(rs.getString("nombre"));
                 admin.setApellidos(rs.getString("apellidos"));

@@ -39,10 +39,10 @@ public class PacienteDAO {
             // Establecer los parámetros en la consulta
             stmt.setString(1, paciente.getUsuario());
             stmt.setString(2, paciente.getContrasena());
-            stmt.setString(4, paciente.getNombre());
-            stmt.setString(5, paciente.getApellidos());
-            stmt.setString(6, paciente.getTelefono());
-            stmt.setString(7, paciente.getDireccion());
+            stmt.setString(3, paciente.getNombre());
+            stmt.setString(4, paciente.getApellidos());
+            stmt.setString(5, paciente.getTelefono());
+            stmt.setString(6, paciente.getDireccion());
 
             // Ejecutar la consulta y verificar si la inserción fue exitosa
             registros = stmt.executeUpdate();
