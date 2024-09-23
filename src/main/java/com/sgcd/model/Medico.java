@@ -6,14 +6,14 @@ public class Medico {
     private String contrasena;
     private String nombre;
     private String apellidos;
-    private String idsucursal;
+    private int idsucursal;
     private String especialidad;
 
     public Medico() {
 
     }
 
-    public Medico(String usuario, String contrasena, String nombre, String apellidos, String idsucursal, String especialidad) {
+    public Medico(String usuario, String contrasena, String nombre, String apellidos, int idsucursal, String especialidad) {
         this.usuario = usuario;
         this.contrasena = contrasena;
         this.nombre = nombre;
@@ -22,7 +22,7 @@ public class Medico {
         this.especialidad = especialidad;
     }
 
-    public Medico(int id, String usuario, String contrasena, String nombre, String apellidos, String idsucursal, String especialidad) {
+    public Medico(int id, String usuario, String contrasena, String nombre, String apellidos, int idsucursal, String especialidad) {
         this.id = id;
         this.usuario = usuario;
         this.contrasena = contrasena;
@@ -74,11 +74,11 @@ public class Medico {
         this.apellidos = apellidos;
     }
 
-    public String getIdsucursal() {
+    public int getIdsucursal() {
         return idsucursal;
     }
 
-    public void setIdsucursal(String idsucursal) {
+    public void setIdsucursal(int idsucursal) {
         this.idsucursal = idsucursal;
     }
 
