@@ -58,16 +58,15 @@
     <!-- Contenedor principal -->
     <div class="main-content">
         <!-- Barra de navegación superior -->
-        <div class="navbar">
-            <div class="" style="display: hidden;"></div>
+        <header class="navbar">
             <div class="user-info">
-                <p>Bienvenido, <%=usuarioSesion %></p>
+                <p>Bienvenido, <span id="username"><%= usuarioSesion%></span></p>
                 <form action="" method="post">
                     <input type="hidden" name="action" value="logout">
-                    <button type="submit">Cerrar Sesion</button>
+                    <button class="button-red" type="submit">Cerrar Sesión</button>
                 </form>
             </div>
-        </div>
+        </header>
 
         <!-- Contenido del dashboard -->
         <div class="container">
