@@ -42,7 +42,7 @@
 %>
 
 <div class="container">
-
+    <!-- Menú lateral -->
     <navbar class="sidebar">
         <h2><a href="../index.jsp">Salud Dental</a></h2>
         <nav>

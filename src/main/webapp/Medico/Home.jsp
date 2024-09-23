@@ -36,8 +36,7 @@
                 <ul>
                     <li><a href="Home.jsp" class="menu-item">&#127968; Home</a></li>
                     <li><a href="Pacientes.jsp" class="menu-item">&#128100; Pacientes</a></li>
-                    <li><a href="Medicos.jsp" class="menu-item">&#128104;&#8205;&#9877;&#65039; Medicos</a></li>
-                    <li><a href="Citas.jsp" class="menu-item">&#128197; Citas</a></li>
+                    <li><a href="Agenda.jsp" class="menu-item">&#128197; Agenda</a></li>
                     <li><a href="Consultas.jsp" class="menu-item">&#128196; Consultas</a></li>
                 </ul>
             </nav>

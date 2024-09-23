@@ -70,6 +70,7 @@
         }
     %>
     <div class="container">
+        <!-- Menú lateral -->
         <navbar class="sidebar">
             <h2><a href="../index.jsp">Salud Dental</a></h2>
             <nav>
@@ -79,7 +80,6 @@
                     <li><a href="Medicos.jsp" class="menu-item">&#128104;&#8205;&#9877;&#65039; Medicos</a></li>
                     <li><a href="Citas.jsp" class="menu-item">&#128197; Citas</a></li>
                     <li><a href="Consultas.jsp" class="menu-item">&#128196; Consultas</a></li>
-                    <li><a href="Settings.jsp" class="menu-item">&#9881;&#65039; Ajustes</a></li>
                 </ul>
             </nav>
         </navbar>
@@ -96,7 +96,10 @@
                     </form>
                 </div>
             </header>
+
+            <!-- Contenido del dashboard -->
             <section class="dashboard">
+                <!-- banner  -->
                 <div class="banner">
                     <div class="banner-header">
                         <h1>Gestión de Pacientes</h1>
@@ -136,12 +139,14 @@
                     </div>
                 </form>
 
+                <!-- Formulario de búsqueda -->
                 <form action="Pacientes.jsp" method="get" class="search-form">
                     <input type="text" name="busqueda" id="busqueda" placeholder="Buscar..." value="<%= request.getParameter("busqueda") %>">
                     <button class="button-black" type="submit">Buscar</button>
                 </form>
 
-                <table class="table">
+                    <!-- Tabla de pacientes -->
+                    <table class="table">
                     <thead>
                         <tr>
                             <th>ID</th>
