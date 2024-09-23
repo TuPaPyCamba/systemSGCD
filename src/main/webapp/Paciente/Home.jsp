@@ -15,9 +15,8 @@
                     }
         %>
         <title>Paciente Home</title>
-        <title>Admin Home Page</title>
     </head>
-<body>
+    <body>
 <%
     String idSesionString = null;
     String usuarioSesion = null;

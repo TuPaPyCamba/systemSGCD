@@ -120,10 +120,9 @@
                 <div class="form-group">
                     <!-- Selección de Fecha -->
                     <label for="fecha">Fecha de la Cita:</label>
-                    <input type="date" id="fecha" name="fecha" required><br><br>
-
-                    <button type="submit" class="button-black">Buscar Horas Disponibles</button>
+                    <input type="date" id="fecha" name="fecha" required>
                 </div>
+                <button type="submit" class="button-black">Buscar Horas Disponibles</button>
             </form>
 
                     <%
