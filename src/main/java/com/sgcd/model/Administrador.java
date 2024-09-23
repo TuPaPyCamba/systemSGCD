@@ -11,6 +11,14 @@ public class Administrador {
     public Administrador(){
     }
 
+    public Administrador(String usuario, String contrasena, int idsucursal, String nombre, String apellidos) {
+        this.usuario = usuario;
+        this.contrasena = contrasena;
+        this.idsucursal = idsucursal;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+    }
+
     public Administrador(int id, String usuario, String contrasena, int idsucursal, String nombre, String apellidos) {
         this.id = id;
         this.usuario = usuario;
