@@ -1,5 +1,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.sql.SQLException" %>
+<%@ page buffer="8192kb" autoFlush="false" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.sgcd.model.Medico" %>
 <%@ page import="com.sgcd.dao.MedicoDAO" %>
