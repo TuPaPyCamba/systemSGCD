@@ -177,8 +177,7 @@
                             </div>
                             <button class="button-black" type="submit">Buscar</button>
                         </form>
-
-                    <%
+                        <%
                         // Obtener parámetros de la solicitud
                         String fechaParamr = request.getParameter("fechaconsulta");
 
@@ -189,8 +188,8 @@
                             ConsultaDAO consultaDAO = new ConsultaDAO();
                             List<Consulta> consultas = consultaDAO.obtenerTodasConsultas(idSesion, fechaconsulta);
 
-        if (consultas != null && !consultas.isEmpty()) {
-                    %>
+if (consultas != null && !consultas.isEmpty()) {
+                        %>
                     <table class="table">
                         <thead>
                         <tr class="bg-gray-200">

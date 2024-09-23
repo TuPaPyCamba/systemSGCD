@@ -9,18 +9,21 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
     <head>
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/sidebar.css">
+        <link rel="stylesheet" href="../css/table.css">
+        <link rel="stylesheet" href="../css/search-bar.css">
+        <link rel="stylesheet" href="../css/form.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <%
                 if (!"pacientes".equals(session.getAttribute("tipoUsuario"))) {
                     response.sendRedirect("/SystemSGCD/InicioSesion/InicioSesion.jsp");
                 }
         %>
         <title>Agenda de Citas y Consultas</title>
-    <link rel="stylesheet" href="../css/modulos.css">
-    <link rel="stylesheet" href="../css/Dashboards.css">
-    <link rel="stylesheet" href="../css/Agenda.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-</head>
-<body>
+    </head>
+    <body>
 <%
     String idSesionString = null;
     String usuarioSesion = null;
@@ -33,30 +36,23 @@
         idSesion = Integer.parseInt(idSesionString);
     }
 %>
-<div class="dashboard">
+<div class="container">
 
     <!-- Menú lateral -->
-    <div class="sidebar">
+    <navbar class="sidebar">
         <h2><a href="../index.jsp">Salud Dental</a></h2>
-        <a href="Home.jsp" class="menu-item">
-            <i class="fas fa-home"></i><span>Home</span>
-        </a>
-        <a href="Agenda.jsp" class="menu-item">
-            <i class="fas fa-calendar-alt"></i><span>Agenda</span>
-        </a>
-        <a href="Medicos.jsp" class="menu-item">
-            <i class="fas fa-user-md"></i><span>Medicos</span>
-        </a>
-        <a href="Citas.jsp" class="menu-item">
-            <i class="fas fa-calendar-check"></i><span>Citas</span>
-        </a>
-        <a href="Settings.jsp" class="menu-item">
-            <i class="fas fa-cogs"></i><span>Ajustes</span>
-        </a>
-    </div>
+        <nav>
+            <ul>
+                <li><a href="Home.jsp" class="menu-item">&#127968; Home</a></li>
+                <li><a href="Medicos.jsp" class="menu-item">&#128100; Medicos</a></li>
+                <li><a href="Agenda.jsp" class="menu-item">&#128197; Agenda</a></li>
+                <li><a href="Consultas.jsp" class="menu-item">&#128196; Consultas</a></li>
+            </ul>
+        </nav>
+    </navbar>
 
     <!-- Contenedor principal -->
-    <div class="main-content">
+    <main class="main-content">
         <!-- Barra de navegación superior -->
         <header class="navbar">
             <div class="user-info">
@@ -69,22 +65,23 @@
         </header>
 
         <!-- Contenido del dashboard -->
-        <div class="container">
-            <div class="g-container">
-                <div class="g-banner-container">
-                    <div class="g-banner-labelbutton-container">
-                        <h2 class="label-banner">Buscar Citas</h2>
-                    </div>
+        <section class="dashboard">
+            <!-- banner  -->
+            <div class="banner">
+                <div class="banner-header">
+                    <h1>Buscar Citas</h1>
                 </div>
-                <!-- Formulario para seleccionar la fecha -->
+                <div class="banner-line"></div>
+            </div>
+            <!-- Formulario para seleccionar la fecha -->
 
-                <form action="Agenda.jsp" method="get" class="search-form">
-                    <div class="buscarCita">
-                        <label for="fecha">Fecha:</label>
-                        <input type="date" id="fecha" name="fecha" required>
-                    </div>
-                    <button type="submit">Buscar</button>
-                </form>
+            <form action="Agenda.jsp" method="get" class="form">
+                <div class="form-group">
+                    <label for="fecha">Fecha:</label>
+                    <input type="date" id="fecha" name="fecha" required>
+                </div>
+                <button class="button-black" type="submit">Buscar</button>
+            </form>
 
                 <%
                     // Obtener parámetros de la solicitud
@@ -128,10 +125,7 @@
                         <td class="px-4 py-2 border-b">
                             <form action="Agenda.jsp" method="post" style="display:inline;">
                                 <input type="hidden" name="idcitadelete" value="<%= cita.getId() %>">
-                                <button
-                                        type="submit"
-                                        class="btn-delete"
-                                        onclick="return confirm('¿Estás seguro de que quieres eliminar a esta consulta?');">
+                                <button type="submit" class="button-red" onclick="return confirm('¿Estás seguro de que quieres eliminar a esta consulta?');">
                                     Eliminar
                                 </button>
                             </form>
@@ -171,20 +165,24 @@
                         }
                     }
                 %>
-                <div class="g-banner-container">
-                    <div class="g-banner-labelbutton-container">
-                        <h2 class="label-banner">Buscar Consultas</h2>
-                    </div>
+        </section>
+        <br/>
+        <section class="dashboard">
+            <!-- banner  -->
+            <div class="banner">
+                <div class="banner-header">
+                    <h1>Buscar Consultas</h1>
                 </div>
-                <!-- Formulario para seleccionar la fecha -->
-
-                <form action="Agenda.jsp" method="get" class="search-form">
-                    <div class="buscarCita">
-                        <label for="fecha">Fecha:</label>
-                        <input type="date" id="fechaconsulta" name="fechaconsulta" required>
-                    </div>
-                    <button type="submit">Buscar</button>
-                </form>
+                <div class="banner-line"></div>
+            </div>
+            <!-- Formulario para seleccionar la fecha -->
+            <form action="Agenda.jsp" method="get" class="form">
+                <div class="form-group">
+                    <label for="fecha">Fecha:</label>
+                    <input type="date" id="fechaconsulta" name="fechaconsulta" required>
+                </div>
+                <button class="button-black" type="submit">Buscar</button>
+            </form>
 
                 <%
                     // Obtener parámetros de la solicitud
@@ -229,10 +227,7 @@
                         <td class="px-4 py-2 border-b">
                             <form action="Agenda.jsp" method="post" style="display:inline;">
                                 <input type="hidden" name="idconsultadelete" value="<%= consulta.getId() %>">
-                                <button
-                                        type="submit"
-                                        class="btn-delete"
-                                        onclick="return confirm('¿Estás seguro de que quieres eliminar a este Medico?');">
+                                <button type="submit" class="button-red" onclick="return confirm('¿Estás seguro de que quieres eliminar a este Medico?');">
                                     Eliminar
                                 </button>
                             </form>
@@ -271,9 +266,8 @@
                         }
                     }
                 %>
-            </div>
-        </div>
-    </div>
+        </section>
+    </main>
 </div>
 <%
     if ("POST".equalsIgnoreCase(request.getMethod()) && "logout".equals(request.getParameter("action"))) {
