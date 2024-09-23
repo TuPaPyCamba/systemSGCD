@@ -134,25 +134,31 @@
             <!-- banner  -->
             <div class="banner">
                 <div class="banner-header">
-                    <h1>Crear Nueva Consulta</h1>
+                    <h1>Reservar Citas</h1>
                 </div>
-                <% // Muestra las sucursales disponibles - PASO 1
+                <div class="banner-line"></div>
+            </div>
+            <% // Muestra las sucursales disponibles - PASO 1
                     if (mostrarSucursales) {
                 %>
-                <form action="Citas.jsp" class="form "method="POST"> <!-- Formulario para seleccionar la sucursal -->
-                    <label for="sucursal">Seleccione la sucursal a la que quiere acudir</label>
-                    <select id="select-sucursales" name="idsucursal" required>
-                        <%
-                            for (Sucursal sucursal : listaSucursales) {
-                        %>
+                <form action="Citas.jsp" class="form "method="POST">
+                    <div class="form-group">
+                        <label for="sucursal">Seleccione la sucursal a la que quiere acudir</label>
+                        <select id="select-sucursales" name="idsucursal" required>
+                            <%
+                                for (Sucursal sucursal : listaSucursales) {
+                            %>
                             <option value="<%= sucursal.getIdsucursal()%>" %>">Nombre: <%= sucursal.getNombre() %>,
                                 Direccion: <%= sucursal.getDireccion()%>
                             </option>
-                        <%
-                            }
-                        %>
-                    </select>
-                    <input type="submit" value="Buscar medicos" name="buscar-medicos" />
+                            <%
+                                }
+                            %>
+                        </select>
+                    </div>
+                        <br/>
+                        <br/>
+                        <button type="submit" name="buscar-medicos" class="button-black" >Buscar sucursales</button>
                 </form>
                 <%
                 }
@@ -161,11 +167,11 @@
                         if (mostrarMedicos) {
                     %>
                     <h2>Sucursal seleccionada: <%= sucursalDAO.obtenerSucursalPorId(Integer.parseInt(idsucursalstr)).getNombre() %></h2>
-                <form action="Citas.jsp" method="POST">
-                    <input type="hidden" value="<%= idsucursalstr %>" name="id-sucursal">
+                    <form action="Citas.jsp" class="form" method="POST">
+                        <input type="hidden" value="<%= idsucursalstr %>" name="id-sucursal">
                     <input type="hidden" value="false" name="mostrar-medico">
                     <!-- Selección de Médico -->
-                    <div class="seleccionarMedico">
+                    <div class="form-group">
                         <label for="idmedico">Seleccione Médico:</label>
                         <select id="idmedico" name="idmedico" required>
                             <%

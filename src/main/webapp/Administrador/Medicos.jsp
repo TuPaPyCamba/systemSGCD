@@ -260,8 +260,10 @@
     String apellidoscreate = request.getParameter("apellidoscreate");
     String especialidadcreate = request.getParameter("especialidadcreate");
 
+
     if (usuariocreate != null && contrasenacreate != null && nombrecreate != null && apellidoscreate != null
             && especialidadcreate != null) {
+            int idsucursalcreateint = Integer.parseInt(idsucursaledit);
         // Solo intentamos crear un nuevo Medico si todos los campos están llenos
         if (!usuariocreate.isEmpty() && !contrasenacreate.isEmpty() && !nombrecreate.isEmpty() && !apellidoscreate.isEmpty()
                 && !especialidadcreate.isEmpty()) {
