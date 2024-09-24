@@ -1,4 +1,5 @@
 <%@ page import="com.sgcd.dao.CitaDAO" %>
+<%@ page import="com.sgcd.dao.SucursalDao" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="com.sgcd.model.Cita" %>
@@ -37,6 +38,8 @@
         usuarioSesion = (String) session.getAttribute("usuario");
         idSesion = Integer.parseInt(idSesionString);
     }
+
+    SucursalDao sucursalDAO = new SucursalDao();
 %>
 <div class="container">
     <navbar class="sidebar">
@@ -79,6 +82,7 @@
                             <th>Fecha</th>
                             <th>Hora</th>
                             <th>Descripcion</th>
+                            <th>Sucursal</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -101,6 +105,7 @@
                         <td><%= cita.getFecha()%></td>
                         <td><%= cita.getHora()%></td>
                         <td><%= cita.getDescripcion()%></td>
+                        <td><%= sucursalDAO.obtenerSucursalPorId(cita.getIdsucursal()).getNombre() %></td>
                         <td>
                             <form action="Citas.jsp" method="post" style="display: inline">
                                 <input type="hidden" name="id" value="<%= cita.getId() %>">

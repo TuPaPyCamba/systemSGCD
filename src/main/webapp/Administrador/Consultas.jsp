@@ -3,6 +3,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="com.sgcd.util.CerrarSesion" %>
+<%@ page import="com.sgcd.dao.SucursalDao" %>
 <%--
   Created by IntelliJ IDEA.
   User: maxim
@@ -39,6 +40,8 @@
         usuarioSesion = (String) session.getAttribute("usuario");
         idSesion = Integer.parseInt(idSesionString);
     }
+
+    SucursalDao sucursalDAO = new SucursalDao();
 %>
 
 <div class="container">
@@ -86,6 +89,7 @@
                         <th>Fecha</th>
                         <th>Hora</th>
                         <th>Descripcion</th>
+                        <th>Sucursal</th>
                         <th>Acciones</th>
                     </tr>
                     </thead>
@@ -104,14 +108,11 @@
                             for (Consulta consulta : consultas) {
                     %>
                     <tr>
-                        <td><%= consulta.getId() %>
-                        </td>
-                        <td><%= consulta.getFecha()%>
-                        </td>
-                        <td><%= consulta.getHora()%>
-                        </td>
-                        <td><%= consulta.getDescripcion()%>
-                        </td>
+                        <td><%= consulta.getId() %></td>
+                        <td><%= consulta.getFecha()%></td>
+                        <td><%= consulta.getHora()%></td>
+                        <td><%= consulta.getDescripcion()%></td>
+                        <td><%= sucursalDAO.obtenerSucursalPorId(consulta.getIdsucursal()).getNombre() %></td>
                         <td>
                             <form action="Consultas.jsp" method="post" style="display: inline">
                                 <input type="hidden" name="id" value="<%= consulta.getId() %>">
