@@ -3,6 +3,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="com.sgcd.util.CerrarSesion" %>
+<%@ page import="com.sgcd.dao.SucursalDao" %>
 <%--
   Created by IntelliJ IDEA.
   User: maxim
@@ -12,19 +13,22 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
-<head>
-    <%
-        if (!"administradores".equals(session.getAttribute("tipoUsuario"))) {
-            response.sendRedirect("/SystemSGCD/InicioSesion/InicioSesion.jsp");
-        }
-    %>
-    <title>Gestion de Consultas</title>
-    <link rel="stylesheet" href="../css/modulos.css">
-    <link rel="stylesheet" href="../css/Dashboards.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <title>Admin Home Page</title>
-</head>
-<body>
+    <head>
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/sidebar.css">
+        <link rel="stylesheet" href="../css/table.css">
+        <link rel="stylesheet" href="../css/search-bar.css">
+        <link rel="stylesheet" href="../css/form.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <%
+            if (!"administradores".equals(session.getAttribute("tipoUsuario"))) {
+                response.sendRedirect("/SystemSGCD/InicioSesion/InicioSesion.jsp");
+            }
+        %>
+        <title>Gestion de Consultas</title>
+    </head>
+    <body>
 <%
     String idSesionString = null;
     String usuarioSesion = null;
@@ -36,59 +40,48 @@
         usuarioSesion = (String) session.getAttribute("usuario");
         idSesion = Integer.parseInt(idSesionString);
     }
+
+    SucursalDao sucursalDAO = new SucursalDao();
 %>
 
-<div class="dashboard">
-
+<div class="container">
     <!-- Menú lateral -->
-    <div class="sidebar">
+    <navbar class="sidebar">
         <h2><a href="../index.jsp">Salud Dental</a></h2>
-        <a href="Home.jsp" class="menu-item">
-            <i class="fas fa-home"></i><span>Home</span>
-        </a>
-        <a href="Pacientes.jsp" class="menu-item">
-            <i class="fas fa-user-injured"></i><span>Pacientes</span>
-        </a>
-        <a href="Medicos.jsp" class="menu-item">
-            <i class="fas fa-user-md"></i><span>Medicos</span>
-        </a>
-        <a href="Citas.jsp" class="menu-item">
-            <i class="fas fa-calendar-check"></i><span>Citas</span>
-        </a>
-        <a href="Consultas.jsp" class="menu-item">
-            <i class="fas fa-file-alt"></i><span>Consultas</span>
-        </a>
-        <a href="Settings.jsp" class="menu-item">
-            <i class="fas fa-cogs"></i><span>Ajustes</span>
-        </a>
-    </div>
+        <nav>
+            <ul>
+                <li><a href="Home.jsp" class="menu-item">&#127968; Home</a></li>
+                <li><a href="Pacientes.jsp" class="menu-item">&#128100; Pacientes</a></li>
+                <li><a href="Medicos.jsp" class="menu-item">&#128104;&#8205;&#9877;&#65039; Medicos</a></li>
+                <li><a href="Citas.jsp" class="menu-item">&#128197; Citas</a></li>
+                <li><a href="Consultas.jsp" class="menu-item">&#128196; Consultas</a></li>
+            </ul>
+        </nav>
+    </navbar>
 
     <!-- Contenedor principal -->
-    <div class="main-content">
+    <main class="main-content">
         <!-- Barra de navegación superior -->
-        <div class="navbar">
-            <div class="" style="display: hidden;"></div>
+        <header class="navbar">
             <div class="user-info">
-                <p>Bienvenido, <%= usuarioSesion%>
-                </p>
+                <p>Bienvenido, <span id="username"><%= usuarioSesion%></span></p>
                 <form action="" method="post">
                     <input type="hidden" name="action" value="logout">
-                    <button type="submit">Cerrar Sesion</button>
+                    <button class="button-red" type="submit">Cerrar Sesión</button>
                 </form>
             </div>
-        </div>
+        </header>
 
         <!-- Contenido del dashboard -->
-        <div class="container">
-            <div class="g-container">
-                <!-- banner de Consulta -->
-                <div class="g-banner-container">
-                    <div class="g-banner-labelbutton-container">
-                        <h2 class="label-banner">Lista de Consultas</h2>
-                    </div>
-                    <div class="blue-line"></div>
+        <section class="dashboard">
+            <!-- banner -->
+            <div class="banner">
+                <div class="banner-header">
+                    <h1>Lista de Consultas</h1>
                 </div>
-                <!-- Tabla de registros -->
+                <div class="banner-line"></div>
+            </div>
+            <!-- Tabla de registros -->
                 <table class="table">
                     <thead>
                     <tr>
@@ -96,6 +89,7 @@
                         <th>Fecha</th>
                         <th>Hora</th>
                         <th>Descripcion</th>
+                        <th>Sucursal</th>
                         <th>Acciones</th>
                     </tr>
                     </thead>
@@ -114,19 +108,15 @@
                             for (Consulta consulta : consultas) {
                     %>
                     <tr>
-                        <td><%= consulta.getId() %>
-                        </td>
-                        <td><%= consulta.getFecha()%>
-                        </td>
-                        <td><%= consulta.getHora()%>
-                        </td>
-                        <td><%= consulta.getDescripcion()%>
-                        </td>
+                        <td><%= consulta.getId() %></td>
+                        <td><%= consulta.getFecha()%></td>
+                        <td><%= consulta.getHora()%></td>
+                        <td><%= consulta.getDescripcion()%></td>
+                        <td><%= sucursalDAO.obtenerSucursalPorId(consulta.getIdsucursal()).getNombre() %></td>
                         <td>
                             <form action="Consultas.jsp" method="post" style="display: inline">
                                 <input type="hidden" name="id" value="<%= consulta.getId() %>">
-                                <button type="submit" class="btn-delete"
-                                        onclick="return confirm('¿Estás seguro de que quieres eliminar a este Medico?');">
+                                <button type="submit" class="button-red" onclick="return confirm('¿Estás seguro de que quieres eliminar a este Medico?');">
                                     Eliminar
                                 </button>
                             </form>
@@ -158,9 +148,8 @@
                     %>
                     </tbody>
                 </table>
-            </div>
-        </div>
-    </div>
+        </section>
+    </main>
 </div>
 <%
     if ("POST".equalsIgnoreCase(request.getMethod()) && "logout".equals(request.getParameter("action"))) {

@@ -6,6 +6,7 @@ public class Cita {
     private int id;
     private int idPaciente;
     private int idMedico;
+    private int idsucursal;
     private LocalDate fecha;
     private String hora;
     private String descripcion;
@@ -13,9 +14,11 @@ public class Cita {
     public Cita() {
     }
 
-    public Cita(int idpaciente, int idmedico, LocalDate fecha, String hora, String descripcion) {
-        this.idPaciente = idpaciente;
-        this.idMedico = idmedico;
+    public Cita(int id, int idPaciente, int idMedico, int idsucursal, LocalDate fecha, String hora, String descripcion) {
+        this.id = id;
+        this.idPaciente = idPaciente;
+        this.idMedico = idMedico;
+        this.idsucursal = idsucursal;
         this.fecha = fecha;
         this.hora = hora;
         this.descripcion = descripcion;
@@ -45,6 +48,10 @@ public class Cita {
     public void setIdMedico(int idmedico) {
         this.idMedico = idmedico;
     }
+
+    public int getIdsucursal() { return idsucursal; }
+
+    public void setIdsucursal(int idsucursal) { this.idsucursal = idsucursal; }
 
     public LocalDate getFecha() {
         return fecha;

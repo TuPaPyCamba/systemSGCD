@@ -1,3 +1,4 @@
+<%@ page import="com.sgcd.dao.MedicoDAO" %>
 <%@ page import="com.sgcd.dao.ConsultaDAO" %>
 <%@ page import="com.sgcd.dao.PacienteDAO" %>
 <%@ page import="com.sgcd.model.Paciente" %>
@@ -8,18 +9,21 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
     <head>
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/sidebar.css">
+        <link rel="stylesheet" href="../css/table.css">
+        <link rel="stylesheet" href="../css/search-bar.css">
+        <link rel="stylesheet" href="../css/form.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <%
                 if (!"medicos".equals(session.getAttribute("tipoUsuario"))) {
                     response.sendRedirect("/SystemSGCD/InicioSesion/InicioSesion.jsp");
                 }
         %>
         <title>Agendar Nuevas Consultas</title>
-    <link rel="stylesheet" href="../css/modulos.css">
-    <link rel="stylesheet" href="../css/Agenda.css">
-    <link rel="stylesheet" href="../css/Dashboards.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-</head>
-<body>
+    </head>
+    <body>
 <%
     String idSesionString = null;
     String usuarioSesion = null;
@@ -61,84 +65,76 @@
 
     }
 %>
-<div class="dashboard">
-
+<div class="container">
     <!-- Menú lateral -->
-    <div class="sidebar">
+    <navbar class="sidebar">
         <h2><a href="../index.jsp">Salud Dental</a></h2>
-        <a href="Home.jsp" class="menu-item">
-            <i class="fas fa-home"></i><span>Home</span>
-        </a>
-        <a href="Agenda.jsp" class="menu-item">
-            <i class="fas fa-calendar-alt"></i><span>Agenda</span>
-        </a>
-        <a href="Pacientes.jsp" class="menu-item">
-            <i class="fas fa-user-injured"></i><span>Pacientes</span>
-        </a>
-        <a href="Consultas.jsp" class="menu-item">
-            <i class="fas fa-file-alt"></i><span>Consultas</span>
-        </a>
-        <a href="Settings.jsp" class="menu-item">
-            <i class="fas fa-cogs"></i><span>Ajustes</span>
-        </a>
-    </div>
+        <nav>
+            <ul>
+                <li><a href="Home.jsp" class="menu-item">&#127968; Home</a></li>
+                <li><a href="Pacientes.jsp" class="menu-item">&#128100; Pacientes</a></li>
+                <li><a href="Agenda.jsp" class="menu-item">&#128197; Agenda</a></li>
+                <li><a href="Consultas.jsp" class="menu-item">&#128196; Consultas</a></li>
+            </ul>
+        </nav>
+    </navbar>
 
     <!-- Contenedor principal -->
-    <div class="main-content">
+    <main class="main-content">
         <!-- Barra de navegación superior -->
-        <div class="navbar">
-            <div class="" style="display: hidden;"></div>
+        <header class="navbar">
             <div class="user-info">
-                <p>Bienvenido, <%= usuarioSesion%>
-                </p>
+                <p>Bienvenido, <span id="username"><%= usuarioSesion%></span></p>
                 <form action="" method="post">
                     <input type="hidden" name="action" value="logout">
-                    <button type="submit">Cerrar Sesion</button>
+                    <button class="button-red" type="submit">Cerrar Sesión</button>
                 </form>
             </div>
-        </div>
+        </header>
 
         <!-- Contenido del dashboard -->
-        <div class="container">
-            <div class="g-container">
-                <div class="g-banner-container">
-                    <div class="g-banner-labelbutton-container">
-                        <h2 class="label-banner">Crear Consulta</h2>
-                    </div>
+        <section class="dashboard">
+            <!-- banner  -->
+            <div class="banner">
+                <div class="banner-header">
+                    <h1>Crear Nueva Consulta</h1>
                 </div>
-                <form action="Consultas.jsp" method="POST">
-                    <!-- Selección de Paciente -->
-                    <div class="seleccionarMedico">
-                        <label for="idpaciente">Seleccione Paciente:</label>
+                <div class="banner-line"></div>
+            </div>
+
+            <!-- Formulario para seleccionar la fecha -->
+            <form action="Consultas.jsp" class="form" method="POST">
+                <!-- Selección de Paciente -->
+                <div class="form-group">
+                    <label for="idpaciente">Seleccione Paciente:</label>
                         <select id="idpaciente" name="idpaciente" required>
                             <%
                                 for (Paciente paciente : listaPacientes) {
                             %>
-                            <option value="<%= paciente.getIdPaciente() %>"><%= paciente.getNombre() %>
+                            <option value="<%= paciente.getId()%>"><%= paciente.getNombre() %>
                             </option>
                             <%
                                 }
                             %>
                         </select>
-                    </div>
-                    <div class="seleccionarMedico">
-                        <!-- Selección de Fecha -->
-                        <label for="fecha">Fecha de la Cita:</label>
-                        <input type="date" id="fecha" name="fecha" required><br><br>
-
-                        <button type="submit">Buscar Horas Disponibles</button>
-                    </div>
-                </form>
+                </div>
+                <div class="form-group">
+                    <!-- Selección de Fecha -->
+                    <label for="fecha">Fecha de la Cita:</label>
+                    <input type="date" id="fecha" name="fecha" required>
+                </div>
+                <button type="submit" class="button-black">Buscar Horas Disponibles</button>
+            </form>
 
                     <%
                         System.out.println(fechastr);
                         if (!mostrarFormulario) {
                     %>
 
-                    <form action="Consultas.jsp" method="POST">
+                    <form action="Consultas.jsp" class="form" method="POST">
                         <!-- Hora de la Cita -->
                         <p>Para concluir la consulta ingresa los siguientes datos</p>
-                        <div class="seleccionarMedico">
+                        <div class="form-group">
                             <label for="hora">Seleccione Hora:</label>
                         <select id="hora" name="hora" required>
                             <%
@@ -149,28 +145,29 @@
                             <%
                                 }
                             %>
-                        </select><br><br>
-
+                        </select>
+                        </div>
                         <!--- Descripcion de la Cita ---->
-                        <label for="descripcion">Descripcion de la cita</label>
-                        <textarea id="descripcion" name="descripcion" rows="4" cols="50" required></textarea><br><br>
+                        <div class="form-group">
+                            <label  for="descripcion">Descripcion de la cita</label>
+                            <textarea id="descripcion" name="descripcion" rows="4" cols="50" required></textarea><br><br>
 
 
-                        <!-- Pasar los valores de idPaciente, idMedico y fecha al siguiente formulario -->
-                        <input type="hidden" name="idpaciente" value="<%= idpacientestr %>">
-                        <input type="hidden" name="fecha" value="<%= fechastr %>">
+                            <!-- Pasar los valores de idPaciente, idMedico y fecha al siguiente formulario -->
+                            <input type="hidden" name="idpaciente" value="<%= idpacientestr %>">
+                            <input type="hidden" name="fecha" value="<%= fechastr %>">
 
-                        <button type="submit">Guardar Consulta</button>
+                            <button type="submit" class="button-black">Guardar Consulta</button>
                         </div>
                     </form>
                     <%
                         }
                     %>
-                </div>
-            </div>
-        </div>
-    </div>
-    <%
+        </section>
+    </main>
+</div>
+
+<%
         // Instancia del DAO
 
         String idpacientestrcrea = request.getParameter("idpaciente");
@@ -178,6 +175,7 @@
         String fechast = request.getParameter("fecha");
         String hora = request.getParameter("hora");
         String descripcion = request.getParameter("descripcion");
+        int idsucursal = new MedicoDAO().obtenerMedico(idSesion).getIdsucursal();
 
         try {
             // Verificar que los parámetros no estén vacíos
@@ -187,7 +185,7 @@
                 LocalDate fecha = LocalDate.parse(fechast);
 
                 // Crear la consulta
-                boolean citaCreada = consultaDAO.crearConsulta(idpaciente, idmedico, fecha, hora, descripcion);
+                boolean citaCreada = consultaDAO.crearConsulta(idpaciente, idmedico, idsucursal, fecha, hora, descripcion);
 
                 if (citaCreada) {
                     System.out.println("Consulta creada exitosamente.");
@@ -196,7 +194,7 @@
                     System.out.println("Error al crear la conculta.");
                 }
             } else {
-                System.out.println("Uno o más campos están vacíos.");
+                System.out.println("Uno o más campos están vacíos al agendar consulta.");
             }
         } catch (NumberFormatException e) {
             System.out.println("Error en el formato de los números: " + e.getMessage());
