@@ -1,3 +1,4 @@
+<%@page import="com.sgcd.dao.SucursalDao"%>
 <%@ page import="com.sgcd.dao.CitaDAO" %>
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="com.sgcd.model.Cita" %>
@@ -35,6 +36,7 @@
         usuarioSesion = (String) session.getAttribute("usuario");
         idSesion = Integer.parseInt(idSesionString);
     }
+    SucursalDao sucursalDao = new SucursalDao();
 %>
 <div class="container">
     <!-- Menú lateral -->
@@ -199,6 +201,7 @@ if (consultas != null && !consultas.isEmpty()) {
                             <th class="px-4 py-2 border-b">Fecha</th>
                             <th class="px-4 py-2 border-b">Hora</th>
                             <th class="px-4 py-2 border-b">Descripción</th>
+                            <th class="px-4 py-2 border-b">Sucursal</th>
                             <th class="px-4 py-2 border-b">Acciones</th>
                         </tr>
                         </thead>
@@ -216,6 +219,8 @@ if (consultas != null && !consultas.isEmpty()) {
                             <td class="px-4 py-2 border-b"><%= consulta.getHora() %>
                             </td>
                             <td class="px-4 py-2 border-b"><%= consulta.getDescripcion() %>
+                            </td>
+                            <td class="px-4 py-2 border-b"><%= sucursalDao.obtenerSucursalPorId(consulta.getIdsucursal()).getNombre() %>
                             </td>
                             <td class="px-4 py-2 border-b">
                                 <form action="Agenda.jsp" method="post" style="display:inline;">
