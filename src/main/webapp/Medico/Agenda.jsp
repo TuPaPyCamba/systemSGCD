@@ -105,6 +105,7 @@
                             <th class="px-4 py-2 border-b">Fecha</th>
                             <th class="px-4 py-2 border-b">Hora</th>
                             <th class="px-4 py-2 border-b">Descripción</th>
+                            <th class="px-4 py-2 border-b">Sucursal</th>
                             <th class="px-4 py-2 border-b">Acciones</th>
                         </tr>
                         </thead>
@@ -117,6 +118,7 @@
                             <td class="px-4 py-2 border-b"><%= cita.getFecha() %></td>
                             <td class="px-4 py-2 border-b"><%= cita.getHora() %></td>
                             <td class="px-4 py-2 border-b"><%= cita.getDescripcion() %></td>
+                            <td class="px-4 py-2 border-b"><%= sucursalDao.obtenerSucursalPorId(cita.getIdsucursal()).getNombre() %></td>
                             <td class="px-4 py-2 border-b">
                                 <form action="Agenda.jsp" method="post" style="display:inline;">
                                     <input type="hidden" name="idcitadelete" value="<%= cita.getId() %>">
