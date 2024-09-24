@@ -5,6 +5,8 @@
 <%@ page import="com.sgcd.model.Medico" %>
 <%@ page import="com.sgcd.dao.MedicoDAO" %>
 <%@ page import="com.sgcd.util.CerrarSesion" language="java" %>
+<%@ page import="com.sgcd.dao.SucursalDao"%>
+
 <%--
   Created by IntelliJ IDEA.
   User: maxim
@@ -67,8 +69,10 @@
         idSesionString = String.valueOf(session.getAttribute("usuarioId"));
         usuarioSesion = (String) session.getAttribute("usuario");
         idSesion = Integer.parseInt(idSesionString);
-    }
-    %>
+}
+
+SucursalDao sucursalDAO = new SucursalDao();
+        %>
     <div class="container">
         <navbar class="sidebar">
             <h2><a href="../index.jsp">Salud Dental</a></h2>
@@ -147,6 +151,7 @@
                                     <th>ID</th>
                                     <th>Nombre</th>
                                     <th>Apellidos</th>
+                                    <th>Sucursal</th>
                                     <th>Especialidad</th>
                                     <th>Acciones</th>
                                 </tr>
@@ -180,6 +185,7 @@
                             <td><%= medico.getId() %></td>
                             <td><%= medico.getNombre()%></td>
                             <td><%= medico.getApellidos()%></td>
+                            <td><%= sucursalDAO.obtenerSucursalPorId(medico.getIdsucursal()).getNombre()%></td>
                             <td><%= medico.getEspecialidad()%></td>
                             <td>
                                 <button class="button-black" onclick="toggleForm(<%= medico.getId() %>)">Editar</button>
